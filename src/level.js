@@ -23,7 +23,10 @@ export default class Level extends Phaser.Scene {
   create() {
     this.stars = 10;
     this.bases = this.add.group();
+    const fondo = this.add.image(500,250,'paisaje');
+    fondo.setScale(1.2);
     this.player = new Player(this, 200, 300);
+    
 
     new Platform(this, this.player, this.bases, 150, 350);
     new Platform(this, this.player, this.bases, 850, 350);
