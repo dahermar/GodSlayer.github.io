@@ -10,13 +10,14 @@
       this.scene.physics.add.existing(this);
       // Queremos que el jugador no se salga de los límites del mundo
       this.body.setCollideWorldBounds();
+      //this.body.setImmovable(true);
       this.speed = 300;
       this.jumpSpeed = -400;
       this.numJumps = 0;
       
 
       this.cursors = this.scene.input.keyboard.createCursorKeys();
-      this.shift = this.scene.input.keyboard.addKey('SHIFT');
+      this.space = this.scene.input.keyboard.addKey('SPACE');
 
       this.scene.physics.add.collider(this, this.scene.player,(enemy, player) => {
         player.getDamage();
@@ -46,7 +47,7 @@
       }
     }
     if (this.cursors.left.isDown) {
-      if(Phaser.Input.Keyboard.JustDown(this.shift)){
+      if(Phaser.Input.Keyboard.JustDown(this.space)){
         this.x -= 200;
       }
       else{
@@ -54,7 +55,7 @@
       }
     }
     else if (this.cursors.right.isDown) {
-      if(Phaser.Input.Keyboard.JustDown(this.shift)){
+      if(Phaser.Input.Keyboard.JustDown(this.space)){
         this.x += 200;
       }
       else{

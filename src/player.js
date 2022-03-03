@@ -16,12 +16,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
     super(scene, x, y, 'player');
     this.score = 0;
     this.lives = 3;
+    this.canMove = true;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
+    //this.body.bounce.setTo(1, 1);
     this.speed = 300;
     this.jumpSpeed = -400;
+    this.dashSpeed = 2000;
+    this.knockBackSpeed = 200;
     this.numJumps = 0;
     // Esta label es la UI en la que pondremos la puntuación del jugador
     this.label = this.scene.add.text(10, 10, "");
@@ -29,7 +33,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.a = this.scene.input.keyboard.addKey('A');
     this.s = this.scene.input.keyboard.addKey('S');
     this.d = this.scene.input.keyboard.addKey('D');
-    this.spaceBar = this.scene.input.keyboard.addKey('SPACE');
+    this.shift = this.scene.input.keyboard.addKey('SHIFT');
     this.updateUI();
   }
 
@@ -47,7 +51,29 @@ export default class Player extends Phaser.GameObjects.Sprite {
    */
   getDamage() {
     this.lives--;
+    if(this.body.touching.right){
+      this.body.setVelocityX(-this.knockBackSpeed);
+    }
+    else if(this.body.touching.left){
+      this.body.setVelocityX(this.knockBackSpeed);
+    }
+    else{
+      this.body.setVelocityX(-this.knockBackSpeed*2);
+    }
+    this.body.setVelocityY(-this.knockBackSpeed);
+    this.canMove = false;
     this.updateUI();
+    
+    this.scene.time.delayedCall(250, () => {this.canMove = true;}, [], this);
+    
+  }
+
+  enableKeys(enable){
+    this.w.enabled = enable;
+    this.a.enabled = enable;
+    this.s.enabled = enable;
+    this.d.enabled = enable;
+    this.shift.enabled = enable;
   }
   
   /**
@@ -66,37 +92,43 @@ export default class Player extends Phaser.GameObjects.Sprite {
    */
   preUpdate(t,dt) {
     super.preUpdate(t,dt);
-    if(this.body.onFloor()){
-      this.numJumps = 0;
-    }
-    if (Phaser.Input.Keyboard.JustDown(this.w)) { 
+    if(this.canMove){
       if(this.body.onFloor()){
         this.numJumps = 0;
-        this.body.setVelocityY(this.jumpSpeed);
       }
-      else if(this.numJumps <= 0){
-        this.body.setVelocityY(this.jumpSpeed);
-        this.numJumps += 1;
+      if (Phaser.Input.Keyboard.JustDown(this.w)) { 
+        if(this.body.onFloor()){
+          this.numJumps = 0;
+          this.body.setVelocityY(this.jumpSpeed);
+        }
+        else if(this.numJumps <= 0){
+          this.body.setVelocityY(this.jumpSpeed);
+          this.numJumps += 1;
+        }
       }
-    }
-    if (this.a.isDown) {
-      if(Phaser.Input.Keyboard.JustDown(this.spaceBar)){
-        this.x -= 200;
+      if (this.a.isDown) {
+        if(Phaser.Input.Keyboard.JustDown(this.shift)){
+          this.body.setVelocityX(-this.dashSpeed);
+          this.canMove = false;
+          this.scene.time.delayedCall(50, () => {this.canMove = true;}, [], this);
+        }
+        else{
+          this.body.setVelocityX(-this.speed);
+        }
       }
-      else{
-        this.body.setVelocityX(-this.speed);
+      else if (this.d.isDown) {
+        if(Phaser.Input.Keyboard.JustDown(this.shift)){
+          this.body.setVelocityX(this.dashSpeed);
+          this.canMove = false;
+          this.scene.time.delayedCall(50, () => {this.canMove = true;}, [], this);
+        }
+        else{
+          this.body.setVelocityX(this.speed);
+        }
       }
-    }
-    else if (this.d.isDown) {
-      if(Phaser.Input.Keyboard.JustDown(this.spaceBar)){
-        this.x += 200;
+      else {
+        this.body.setVelocityX(0);
       }
-      else{
-        this.body.setVelocityX(this.speed);
-      }
-    }
-    else {
-      this.body.setVelocityX(0);
     }
   }
   
