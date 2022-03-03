@@ -19,7 +19,8 @@ export default class Platform extends Phaser.GameObjects.Sprite {
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this, true);
     new Base(scene, this, x, y, baseGroup);
-    this.scene.physics.add.collider(this, player);    
+    this.scene.physics.add.collider(this, player);
+    this.scene.physics.add.collider(this, this.scene.enemy);
   }
 
 }

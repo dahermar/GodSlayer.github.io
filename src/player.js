@@ -1,4 +1,5 @@
 import Star from './star.js';
+import Enemy from './enemy.js';
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
@@ -24,9 +25,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.numJumps = 0;
     // Esta label es la UI en la que pondremos la puntuación del jugador
     this.label = this.scene.add.text(10, 10, "");
-    this.cursors = this.scene.input.keyboard.createCursorKeys();
+    this.w = this.scene.input.keyboard.addKey('W');
+    this.a = this.scene.input.keyboard.addKey('A');
+    this.s = this.scene.input.keyboard.addKey('S');
+    this.d = this.scene.input.keyboard.addKey('D');
     this.spaceBar = this.scene.input.keyboard.addKey('SPACE');
-    this.updateScore();
+    this.updateUI();
   }
 
   /**
@@ -35,15 +39,24 @@ export default class Player extends Phaser.GameObjects.Sprite {
    */
   point() {
     this.score++;
-    this.updateScore();
+    this.updateUI();
+  }
+ /**
+   * El jugador ha sido atacado por un enemigo por lo que este método quita una vida y
+   * actualiza la UI con la vida actual.
+   */
+  getDamage() {
+    this.lives--;
+    this.updateUI();
   }
   
   /**
    * Actualiza la UI con la puntuación actual
    */
-  updateScore() {
+  updateUI() {
     this.label.text = 'Lives: ' + this.lives + '\nScore: ' + this.score;
   }
+  
 
   /**
    * Métodos preUpdate de Phaser. En este caso solo se encarga del movimiento del jugador.
@@ -56,7 +69,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if(this.body.onFloor()){
       this.numJumps = 0;
     }
-    if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) { 
+    if (Phaser.Input.Keyboard.JustDown(this.w)) { 
       if(this.body.onFloor()){
         this.numJumps = 0;
         this.body.setVelocityY(this.jumpSpeed);
@@ -66,7 +79,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.numJumps += 1;
       }
     }
-    if (this.cursors.left.isDown) {
+    if (this.a.isDown) {
       if(Phaser.Input.Keyboard.JustDown(this.spaceBar)){
         this.x -= 200;
       }
@@ -74,7 +87,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.body.setVelocityX(-this.speed);
       }
     }
-    else if (this.cursors.right.isDown) {
+    else if (this.d.isDown) {
       if(Phaser.Input.Keyboard.JustDown(this.spaceBar)){
         this.x += 200;
       }

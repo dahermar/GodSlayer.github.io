@@ -1,3 +1,4 @@
+import Enemy from './enemy.js';
 import Platform from './platform.js';
 import Player from './player.js';
 
@@ -26,6 +27,8 @@ export default class Level extends Phaser.Scene {
     const fondo = this.add.image(500,250,'paisaje');
     fondo.setScale(1.2);
     this.player = new Player(this, 200, 300);
+    this.enemy = new Enemy(this, 500, 500)
+
     
 
     new Platform(this, this.player, this.bases, 150, 350);
@@ -33,7 +36,9 @@ export default class Level extends Phaser.Scene {
     new Platform(this, this.player, this.bases, 500, 200);
     new Platform(this, this.player, this.bases, 150, 100);
     new Platform(this, this.player, this.bases, 850, 100);
+    
     this.spawn();
+    
   }
 
   /**
