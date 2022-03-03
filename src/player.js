@@ -4,7 +4,7 @@ import Enemy from './enemy.js';
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
  */
-export default class Player extends Phaser.GameObjects.Sprite {
+export default class Player extends Phaser.GameObjects.Container {
   
   /**
    * Constructor del jugador
@@ -13,7 +13,18 @@ export default class Player extends Phaser.GameObjects.Sprite {
    * @param {number} y Coordenada Y
    */
   constructor(scene, x, y) {
-    super(scene, x, y, 'player');
+    super(scene, x, y );
+
+    this.playerSprite = scene.add.sprite(32,32,'player');
+    this.add(this.playerSprite);
+    
+    this.hitBox = new Phaser.GameObjects.Rectangle(this.scene,100,0,100,50,0xffffff,0.5);
+    this.scene.physics.add.existing(this.hitBox);
+		this.hitBox.body.enable = false;
+    this.scene.physics.world.remove(this.hitBox.body);
+
+    this.add(this.hitBox);
+
     this.score = 0;
     this.lives = 3;
     this.canMove = true;
@@ -21,6 +32,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
+
+    this.body.setSize(64,64);
+    //this.flipX=true;
     //this.body.bounce.setTo(1, 1);
     this.speed = 300;
     this.jumpSpeed = -400;
@@ -33,8 +47,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.a = this.scene.input.keyboard.addKey('A');
     this.s = this.scene.input.keyboard.addKey('S');
     this.d = this.scene.input.keyboard.addKey('D');
+    this.j = this.scene.input.keyboard.addKey('J');
     this.shift = this.scene.input.keyboard.addKey('SHIFT');
     this.updateUI();
+  }
+
+  attack(){
+    this.hitBox.body.enable = true;
+    this.scene.time.delayedCall(250, () => {this.hitBox.body.enable = true;}, [], this);
   }
 
   /**
@@ -91,7 +111,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
    * @override
    */
   preUpdate(t,dt) {
-    super.preUpdate(t,dt);
+    //super.preUpdate(t,dt);
+
+    if (Phaser.Input.Keyboard.JustDown(this.j)) { 
+     this.attack(); 
+    }
+
     if(this.canMove){
       if(this.body.onFloor()){
         this.numJumps = 0;
