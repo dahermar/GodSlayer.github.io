@@ -2,7 +2,6 @@
  export default class Enemy extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y) {
       super(scene, x, y, 'enemy');
-      this.lives = 3;
       this.flipX = true;
       this.lives = 3;
       this.setScale(0.2);
@@ -32,6 +31,10 @@
     getDamage() {
       --this.lives;
       this.updateUI();
+
+      if(this.lives==0){
+        this.scene.enemyKilled();
+      }
     }
     /**
      * Redefinición del preUpdate de Phaser
@@ -46,38 +49,39 @@
       });
       // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
       // no se podrá ejecutar la animación del sprite. 
-    if(this.body.onFloor()){
-      this.numJumps = 0;
-    }
-    if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) { 
       if(this.body.onFloor()){
         this.numJumps = 0;
-        this.body.setVelocityY(this.jumpSpeed);
       }
-      else if(this.numJumps <= 0){
-        this.body.setVelocityY(this.jumpSpeed);
-        this.numJumps += 1;
+      if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) { 
+        if(this.body.onFloor()){
+          this.numJumps = 0;
+          this.body.setVelocityY(this.jumpSpeed);
+        }
+        else if(this.numJumps <= 0){
+          this.body.setVelocityY(this.jumpSpeed);
+          this.numJumps += 1;
+        }
       }
-    }
-    if (this.cursors.left.isDown) {
-      if(Phaser.Input.Keyboard.JustDown(this.space)){
-        this.x -= 200;
+      if (this.cursors.left.isDown) {
+        if(Phaser.Input.Keyboard.JustDown(this.space)){
+          this.x -= 200;
+        }
+        else{
+          this.body.setVelocityX(-this.speed);
+        }
       }
-      else{
-        this.body.setVelocityX(-this.speed);
+      else if (this.cursors.right.isDown) {
+        if(Phaser.Input.Keyboard.JustDown(this.space)){
+          this.x += 200;
+        }
+        else{
+          this.body.setVelocityX(this.speed);
+        }
       }
-    }
-    else if (this.cursors.right.isDown) {
-      if(Phaser.Input.Keyboard.JustDown(this.space)){
-        this.x += 200;
+      else {
+        this.body.setVelocityX(0);
       }
-      else{
-        this.body.setVelocityX(this.speed);
-      }
-    }
-    else {
-      this.body.setVelocityX(0);
-    }
+
     }
   }
   

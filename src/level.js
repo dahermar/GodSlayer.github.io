@@ -66,4 +66,23 @@ export default class Level extends Phaser.Scene {
 
       }
   }
+
+  damageReceived() {
+      if (this.player.lives == 0) {
+        this.scene.start('end');
+      }
+  }
+
+  enemyKilled() {
+      if (this.enemy.lives == 0) {
+     
+        let s = this.bases.children.entries;
+        this.enemy.hpText.destroy();
+        this.enemy.destroy();
+        this.time.delayedCall(500, () => {this.enemy = new Enemy(this, 500, 500);
+          this.add.existing(this.enemy);
+        }, [], this);
+
+      }
+  }
 }

@@ -98,7 +98,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.body.setVelocityY(-this.knockBackSpeed);
     this.canMove = false;
     this.updateUI();
-    
+    this.scene.damageReceived();
     this.scene.time.delayedCall(250, () => {this.canMove = true;}, [], this);
     
   }
