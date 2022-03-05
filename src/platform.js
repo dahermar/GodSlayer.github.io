@@ -22,14 +22,6 @@ export default class Platform extends Phaser.GameObjects.Sprite {
     this.body.checkCollision.down = false;
     this.body.checkCollision.left = false;
     this.body.checkCollision.right = false;
-    this.scene.physics.add.collider(this, player, (platform, play) => {
-      if(play.canMove){
-        if(Phaser.Input.Keyboard.JustDown(play.s)){
-          this.body.checkCollision.up = false;
-          this.scene.time.delayedCall(200, () => {this.body.checkCollision.up = true;}, [], this);
-        }
-      }
-    });
     this.scene.physics.add.collider(this, this.scene.enemies);
   }
 

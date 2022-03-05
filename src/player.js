@@ -58,9 +58,20 @@ export default class Player extends Phaser.GameObjects.Container {
     this.f = this.scene.input.keyboard.addKey('F');
     this.l = this.scene.input.keyboard.addKey('L');
 
+    
+    this.platformCollider = this.scene.physics.add.collider(this, this.scene.platforms, this.platformCollision);
+
     this.updateUI();
   }
 
+  platformCollision(player, platform) {
+      if(player.canMove){
+        if(Phaser.Input.Keyboard.JustDown(player.s)){
+          player.platformCollider.active = false;
+          player.scene.time.delayedCall(200, () => {player.platformCollider.active = true;}, [], player);
+        }
+      }
+    }
 
   throw(){
     if(Phaser.Input.Keyboard.JustDown(this.l) && this.throwing_object >0 && this.canThrow){
@@ -139,9 +150,7 @@ export default class Player extends Phaser.GameObjects.Container {
     });*/
 
     if(this.canMove){
-      
       this.movePlayer();
-      
       this.attack();
     }
 
@@ -194,7 +203,7 @@ export default class Player extends Phaser.GameObjects.Container {
   }
 
   dealWeaponDamage(){
-    this.scene.physics.add.overlap(this.weaponHitbox, this.scene.enemies,(hitbox, enemy) => {
+    this.scene.physics.overlap(this.weaponHitbox, this.scene.enemies,(hitbox, enemy) => {
       
       if(this.canDealDamage === true){
         enemy.getDamage();
