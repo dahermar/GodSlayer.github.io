@@ -30,7 +30,7 @@ export default class Platform extends Phaser.GameObjects.Sprite {
         }
       }
     });
-    this.scene.physics.add.collider(this, this.scene.enemy);
+    this.scene.physics.add.collider(this, this.scene.enemies);
   }
 
 }
