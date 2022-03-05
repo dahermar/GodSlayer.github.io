@@ -1,3 +1,8 @@
+/**
+ * Clase que representa los cuchillos que lanza el jugador. El jugador los tira con la "L".
+ * Como atributos tiene la velocidad de los cuchillos.
+ */
+
 export default class Knive extends Phaser.GameObjects.Sprite {
 
     constructor(scene, x, y,direction) {
@@ -10,7 +15,7 @@ export default class Knive extends Phaser.GameObjects.Sprite {
     }
     
     preUpdate(t,dt) {
-        this.scene.physics.add.collider(this, this.scene.enemy,(object, enemy) => {
+        this.scene.physics.add.collider(this, this.scene.enemies,(object, enemy) => {
             enemy.getDamage();
             this.destroy();
         });
