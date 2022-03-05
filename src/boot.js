@@ -25,12 +25,14 @@ export default class Boot extends Phaser.Scene {
     this.load.image('player', 'player.png');
     this.load.image('paisaje', 'fondo.jpg');
     this.load.image('enemy', 'monkey.png');
+    this.load.image('knive','star.png');
   }
 
   /**
    * Creación de la escena. En este caso, solo cambiamos a la escena que representa el
    * nivel del juego
    */
+  
   create() {
     this.scene.start('level');
   }

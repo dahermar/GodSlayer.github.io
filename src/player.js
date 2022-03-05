@@ -1,5 +1,6 @@
 import Star from './star.js';
 import Enemy from './enemy.js';
+import Knive from './knive.js';
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
@@ -14,9 +15,12 @@ export default class Player extends Phaser.GameObjects.Container {
    */
   constructor(scene, x, y) {
     super(scene, x, y);
+    this.direction=1;
     this.score = 0;
+    this.throwing_object=10;
     this.lives = 3;
     this.canMove = true;
+    this.canThrow = true;
     this.canDealDamage = false;
     this.canAttack = true;
     this.scene.add.existing(this);
@@ -51,13 +55,21 @@ export default class Player extends Phaser.GameObjects.Container {
     this.j = this.scene.input.keyboard.addKey('J');
     this.shift = this.scene.input.keyboard.addKey('SHIFT');
     this.f = this.scene.input.keyboard.addKey('F');
+    this.l = this.scene.input.keyboard.addKey('L');
 
     this.updateUI();
   }
 
-  attack(){
-    this.hitBox.body.enable = true;
-    this.scene.time.delayedCall(250, () => {this.hitBox.body.enable = true;}, [], this);
+
+  throw(){
+    if(Phaser.Input.Keyboard.JustDown(this.l) && this.throwing_object >0 && this.canThrow){
+      new Knive(this.scene,this.x,this.y,this.direction);
+      this.canThrow = false;
+      this.scene.time.delayedCall(2000, () => {this.canThrow = true;}, [], this);
+      --this.throwing_object;
+      this.updateUI();
+
+    }
   }
 
   /**
@@ -103,7 +115,7 @@ export default class Player extends Phaser.GameObjects.Container {
    * Actualiza la UI con la puntuación actual
    */
   updateUI() {
-    this.label.text = 'Lives: ' + this.lives + '\nScore: ' + this.score;
+    this.label.text = 'Lives: ' + this.lives + '\nScore: ' + this.score + '\nThrowable: '+ this.throwing_object;
   }
   
 
@@ -125,6 +137,8 @@ export default class Player extends Phaser.GameObjects.Container {
       
       this.attack();
     }
+
+    this.throw();
   }
   
 
@@ -145,6 +159,7 @@ export default class Player extends Phaser.GameObjects.Container {
     }
     if (this.a.isDown) {
       this.weaponHitbox.setX(-25);
+      this.direction = -1;
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
         this.body.setVelocityX(-this.dashSpeed);
         this.canMove = false;
@@ -155,6 +170,7 @@ export default class Player extends Phaser.GameObjects.Container {
       }
     }
     else if (this.d.isDown) {
+      this.direction = 1;
       this.weaponHitbox.setX(90);
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
         this.body.setVelocityX(this.dashSpeed);
