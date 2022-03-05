@@ -1,5 +1,6 @@
 import Star from './star.js';
 import Enemy from './enemy.js';
+import Platform from './platform.js';
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
@@ -118,6 +119,12 @@ export default class Player extends Phaser.GameObjects.Container {
   preUpdate(t,dt) {
     
     this.dealWeaponDamage();
+
+    /*
+    this.scene.physics.add.collider(this, this.scene.platforms,(player, platform) => {
+      this.lives++;
+      this.updateUI();
+    });*/
 
     if(this.canMove){
       

@@ -1,4 +1,6 @@
-
+/**
+ * Clase que representa a un enemigo basico del juego.
+ */
  export default class Enemy extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y) {
       super(scene, x, y, 'enemy');
@@ -22,6 +24,7 @@
       this.space = this.scene.input.keyboard.addKey('SPACE');
       this.hpText = this.scene.add.text(this.x, this.y - 140, `HP: ${this.lives}`).setOrigin(0.5);
       this.updateUI();
+
     }
   
 
@@ -40,10 +43,12 @@
     preUpdate(t,dt) {
 
       super.preUpdate(t,dt);
+      
       this.scene.physics.add.collider(this, this.scene.player,(enemy, player) => {
         player.getDamage();
         
       });
+
       // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
       // no se podrá ejecutar la animación del sprite. 
     if(this.body.onFloor()){

@@ -24,18 +24,19 @@ export default class Level extends Phaser.Scene {
   create() {
     this.stars = 10;
     this.bases = this.add.group();
+    this.platforms = this.add.group();
     const fondo = this.add.image(500,250,'paisaje');
     fondo.setScale(1.2);
-    this.player = new Player(this, 200, 300);
-    this.enemy = new Enemy(this, 500, 500)
+    this.player = new Player(this, 200, 400);
+    this.enemy = new Enemy(this, 500, 500);
 
-    
-
-    new Platform(this, this.player, this.bases, 150, 350);
-    new Platform(this, this.player, this.bases, 850, 350);
-    new Platform(this, this.player, this.bases, 500, 200);
-    new Platform(this, this.player, this.bases, 150, 100);
-    new Platform(this, this.player, this.bases, 850, 100);
+    this.plat1 = new Platform(this, this.player, this.bases, 150, 350)
+    //this.platforms.add(new Platform(this, this.player, this.bases, 150, 350));
+    this.platforms.add(this.plat1);
+    this.platforms.add(new Platform(this, this.player, this.bases, 850, 350));
+    this.platforms.add(new Platform(this, this.player, this.bases, 500, 200));
+    this.platforms.add(new Platform(this, this.player, this.bases, 150, 100));
+    this.platforms.add(new Platform(this, this.player, this.bases, 850, 100));
     
     this.spawn();
     
