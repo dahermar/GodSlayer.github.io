@@ -4,6 +4,7 @@
       super(scene, x, y, 'enemy');
       this.lives = 3;
       this.flipX = true;
+      this.lives = 3;
       this.setScale(0.2);
       this.scene.add.existing(this);
       this.scene.physics.add.existing(this);

@@ -48,10 +48,16 @@ export default class Player extends Phaser.GameObjects.Container {
     this.a = this.scene.input.keyboard.addKey('A');
     this.s = this.scene.input.keyboard.addKey('S');
     this.d = this.scene.input.keyboard.addKey('D');
+    this.j = this.scene.input.keyboard.addKey('J');
     this.shift = this.scene.input.keyboard.addKey('SHIFT');
     this.f = this.scene.input.keyboard.addKey('F');
 
     this.updateUI();
+  }
+
+  attack(){
+    this.hitBox.body.enable = true;
+    this.scene.time.delayedCall(250, () => {this.hitBox.body.enable = true;}, [], this);
   }
 
   /**
