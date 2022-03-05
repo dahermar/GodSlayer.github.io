@@ -50,6 +50,10 @@ export default class Level extends Phaser.Scene {
     Phaser.Math.RND.pick(from || this.bases.children.entries).spawn();
   }
 
+
+
+
+
   /**
    * Método que se ejecuta al coger una estrella. Se pasa la base
    * sobre la que estaba la estrella cogida para evitar repeticiones
@@ -64,6 +68,12 @@ export default class Level extends Phaser.Scene {
         let s = this.bases.children.entries;
         this.spawn(s.filter(o => o !== base));
 
+      }
+  }
+
+  damageReceived() {
+      if (this.player.lives == 0) {
+        this.scene.start('end');
       }
   }
 }
