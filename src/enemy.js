@@ -2,6 +2,7 @@
  export default class Enemy extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y) {
       super(scene, x, y, 'enemy');
+      this.lives = 3;
       this.flipX = true;
       this.setScale(0.2);
       this.scene.add.existing(this);
@@ -18,21 +19,32 @@
 
       this.cursors = this.scene.input.keyboard.createCursorKeys();
       this.space = this.scene.input.keyboard.addKey('SPACE');
-
-      this.scene.physics.add.collider(this, this.scene.player,(enemy, player) => {
-        player.getDamage();
-        
-      });
+      this.hpText = this.scene.add.text(this.x, this.y - 140, `HP: ${this.lives}`).setOrigin(0.5);
+      this.updateUI();
     }
   
+
+    updateUI() {
+      this.hpText.text = 'Lives: ' + this.lives + '\n';
+    }
+
+    getDamage() {
+      --this.lives;
+      this.updateUI();
+    }
     /**
      * Redefinición del preUpdate de Phaser
      * @override
      */
     preUpdate(t,dt) {
+
+      super.preUpdate(t,dt);
+      this.scene.physics.add.collider(this, this.scene.player,(enemy, player) => {
+        player.getDamage();
+        
+      });
       // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
       // no se podrá ejecutar la animación del sprite. 
-      super.preUpdate(t,dt);
     if(this.body.onFloor()){
       this.numJumps = 0;
     }
