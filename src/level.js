@@ -24,12 +24,12 @@ export default class Level extends Phaser.Scene {
   create() {
     this.stars = 10;
     this.bases = this.add.group();
+    this.enemies = this.add.group();
     const fondo = this.add.image(500,250,'paisaje');
     fondo.setScale(1.2);
     this.player = new Player(this, 200, 300);
-    this.enemy = new Enemy(this, 500, 500)
-
-    
+    this.enemies.add(new Enemy(this, 500, 500));
+    this.enemies.add(new Enemy(this, 350, 500));
 
     new Platform(this, this.player, this.bases, 150, 350);
     new Platform(this, this.player, this.bases, 850, 350);
@@ -74,15 +74,7 @@ export default class Level extends Phaser.Scene {
   }
 
   enemyKilled() {
-      if (this.enemy.lives == 0) {
-     
-        let s = this.bases.children.entries;
-        this.enemy.hpText.destroy();
-        this.enemy.destroy();
-        this.time.delayedCall(500, () => {this.enemy = new Enemy(this, 500, 500);
-          this.add.existing(this.enemy);
-        }, [], this);
-
-      }
+    this.time.delayedCall(500, () => {this.enemies.add(this.add.existing(new Enemy(this, 500, 500)));
+    }, [], this);
   }
 }

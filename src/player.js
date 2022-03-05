@@ -187,7 +187,7 @@ export default class Player extends Phaser.GameObjects.Container {
   }
 
   dealWeaponDamage(){
-    this.scene.physics.add.overlap(this.weaponHitbox, this.scene.enemy,(hitbox, enemy) => {
+    this.scene.physics.add.overlap(this.weaponHitbox, this.scene.enemies,(hitbox, enemy) => {
       
       if(this.canDealDamage === true){
         enemy.getDamage();

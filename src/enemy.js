@@ -34,8 +34,11 @@
 
       if(this.lives==0){
         this.scene.enemyKilled();
+        this.hpText.destroy();
+        this.destroy();
       }
     }
+    
     /**
      * Redefinición del preUpdate de Phaser
      * @override
