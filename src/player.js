@@ -143,12 +143,6 @@ export default class Player extends Phaser.GameObjects.Container {
     
     this.dealWeaponDamage();
 
-    /*
-    this.scene.physics.add.collider(this, this.scene.platforms,(player, platform) => {
-      this.lives++;
-      this.updateUI();
-    });*/
-
     if(this.canMove){
       this.movePlayer();
       this.attack();
