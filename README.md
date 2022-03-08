@@ -39,7 +39,7 @@ Al tener temática medieval y fantástica, los sprites están relacionados con e
 
 <h3>Paleta de colores</h3>
 
-![(assets/sprites/Paleta.jpg)]
+![](./assets/sprites/Paleta.jpg)
 
 
 
