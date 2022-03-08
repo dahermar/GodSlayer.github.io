@@ -1,4 +1,4 @@
-# GodSlayer ![PEGI 12](./assets/sprites/pegi.png)
+# GodSlayer                                                                                                                  ![PEGI 12](./assets/sprites/pegi.png)
 
 Grupo 7
 
