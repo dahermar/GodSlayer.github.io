@@ -38,7 +38,7 @@ Es un mundo oscuro y apagado, ya que se quiere representar un mundo lúgubre y d
 Al tener temática medieval y fantástica, los sprites están relacionados con elementos típicos como: armaduras, armas a melee, magos, esqueletos, etc...
 
 <h2>Paleta de colores</h2>
-![Paleta de colores](assets/sprites/Paleta.jpg)
+!(assets/sprites/Paleta.jpg)
 
 
 
