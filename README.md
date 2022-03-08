@@ -6,10 +6,10 @@ Grupo 7
 
 <h3>Datos generales</h3>
 
-<h4>Género: Metroidvania</h4>
-<h4>Temática: Fantasía, Medieval</h4>
-<h4>Plataforma: Página Web</h4>
-<h4>PEGI: 12</h4>
+<h4>Género:</h4> Metroidvania
+<h4>Temática:</h4> Fantasía, Medieval
+<h4>Plataforma:</h4> Página Web
+<h4>PEGI:</h4> 12
 
 <h3>Descripción</h3>
 
