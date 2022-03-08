@@ -35,7 +35,8 @@ export default class Level extends Phaser.Scene {
     this.platforms.add(new Platform(this, this.player, this.bases, 500, 200));
     this.platforms.add(new Platform(this, this.player, this.bases, 150, 100));
     this.platforms.add(new Platform(this, this.player, this.bases, 850, 100));
-    
+    //this.cameras.main.setBounds(0,0, 500, 1000);
+    //this.cameras.main.startFollow(this.player);
     this.spawn();
     
   }
