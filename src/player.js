@@ -20,7 +20,6 @@ export default class Player extends Phaser.GameObjects.Container {
     this.lives = 3;
     this.canMove = true;
     this.canThrow = true;
-    this.canDealDamage = false;
     this.canAttack = true;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
@@ -139,7 +138,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
   preUpdate(t,dt) {
     
-    this.dealWeaponDamage();
+    //this.dealWeaponDamage();
 
     if(this.canMove){
       this.movePlayer();
@@ -200,11 +199,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
   dealWeaponDamage(){
     this.scene.physics.overlap(this.weaponHitbox, this.scene.enemies,(hitbox, enemy) => {
-      
-      if(this.canDealDamage === true){
-        enemy.getDamage();
-        this.canDealDamage = false;
-      }
+      enemy.getDamage();
     });
   }
 
@@ -212,7 +207,7 @@ export default class Player extends Phaser.GameObjects.Container {
     if(Phaser.Input.Keyboard.JustDown(this.f)){
       if(this.canAttack === true){
         this.canAttack = false;
-        this.canDealDamage = true;
+        this.dealWeaponDamage();
         this.scene.time.delayedCall(this.attackSpeed, () => {this.canAttack = true;}, [], this);
       }
     }
