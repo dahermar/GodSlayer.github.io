@@ -1,6 +1,8 @@
-# GodSlayer                                                                                                                  ![PEGI 12](./assets/sprites/pegi.png)
+# GodSlayer  
 
 Grupo 7
+
+![PEGI 12](./assets/sprites/pegi.png)
 
 <h2>GDD</h2>
 
