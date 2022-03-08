@@ -4,6 +4,8 @@ Grupo 7
 
 ![PEGI 12](./assets/sprites/pegi.png)
 
+![Juego](./assets/sprites/FotoDemo.png)
+
 <h2>GDD</h2>
 
 <h3>Datos generales</h3>
