@@ -22,23 +22,19 @@ export default class Level extends Phaser.Scene {
    * Creación de los elementos de la escena principal de juego
    */
   create() {
-    this.stars = 10;
-    this.bases = this.add.group();
     this.enemies = this.add.group();
     this.platforms = this.add.group();
     const fondo = this.add.image(500,250,'paisaje');
     fondo.setScale(1.2);
     this.player = new Player(this, 200, 400);
     this.enemies.add(new Enemy(this, 500, 500));
-    this.platforms.add(new Platform(this, this.player, this.bases, 150, 350));
-    this.platforms.add(new Platform(this, this.player, this.bases, 850, 350));
-    this.platforms.add(new Platform(this, this.player, this.bases, 500, 200));
-    this.platforms.add(new Platform(this, this.player, this.bases, 150, 100));
-    this.platforms.add(new Platform(this, this.player, this.bases, 850, 100));
+    this.platforms.add(new Platform(this, this.player, 150, 350));
+    this.platforms.add(new Platform(this, this.player, 850, 350));
+    this.platforms.add(new Platform(this, this.player, 500, 200));
+    this.platforms.add(new Platform(this, this.player, 150, 100));
+    this.platforms.add(new Platform(this, this.player, 850, 100));
     //this.cameras.main.setBounds(0,0, 500, 1000);
     //this.cameras.main.startFollow(this.player);
-    this.spawn();
-    
   }
 
   /**
@@ -46,26 +42,14 @@ export default class Level extends Phaser.Scene {
    * @param {Array<Base>} from Lista de bases sobre las que se puede crear una estrella
    * Si es null, entonces se crea aleatoriamente sobre cualquiera de las bases existentes
    */
-  spawn(from = null) {
-    Phaser.Math.RND.pick(from || this.bases.children.entries).spawn();
-  }
+ 
 
   /**
    * Método que se ejecuta al coger una estrella. Se pasa la base
    * sobre la que estaba la estrella cogida para evitar repeticiones
    * @param {Base} base La base sobre la que estaba la estrella que se ha cogido
    */
-  starPickt (base) {
-    this.player.point();
-      if (this.player.score == this.stars) {
-        this.scene.start('end');
-      }
-      else {
-        let s = this.bases.children.entries;
-        this.spawn(s.filter(o => o !== base));
-
-      }
-  }
+ 
 
   damageReceived() {
       if (this.player.lives == 0) {

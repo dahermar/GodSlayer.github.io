@@ -6,7 +6,7 @@
       super(scene, x, y, 'enemy');
       this.flipX = true;
       this.lives = 3;
-      this.setScale(0.2);
+      this.setScale(0.4);
       this.scene.add.existing(this);
       this.scene.physics.add.existing(this);
       //this.y -= this.height;
@@ -21,14 +21,15 @@
 
       this.cursors = this.scene.input.keyboard.createCursorKeys();
       this.space = this.scene.input.keyboard.addKey('SPACE');
-      this.hpText = this.scene.add.text(this.x, this.y - 140, `HP: ${this.lives}`).setOrigin(0.5);
+      //this.hpText = this.scene.add.text(this.x, this.y - 140, `HP: ${this.lives}`).setOrigin(0.5);
+      this.hpText = this.scene.add.text(850, 10, `HP: ${this.lives}`);
       this.updateUI();
 
     }
   
 
     updateUI() {
-      this.hpText.text = 'Lives: ' + this.lives + '\n';
+      this.hpText.text = 'Enemy lives: ' + this.lives + '\n';
     }
 
     getDamage() {
@@ -71,6 +72,7 @@
         }
       }
       if (this.cursors.left.isDown) {
+        this.flipX = true;
         if(Phaser.Input.Keyboard.JustDown(this.space)){
           this.x -= 200;
         }
@@ -79,6 +81,7 @@
         }
       }
       else if (this.cursors.right.isDown) {
+        this.flipX = false;
         if(Phaser.Input.Keyboard.JustDown(this.space)){
           this.x += 200;
         }

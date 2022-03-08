@@ -1,4 +1,3 @@
-import Star from './star.js';
 import Enemy from './enemy.js';
 import Platform from './platform.js';
 import Knife from './knife.js';
@@ -17,7 +16,6 @@ export default class Player extends Phaser.GameObjects.Container {
   constructor(scene, x, y) {
     super(scene, x, y);
     this.direction=1;
-    this.score = 0;
     this.throwing_object=10;
     this.lives = 3;
     this.canMove = true;
@@ -91,10 +89,7 @@ export default class Player extends Phaser.GameObjects.Container {
    * El jugador ha recogido una estrella por lo que este método añade un punto y
    * actualiza la UI con la puntuación actual.
    */
-  point() {
-    this.score++;
-    this.updateUI();
-  }
+  
  /**
    * El jugador ha sido atacado por un enemigo por lo que este método quita una vida y
    * actualiza la UI con la vida actual.
@@ -130,7 +125,7 @@ export default class Player extends Phaser.GameObjects.Container {
    * Actualiza la UI con la puntuación actual
    */
   updateUI() {
-    this.label.text = 'Lives: ' + this.lives + '\nScore: ' + this.score + '\nThrowable: '+ this.throwing_object;
+    this.label.text = 'Lives: ' + this.lives +'\nThrowable: '+ this.throwing_object;
   }
   
 
