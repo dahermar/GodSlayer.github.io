@@ -9,7 +9,7 @@ Grupo 7
 Género: Metroidvania
 Temática: Fantasía, Medieval
 Plataforma: Página Web
-PEGI: 12
+![PEGI 12](./assets/sprites/pegi.jpg)
 
 <h3>Descripción</h3>
 
@@ -39,7 +39,7 @@ Al tener temática medieval y fantástica, los sprites están relacionados con e
 
 <h3>Paleta de colores</h3>
 
-![](./assets/sprites/Paleta.jpg)
+![paleta de colores](./assets/sprites/Paleta.jpg)
 
 
 
