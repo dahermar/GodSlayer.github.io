@@ -26,10 +26,10 @@ export default class Player extends Phaser.GameObjects.Container {
     this.canAttack = true;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
-    var sprite = this.scene.add.sprite(32, 25, 'player');
+    this.sprite = this.scene.add.sprite(32, 25, 'player');
     //sprite.setDisplaySize(100,100);
-    sprite.setScale(2);
-    this.add(sprite);
+    this.sprite.setScale(2);
+    this.add(this.sprite);
     this.body.setSize(44,70);
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
@@ -46,7 +46,8 @@ export default class Player extends Phaser.GameObjects.Container {
     this.speed = 300;
     this.jumpSpeed = -400;
     this.dashSpeed = 2000;
-    this.knockBackSpeed = 200;
+    this.knockBackSpeedX = 200;
+    this.knockBackSpeedY = -100;
     this.numJumps = 0;
     this.attackSpeed = 1000;
     // Esta label es la UI en la que pondremos la puntuación del jugador
@@ -101,19 +102,19 @@ export default class Player extends Phaser.GameObjects.Container {
   getDamage() {
     this.lives--;
     if(this.body.touching.right){
-      this.body.setVelocityX(-this.knockBackSpeed);
+      this.body.setVelocityX(-this.knockBackSpeedX);
     }
     else if(this.body.touching.left){
-      this.body.setVelocityX(this.knockBackSpeed);
+      this.body.setVelocityX(this.knockBackSpeedX);
     }
     else{
-      this.body.setVelocityX(-this.knockBackSpeed*2);
+      this.body.setVelocityX(-this.knockBackSpeedX*2);
     }
-    this.body.setVelocityY(-this.knockBackSpeed);
+    this.body.setVelocityY(this.knockBackSpeedY);
     this.canMove = false;
     this.updateUI();
     this.scene.damageReceived();
-    this.scene.time.delayedCall(250, () => {this.canMove = true;}, [], this);
+    this.scene.time.delayedCall(500, () => {this.canMove = true;}, [], this);
     
   }
 
@@ -148,9 +149,9 @@ export default class Player extends Phaser.GameObjects.Container {
     if(this.canMove){
       this.movePlayer();
       this.attack();
+      this.throw();
     }
 
-    this.throw();
   }
   
 
@@ -172,6 +173,8 @@ export default class Player extends Phaser.GameObjects.Container {
     if (this.a.isDown) {
       this.weaponHitbox.setX(-25);
       this.direction = -1;
+      this.sprite.flipX = true;
+      this.sprite.x = 12;
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
         this.body.setVelocityX(-this.dashSpeed);
         this.canMove = false;
@@ -184,6 +187,8 @@ export default class Player extends Phaser.GameObjects.Container {
     else if (this.d.isDown) {
       this.direction = 1;
       this.weaponHitbox.setX(70);
+      this.sprite.flipX = false;
+      this.sprite.x = 32;
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
         this.body.setVelocityX(this.dashSpeed);
         this.canMove = false;
