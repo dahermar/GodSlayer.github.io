@@ -6,10 +6,10 @@ Grupo 7
 
 <h3>Datos generales</h3>
 
-<h4>Género:</h4> Metroidvania
-<h4>Temática:</h4> Fantasía, Medieval
-<h4>Plataforma:</h4> Página Web
-<h4>PEGI:</h4> 12
+Género: Metroidvania
+Temática: Fantasía, Medieval
+Plataforma: Página Web
+PEGI: 12
 
 <h3>Descripción</h3>
 
@@ -37,7 +37,8 @@ Es un mundo oscuro y apagado, ya que se quiere representar un mundo lúgubre y d
 
 Al tener temática medieval y fantástica, los sprites están relacionados con elementos típicos como: armaduras, armas a melee, magos, esqueletos, etc...
 
-Paleta de colores
+<h2>Paleta de colores</h2>
+![Paleta de colores](https://myoctocat.com/assets/images/base-octocat.svg)
 
 
 
