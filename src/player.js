@@ -1,7 +1,7 @@
 import Star from './star.js';
 import Enemy from './enemy.js';
 import Platform from './platform.js';
-import Knive from './knive.js';
+import Knife from './knife.js';
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
@@ -26,14 +26,16 @@ export default class Player extends Phaser.GameObjects.Container {
     this.canAttack = true;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
-    var sprite = this.scene.add.sprite(32, 32, 'player');
+    var sprite = this.scene.add.sprite(32, 25, 'player');
+    //sprite.setDisplaySize(100,100);
+    sprite.setScale(2);
     this.add(sprite);
-    this.body.setSize(64,64);
+    this.body.setSize(44,70);
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
 
     //Zone Arma
-    this.weaponHitbox = this.scene.add.zone(90, 32, 50, 64);
+    this.weaponHitbox = this.scene.add.zone(70, 25, 50, 50);
     this.scene.physics.add.existing(this.weaponHitbox);
     this.weaponHitbox.body.setAllowGravity(false);
 
@@ -75,7 +77,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
   throw(){
     if(Phaser.Input.Keyboard.JustDown(this.l) && this.throwing_object >0 && this.canThrow){
-      new Knive(this.scene,this.x,this.y,this.direction);
+      new Knife(this.scene,this.x,this.y,this.direction);
       this.canThrow = false;
       this.scene.time.delayedCall(2000, () => {this.canThrow = true;}, [], this);
       --this.throwing_object;
@@ -181,7 +183,7 @@ export default class Player extends Phaser.GameObjects.Container {
     }
     else if (this.d.isDown) {
       this.direction = 1;
-      this.weaponHitbox.setX(90);
+      this.weaponHitbox.setX(70);
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
         this.body.setVelocityX(this.dashSpeed);
         this.canMove = false;

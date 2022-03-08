@@ -3,10 +3,15 @@
  * Como atributos tiene la velocidad de los cuchillos.
  */
 
-export default class Knive extends Phaser.GameObjects.Sprite {
+export default class Knife extends Phaser.GameObjects.Sprite {
 
     constructor(scene, x, y,direction) {
-        super(scene, x, y, 'knive');
+        super(scene, x, y + 25, 'knife');
+        if(direction == 1){
+            this.flipX = true;
+            this.x += 44;
+        }
+        this.setScale(0.1);
         this.speed =400;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
