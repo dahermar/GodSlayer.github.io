@@ -9,7 +9,7 @@ Grupo 7
 Género: Metroidvania
 Temática: Fantasía, Medieval
 Plataforma: Página Web
-![PEGI 12](./assets/sprites/pegi.jpg)
+![PEGI 12](./assets/sprites/pegi.png)
 
 <h3>Descripción</h3>
 
