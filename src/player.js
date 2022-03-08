@@ -45,7 +45,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.jumpSpeed = -400;
     this.dashSpeed = 2000;
     this.knockBackSpeedX = 200;
-    this.knockBackSpeedY = -100;
+    this.knockBackSpeedY = -150;
     this.numJumps = 0;
     this.attackSpeed = 1000;
     // Esta label es la UI en la que pondremos la puntuación del jugador
@@ -109,7 +109,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.canMove = false;
     this.updateUI();
     this.scene.damageReceived();
-    this.scene.time.delayedCall(500, () => {this.canMove = true;}, [], this);
+    this.scene.time.delayedCall(400, () => {this.canMove = true;}, [], this);
     
   }
 
