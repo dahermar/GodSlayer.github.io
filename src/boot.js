@@ -24,6 +24,7 @@ export default class Boot extends Phaser.Scene {
     this.load.image('paisaje', 'fondo.jpg');
     this.load.image('enemy', 'skeleton.png');
     this.load.image('knife','knife.png');
+    this.load.image('potion','potion.png')
   }
 
   /**

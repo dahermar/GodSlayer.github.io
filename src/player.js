@@ -5,22 +5,29 @@ import Knife from './knife.js';
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
  */
-export default class Player extends Phaser.GameObjects.Container {
-  
+
+
+  const MAX_VIDAS = 3;
+
+export default class Player extends Phaser.GameObjects.Container { 
   /**
    * Constructor del jugador
    * @param {Phaser.Scene} scene Escena a la que pertenece el jugador
    * @param {number} x Coordenada X
    * @param {number} y Coordenada Y
    */
+ 
+
   constructor(scene, x, y) {
     super(scene, x, y);
     this.direction=1;
     this.throwing_object=10;
-    this.lives = 3;
+    this.lives = MAX_VIDAS;
+    this.potions = 5;
     this.canMove = true;
     this.canThrow = true;
     this.canAttack = true;
+    this.canConsume=true;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     this.sprite = this.scene.add.sprite(32, 25, 'player');
@@ -57,7 +64,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.shift = this.scene.input.keyboard.addKey('SHIFT');
     this.f = this.scene.input.keyboard.addKey('F');
     this.l = this.scene.input.keyboard.addKey('L');
-
+    this.c = this.scene.input.keyboard.addKey('C');
     
     this.platformCollider = this.scene.physics.add.collider(this, this.scene.platforms, this.platformCollision);
 
@@ -83,6 +90,16 @@ export default class Player extends Phaser.GameObjects.Container {
 
     }
   }
+
+  consume(){
+    if(Phaser.Input.Keyboard.JustDown(this.c)&&this.potions>0 && this.canConsume && this.lives< MAX_VIDAS){
+          this.lives++;
+          this.potions--;
+          this.canConsume=false;
+          this.scene.time.delayedCall(1000, () => {this.canConsume = true;}, [], this);
+          this.updateUI();
+  }
+}
 
   /**
    * El jugador ha recogido una estrella por lo que este método añade un punto y
@@ -112,19 +129,25 @@ export default class Player extends Phaser.GameObjects.Container {
     
   }
 
+  recivePotion(){
+    this.potions++;
+  }
+
   enableKeys(enable){
     this.w.enabled = enable;
     this.a.enabled = enable;
     this.s.enabled = enable;
     this.d.enabled = enable;
     this.shift.enabled = enable;
+    this.l.enabled = enable;
+    this.c.enabled = enable;
   }
   
   /**
    * Actualiza la UI con la puntuación actual
    */
   updateUI() {
-    this.label.text = 'Lives: ' + this.lives +'\nThrowable: '+ this.throwing_object;
+    this.label.text = 'Lives: ' + this.lives  +'\nThrowable: '+ this.throwing_object +'\nPotions: '+ this.potions;
   }
   
 
@@ -137,15 +160,13 @@ export default class Player extends Phaser.GameObjects.Container {
 
 
   preUpdate(t,dt) {
-    
     //this.dealWeaponDamage();
-
     if(this.canMove){
       this.movePlayer();
       this.attack();
       this.throw();
+      this.consume();
     }
-
   }
   
 

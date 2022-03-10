@@ -1,3 +1,5 @@
+import Potion from "./potion.js";
+
 /**
  * Clase que representa a un enemigo basico del juego.
  */
@@ -39,6 +41,7 @@
       if(this.lives==0){
         this.scene.enemyKilled();
         this.hpText.destroy();
+        new Potion(this.scene,this.x,this.y);
         this.destroy();
       }
     }
