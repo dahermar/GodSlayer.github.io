@@ -51,10 +51,8 @@ export default class Level extends Phaser.Scene {
    */
  
 
-  damageReceived() {
-      if (this.player.lives == 0) {
-        this.scene.start('end');
-      }
+  playerDeath() {
+    this.time.delayedCall(2000, () => {this.scene.start('end')}, [], this);
   }
 
   enemyKilled() {

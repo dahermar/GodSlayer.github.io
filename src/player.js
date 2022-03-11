@@ -31,6 +31,8 @@ export default class Player extends Phaser.GameObjects.Container {
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     this.sprite = this.scene.add.sprite(32, 25, 'player');
+    
+    
     //sprite.setDisplaySize(100,100);
     this.sprite.setScale(2);
     this.add(this.sprite);
@@ -91,6 +93,7 @@ export default class Player extends Phaser.GameObjects.Container {
     }
   }
 
+
   consume(){
     if(Phaser.Input.Keyboard.JustDown(this.c)&&this.potions>0 && this.canConsume && this.lives< MAX_VIDAS){
           this.lives++;
@@ -124,9 +127,16 @@ export default class Player extends Phaser.GameObjects.Container {
     this.body.setVelocityY(this.knockBackSpeedY);
     this.canMove = false;
     this.updateUI();
-    this.scene.damageReceived();
+
+    if(this.lives === 0){  
+      this.death();
+    }
     this.scene.time.delayedCall(400, () => {this.canMove = true;}, [], this);
     
+  }
+  death(){
+    this.sprite.play('death_player');
+    this.scene.playerDeath();
   }
 
   recivePotion(){
@@ -160,6 +170,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
 
   preUpdate(t,dt) {
+   // this.sprite.preUpdate();
     //this.dealWeaponDamage();
     if(this.canMove){
       this.movePlayer();
@@ -171,6 +182,8 @@ export default class Player extends Phaser.GameObjects.Container {
   
 
   movePlayer(){
+    
+
     if(this.body.onFloor()){
       this.numJumps = 0;
     }
@@ -186,6 +199,7 @@ export default class Player extends Phaser.GameObjects.Container {
       }
     }
     if (this.a.isDown) {
+      this.sprite.play('running_player',true);
       this.weaponHitbox.setX(-25);
       this.direction = -1;
       this.sprite.flipX = true;
@@ -200,6 +214,7 @@ export default class Player extends Phaser.GameObjects.Container {
       }
     }
     else if (this.d.isDown) {
+      this.sprite.play('running_player',true);
       this.direction = 1;
       this.weaponHitbox.setX(70);
       this.sprite.flipX = false;
@@ -215,6 +230,8 @@ export default class Player extends Phaser.GameObjects.Container {
     }
     else {
       this.body.setVelocityX(0);
+      
+      this.sprite.play('standing_player',true);    
     }
   }
 
