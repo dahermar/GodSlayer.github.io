@@ -141,7 +141,7 @@ export default class Player extends Phaser.GameObjects.Container {
       }
       else{
         this.canAnimate = false;
-        this.sprite.play('hurt_player',true).on('animationcomplete', () => {this.canAnimate = true;});
+        this.sprite.play('hurt_player',true).on('animationcomplete-hurt_player', () => {this.canAnimate = true;});
       }
       
     }
@@ -267,7 +267,6 @@ export default class Player extends Phaser.GameObjects.Container {
         this.lastVelocityY = -100;
       }
       else{
-        console.log(this.sprite.anims.isPlaying);
         if(this.body.velocity.y < 0){
           this.sprite.play('jump_player', true);
         }
