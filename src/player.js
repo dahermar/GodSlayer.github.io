@@ -135,11 +135,12 @@ export default class Player extends Phaser.GameObjects.Container {
 
       //this.scene.events.on(this.body.onFloor(), () => {this.body.setVelocityX(0)});
       this.scene.time.delayedCall(400, () => {this.canMove = true;}, [], this);
-      this.scene.time.delayedCall(400, () => {this.isInvulnerable = false;}, [], this);
+      
       if(this.lives === 0){  
         this.death();
       }
       else{
+        this.scene.time.delayedCall(400, () => {this.isInvulnerable = false;}, [], this);
         this.canAnimate = false;
         this.sprite.play('hurt_player',true).on('animationcomplete-hurt_player', () => {this.canAnimate = true;});
       }

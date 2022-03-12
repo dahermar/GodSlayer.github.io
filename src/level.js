@@ -22,18 +22,29 @@ export default class Level extends Phaser.Scene {
    * Creación de los elementos de la escena principal de juego
    */
   create() {
+    this.map = this.make.tilemap({ 
+      key: 'tilemap', 
+      tileWidth: 32, 
+      tileHeight: 32 
+    });
+    const fondo = this.add.image(0,0,'background').setOrigin(0);
+    fondo.setScale(1.2);
+    const tileset1 = this.map.addTilesetImage('main_lev_build_doble', 'atlas');
+    const tileset2 = this.map.addTilesetImage('other_and_decorative_doble', 'atlas2');
+    this.wallLayer = this.map.createLayer('Wall', tileset1);
+    this.groundLayer = this.map.createLayer('Ground', [tileset1, tileset2]);
+    
     this.enemies = this.add.group();
     this.platforms = this.add.group();
-    const fondo = this.add.image(0,0,'background').setOrigin(0);
-    //fondo.setScale(1.2);
+    
     this.player = new Player(this, 200, 400);
     this.enemies.add(new Enemy(this, 500, 500));
-    this.platforms.add(new Platform(this, this.player, 300, 600));
+    /*this.platforms.add(new Platform(this, this.player, 300, 600));
     this.platforms.add(new Platform(this, this.player, 1000, 500));
     this.platforms.add(new Platform(this, this.player, 650, 450));
     this.platforms.add(new Platform(this, this.player, 300, 200));
     this.platforms.add(new Platform(this, this.player, 1000, 200));
-    this.platforms.add(new Platform(this, this.player, 650, 350))
+    this.platforms.add(new Platform(this, this.player, 650, 350))*/
     //this.cameras.main.setBounds(0,0, 500, 1000);
     //this.cameras.main.startFollow(this.player);
 
