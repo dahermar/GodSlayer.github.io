@@ -28,7 +28,7 @@ export default class Level extends Phaser.Scene {
     //fondo.setScale(1.2);
     this.player = new Player(this, 200, 400);
     this.enemies.add(new Enemy(this, 500, 500));
-    this.platforms.add(new Platform(this, this.player, 300, 500));
+    this.platforms.add(new Platform(this, this.player, 300, 600));
     this.platforms.add(new Platform(this, this.player, 1000, 500));
     this.platforms.add(new Platform(this, this.player, 650, 450));
     this.platforms.add(new Platform(this, this.player, 300, 200));

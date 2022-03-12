@@ -41,5 +41,9 @@ export default class Boot extends Phaser.Scene {
     this.anims.create({key: 'standing_player', frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),frameRate: 6, repeat: -1 });
     this.anims.create({key: 'running_player', frames: this.anims.generateFrameNumbers('player', { start: 6, end: 13 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'death_player', frames: this.anims.generateFrameNumbers('player', { start: 26, end: 36 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'hurt_player', frames: this.anims.generateFrameNumbers('player', { start: 37, end: 40 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'jump_player', frames: this.anims.generateFrameNumbers('player', { start: 41, end: 43 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'uptofall_player', frames: this.anims.generateFrameNumbers('player', { start: 44, end: 45 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'fall_player', frames: this.anims.generateFrameNumbers('player', { start: 46, end: 47 }),frameRate: 10, repeat: -1 });
   }
 }

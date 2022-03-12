@@ -25,7 +25,8 @@ export default class Player extends Phaser.GameObjects.Container {
     this.lives = MAX_VIDAS;
     this.potions = 5;
     this.canMove = true;
-    this.isDead = false;
+    this.isInvulnerable = false;
+    this.canAnimate = true;
     this.canThrow = true;
     this.canAttack = true;
     this.canConsume=true;
@@ -53,10 +54,11 @@ export default class Player extends Phaser.GameObjects.Container {
     this.speed = 400;
     this.jumpSpeed = -500;
     this.dashSpeed = 2000;
-    this.knockBackSpeedX = 200;
-    this.knockBackSpeedY = -150;
+    this.knockBackSpeedX = 250;
+    this.knockBackSpeedY = -250;
     this.numJumps = 0;
     this.attackSpeed = 1000;
+    this.lastVelocityY = -100;
     // Esta label es la UI en la que pondremos la puntuación del jugador
     this.label = this.scene.add.text(10, 10, "");
     this.w = this.scene.input.keyboard.addKey('W');
@@ -115,31 +117,40 @@ export default class Player extends Phaser.GameObjects.Container {
    * actualiza la UI con la vida actual.
    */
   getDamage() {
-    this.lives--;
-    if(this.body.touching.right){
-      this.body.setVelocityX(-this.knockBackSpeedX);
-    }
-    else if(this.body.touching.left){
-      this.body.setVelocityX(this.knockBackSpeedX);
-    }
-    else{
-      this.body.setVelocityX(-this.knockBackSpeedX*2);
-    }
-    this.body.setVelocityY(this.knockBackSpeedY);
-    this.canMove = false;
-    this.updateUI();
+    if(!this.isInvulnerable){
+      this.lives--;
+      if(this.body.touching.right){
+        this.body.setVelocityX(-this.knockBackSpeedX);
+      }
+      else if(this.body.touching.left){
+        this.body.setVelocityX(this.knockBackSpeedX);
+      }
+      else{
+        this.body.setVelocityX(-this.knockBackSpeedX*2);
+      }
+      this.body.setVelocityY(this.knockBackSpeedY);
+      this.canMove = false;
+      this.isInvulnerable = true;
+      this.updateUI();
 
-    this.scene.events.on(this.body.onFloor(), () => {this.body.setVelocityX(0)});
-    this.scene.time.delayedCall(400, () => {this.canMove = true;}, [], this);
-    if(this.lives === 0){  
-      this.death();
+      //this.scene.events.on(this.body.onFloor(), () => {this.body.setVelocityX(0)});
+      this.scene.time.delayedCall(400, () => {this.canMove = true;}, [], this);
+      this.scene.time.delayedCall(400, () => {this.isInvulnerable = false;}, [], this);
+      if(this.lives === 0){  
+        this.death();
+      }
+      else{
+        this.canAnimate = false;
+        this.sprite.play('hurt_player',true).on('animationcomplete', () => {this.canAnimate = true;});
+      }
+      
     }
+    
   }
   death(){
-    this.isDead = true;
-    //this.scene.time.delayedCall(50, () => {this.enableKeys(false);}, [], this);
+    this.sprite.play('death_player',true);
+    this.canAnimate = false;
     this.enableKeys(false);
-    this.sprite.play('death_player');
     this.scene.playerDeath();
   }
 
@@ -191,11 +202,11 @@ export default class Player extends Phaser.GameObjects.Container {
       this.throw();
       this.consume();
     }
+    this.animations();
   }
   
 
   movePlayer(){
-    
 
     if(this.body.onFloor()){
       this.numJumps = 0;
@@ -212,7 +223,6 @@ export default class Player extends Phaser.GameObjects.Container {
       }
     }
     if (this.a.isDown) {
-      this.sprite.play('running_player',true);
       this.weaponHitbox.setX(-35);
       this.direction = -1;
       this.sprite.flipX = true;
@@ -227,7 +237,6 @@ export default class Player extends Phaser.GameObjects.Container {
       }
     }
     else if (this.d.isDown) {
-      this.sprite.play('running_player',true);
       this.direction = 1;
       this.weaponHitbox.setX(100);
       this.sprite.flipX = false;
@@ -243,9 +252,33 @@ export default class Player extends Phaser.GameObjects.Container {
     }
     else {
       this.body.setVelocityX(0);
-      if(!this.isDead){
-        this.sprite.play('standing_player',true); 
-      }  
+    }
+  }
+
+  animations(){
+    if(this.canAnimate){
+      if(this.body.onFloor()){
+        if(this.a.isDown || this.d.isDown){
+          this.sprite.play('running_player',true);
+        }
+        else{
+          this.sprite.play('standing_player',true); 
+        }
+        this.lastVelocityY = -100;
+      }
+      else{
+        console.log(this.sprite.anims.isPlaying);
+        if(this.body.velocity.y < 0){
+          this.sprite.play('jump_player', true);
+        }
+        else if (this.lastVelocityY < 0 && this.body.velocity.y >= 0){
+          this.sprite.play('uptofall_player',true);
+        }
+        else if(!this.sprite.anims.isPlaying){
+          this.sprite.play('fall_player',true);
+        }
+        this.lastVelocityY = this.body.velocity.y; 
+      }
     }
   }
 
