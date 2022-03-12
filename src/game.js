@@ -8,21 +8,24 @@ import Level from './level.js';
  */
 let config = {
     type: Phaser.AUTO,
-    width: 1000,
-    height: 500,
+    parent: 'parent',
+    
     scale: {
-        // mode: Phaser.Scale.FIT,  
-        autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
+        mode: Phaser.Scale.FIT,
+        width: 1280,
+        height: 720,
+        autoCenter: Phaser.Scale.CENTER_BOTH
     },
     pixelArt: true,
     scene: [Boot, Level, End],
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 600 },
-            debug: true
+            gravity: { y: 800 },
+            debug: false
         }
     }
 };
+
 
 new Phaser.Game(config);

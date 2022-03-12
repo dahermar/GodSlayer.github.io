@@ -8,7 +8,7 @@ import Potion from "./potion.js";
       super(scene, x, y, 'enemy');
       this.flipX = true;
       this.lives = 3;
-      this.setScale(0.4);
+      this.setScale(0.5);
       this.scene.add.existing(this);
       this.scene.physics.add.existing(this);
       //this.y -= this.height;
@@ -17,14 +17,14 @@ import Potion from "./potion.js";
       this.body.setCollideWorldBounds();
       //this.body.setImmovable(true);
       this.speed = 300;
-      this.jumpSpeed = -400;
+      this.jumpSpeed = -700;
       this.numJumps = 0;
       
 
       this.cursors = this.scene.input.keyboard.createCursorKeys();
       this.space = this.scene.input.keyboard.addKey('SPACE');
       //this.hpText = this.scene.add.text(this.x, this.y - 140, `HP: ${this.lives}`).setOrigin(0.5);
-      this.hpText = this.scene.add.text(850, 10, `HP: ${this.lives}`);
+      this.hpText = this.scene.add.text(1090, 15, `HP: ${this.lives}`);
       this.updateUI();
 
     }

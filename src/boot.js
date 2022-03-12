@@ -21,10 +21,12 @@ export default class Boot extends Phaser.Scene {
     this.load.setPath('assets/sprites/');
     this.load.image('platform', 'plataforma.png');
     //this.load.image('player', 'principal.png');
-    this.load.image('paisaje', 'fondo.jpg');
+    this.load.image('background', 'background720.jpg');
     this.load.image('enemy', 'skeleton.png');
     this.load.image('knife','knife.png');
     this.load.image('potion','potion.png');
+    this.load.image('fullscreen', 'fullscreen_white.png');
+    this.load.image('muerte', 'muerte.png');
     this.load.spritesheet('player', './Warrior/SpriteSheet/Warrior_Sheet-Effect.png', { frameWidth: 69, frameHeight: 44 })
   }
   
@@ -38,6 +40,6 @@ export default class Boot extends Phaser.Scene {
     this.scene.start('level');
     this.anims.create({key: 'standing_player', frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),frameRate: 6, repeat: -1 });
     this.anims.create({key: 'running_player', frames: this.anims.generateFrameNumbers('player', { start: 6, end: 13 }),frameRate: 10, repeat: -1 });
-    this.anims.create({key: 'death_player', frames: this.anims.generateFrameNumbers('player', { start: 26, end: 36 }),frameRate: 2, repeat: 1 });
+    this.anims.create({key: 'death_player', frames: this.anims.generateFrameNumbers('player', { start: 26, end: 36 }),frameRate: 10, repeat: 0 });
   }
 }

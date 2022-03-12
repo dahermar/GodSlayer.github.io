@@ -25,23 +25,24 @@ export default class Player extends Phaser.GameObjects.Container {
     this.lives = MAX_VIDAS;
     this.potions = 5;
     this.canMove = true;
+    this.isDead = false;
     this.canThrow = true;
     this.canAttack = true;
     this.canConsume=true;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
-    this.sprite = this.scene.add.sprite(32, 25, 'player');
+    this.sprite = this.scene.add.sprite(55, 36, 'player');
     
     
     //sprite.setDisplaySize(100,100);
-    this.sprite.setScale(2);
+    this.sprite.setScale(3);
     this.add(this.sprite);
-    this.body.setSize(44,70);
+    this.body.setSize(65,102);
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
 
     //Zone Arma
-    this.weaponHitbox = this.scene.add.zone(70, 25, 50, 50);
+    this.weaponHitbox = this.scene.add.zone(100, 35, 70, 70);
     this.scene.physics.add.existing(this.weaponHitbox);
     this.weaponHitbox.body.setAllowGravity(false);
 
@@ -49,8 +50,8 @@ export default class Player extends Phaser.GameObjects.Container {
 
 
     //this.body.bounce.setTo(1, 1);ded
-    this.speed = 300;
-    this.jumpSpeed = -400;
+    this.speed = 400;
+    this.jumpSpeed = -500;
     this.dashSpeed = 2000;
     this.knockBackSpeedX = 200;
     this.knockBackSpeedY = -150;
@@ -62,11 +63,11 @@ export default class Player extends Phaser.GameObjects.Container {
     this.a = this.scene.input.keyboard.addKey('A');
     this.s = this.scene.input.keyboard.addKey('S');
     this.d = this.scene.input.keyboard.addKey('D');
-    this.j = this.scene.input.keyboard.addKey('J');
     this.shift = this.scene.input.keyboard.addKey('SHIFT');
     this.f = this.scene.input.keyboard.addKey('F');
     this.l = this.scene.input.keyboard.addKey('L');
     this.c = this.scene.input.keyboard.addKey('C');
+    //this.j = this.scene.input.keyboard.addKey('J');
     
     this.platformCollider = this.scene.physics.add.collider(this, this.scene.platforms, this.platformCollision);
 
@@ -128,13 +129,16 @@ export default class Player extends Phaser.GameObjects.Container {
     this.canMove = false;
     this.updateUI();
 
+    this.scene.events.on(this.body.onFloor(), () => {this.body.setVelocityX(0)});
+    this.scene.time.delayedCall(400, () => {this.canMove = true;}, [], this);
     if(this.lives === 0){  
       this.death();
     }
-    this.scene.time.delayedCall(400, () => {this.canMove = true;}, [], this);
-    
   }
   death(){
+    this.isDead = true;
+    //this.scene.time.delayedCall(50, () => {this.enableKeys(false);}, [], this);
+    this.enableKeys(false);
     this.sprite.play('death_player');
     this.scene.playerDeath();
   }
@@ -144,12 +148,21 @@ export default class Player extends Phaser.GameObjects.Container {
   }
 
   enableKeys(enable){
+    this.w.reset();
     this.w.enabled = enable;
+    this.a.reset();
     this.a.enabled = enable;
+    this.s.reset();
     this.s.enabled = enable;
+    this.d.reset();
     this.d.enabled = enable;
+    this.shift.reset();
     this.shift.enabled = enable;
+    this.f.reset();
+    this.f.enabled = enable;
+    this.l.reset();
     this.l.enabled = enable;
+    this.c.reset();
     this.c.enabled = enable;
   }
   
@@ -200,10 +213,10 @@ export default class Player extends Phaser.GameObjects.Container {
     }
     if (this.a.isDown) {
       this.sprite.play('running_player',true);
-      this.weaponHitbox.setX(-25);
+      this.weaponHitbox.setX(-35);
       this.direction = -1;
       this.sprite.flipX = true;
-      this.sprite.x = 12;
+      this.sprite.x = 10;
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
         this.body.setVelocityX(-this.dashSpeed);
         this.canMove = false;
@@ -216,9 +229,9 @@ export default class Player extends Phaser.GameObjects.Container {
     else if (this.d.isDown) {
       this.sprite.play('running_player',true);
       this.direction = 1;
-      this.weaponHitbox.setX(70);
+      this.weaponHitbox.setX(100);
       this.sprite.flipX = false;
-      this.sprite.x = 32;
+      this.sprite.x = 55;
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
         this.body.setVelocityX(this.dashSpeed);
         this.canMove = false;
@@ -230,8 +243,9 @@ export default class Player extends Phaser.GameObjects.Container {
     }
     else {
       this.body.setVelocityX(0);
-      
-      this.sprite.play('standing_player',true);    
+      if(!this.isDead){
+        this.sprite.play('standing_player',true); 
+      }  
     }
   }
 

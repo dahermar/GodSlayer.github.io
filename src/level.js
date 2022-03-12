@@ -24,17 +24,39 @@ export default class Level extends Phaser.Scene {
   create() {
     this.enemies = this.add.group();
     this.platforms = this.add.group();
-    const fondo = this.add.image(500,250,'paisaje');
-    fondo.setScale(1.2);
+    const fondo = this.add.image(0,0,'background').setOrigin(0);
+    //fondo.setScale(1.2);
     this.player = new Player(this, 200, 400);
     this.enemies.add(new Enemy(this, 500, 500));
-    this.platforms.add(new Platform(this, this.player, 150, 350));
-    this.platforms.add(new Platform(this, this.player, 850, 350));
-    this.platforms.add(new Platform(this, this.player, 500, 200));
-    this.platforms.add(new Platform(this, this.player, 150, 100));
-    this.platforms.add(new Platform(this, this.player, 850, 100));
+    this.platforms.add(new Platform(this, this.player, 300, 500));
+    this.platforms.add(new Platform(this, this.player, 1000, 500));
+    this.platforms.add(new Platform(this, this.player, 650, 450));
+    this.platforms.add(new Platform(this, this.player, 300, 200));
+    this.platforms.add(new Platform(this, this.player, 1000, 200));
+    this.platforms.add(new Platform(this, this.player, 650, 350))
     //this.cameras.main.setBounds(0,0, 500, 1000);
     //this.cameras.main.startFollow(this.player);
+
+    this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
+    this.fullscreenButton.setScale(0.05);
+
+
+    this.fullscreenButton.on('pointerup', function () {
+
+            if (this.scale.isFullscreen)
+            {
+              this.fullscreenButton.setFrame(0);
+
+                this.scale.stopFullscreen();
+            }
+            else
+            {
+              this.fullscreenButton.setFrame(1);
+
+                this.scale.startFullscreen();
+            }
+
+        }, this);
   }
 
   /**
@@ -52,7 +74,12 @@ export default class Level extends Phaser.Scene {
  
 
   playerDeath() {
-    this.time.delayedCall(2000, () => {this.scene.start('end')}, [], this);
+    this.add.image(640,360,'muerte').setScale(0.75);
+    this.time.delayedCall(4000, () => {
+      this.scene.start('level');
+    },
+  [], this);
+    //this.time.delayedCall(2000, () => {this.scene.start('end')}, [], this);
   }
 
   enemyKilled() {
