@@ -31,6 +31,8 @@ export default class Player extends Phaser.GameObjects.Container {
     this.canAttack = true;
     this.canConsume=true;
     this.scene.add.existing(this);
+    this.healthlabel = this.scene.add.sprite(80, 80, 'emptybar');
+    this.healthbar = this.scene.add.sprite(86, 80, 'bar');
     this.scene.physics.add.existing(this);
     this.sprite = this.scene.add.sprite(55, 36, 'player');
     
@@ -92,7 +94,6 @@ export default class Player extends Phaser.GameObjects.Container {
       this.scene.time.delayedCall(2000, () => {this.canThrow = true;}, [], this);
       --this.throwing_object;
       this.updateUI();
-
     }
   }
 
@@ -182,7 +183,10 @@ export default class Player extends Phaser.GameObjects.Container {
    * Actualiza la UI con la puntuación actual
    */
   updateUI() {
-    this.label.text = 'Lives: ' + this.lives  +'\nThrowable: '+ this.throwing_object +'\nPotions: '+ this.potions;
+    this.label.text = 'Throwable: '+ this.throwing_object +'\nPotions: '+ this.potions;
+    console.log(this.lives);
+    // this.healthbar.setCrop(0,0,this.healthbar.totalx*((this.lives/ MAX_VIDAS)), 50);
+    this.healthbar.setCrop(0,0,this.healthbar.width*((this.lives/ MAX_VIDAS)), 50);
   }
   
 
@@ -298,3 +302,4 @@ export default class Player extends Phaser.GameObjects.Container {
     }
   }
 }
+
