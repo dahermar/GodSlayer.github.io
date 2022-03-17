@@ -22,7 +22,8 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 1300 },
-            debug: false
+            debug: false,
+            TILE_BIAS: 32
         }
     }
 };

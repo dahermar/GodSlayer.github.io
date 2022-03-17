@@ -1,5 +1,4 @@
 import Enemy from './enemy.js';
-import Platform from './platform.js';
 import Player from './player.js';
 
 /**
@@ -22,6 +21,8 @@ export default class Level extends Phaser.Scene {
    * Creación de los elementos de la escena principal de juego
    */
   create() {
+    
+
     this.map = this.make.tilemap({ 
       key: 'tilemap', 
       tileWidth: 32, 
@@ -31,26 +32,64 @@ export default class Level extends Phaser.Scene {
     fondo.setScale(1.2);
     const tileset1 = this.map.addTilesetImage('main_lev_build_doble', 'atlas');
     const tileset2 = this.map.addTilesetImage('other_and_decorative_doble', 'atlas2');
+    
+    
     this.wallLayer = this.map.createLayer('Wall', tileset1);
-    this.groundLayer = this.map.createLayer('Ground', [tileset1, tileset2]);
+    this.groundLayer = this.map.createLayer('Ground', tileset1);
+    this.decorativesLayer = this.map.createLayer('Decoratives', tileset2);
+    this.platformLayer = this.map.createLayer('Platform', tileset1);
+    this.platformLayer.setCollisionByProperty({collides:true});
+    
+    
     
     this.enemies = this.add.group();
-    this.platforms = this.add.group();
     
     this.player = new Player(this, 200, 400);
     this.enemies.add(new Enemy(this, 500, 500));
-    this.platforms.add(new Platform(this, this.player, 300, 600));
-    this.platforms.add(new Platform(this, this.player, 1000, 500));
-    this.platforms.add(new Platform(this, this.player, 650, 450));
-    this.platforms.add(new Platform(this, this.player, 300, 200));
-    /*this.platforms.add(new Platform(this, this.player, 1000, 200));
-    this.platforms.add(new Platform(this, this.player, 650, 350))*/
+    
     //this.cameras.main.setBounds(0,0, 500, 1000);
-    //this.cameras.main.startFollow(this.player);
+    this.cameras.main.startFollow(this.player);
 
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);
 
+    this.groundLayer.setCollisionByProperty({collides:true});
+    this.physics.add.collider(this.player, this.groundLayer);
+    this.physics.add.collider(this.enemies, this.groundLayer);
+    this.physics.add.collider(this.enemies, this.platformLayer);
+
+    
+    
+    /*this.platformLayer.layer.data.forEach(function (row) {
+      row.forEach(function (tile) {
+        //console.log(index)
+        //index++;  
+        tile.collideDown = false
+        tile.collideLeft = false
+        tile.collideRight = false
+        tile.collideUp = true
+        // or less verbosely:
+        // tile.setCollision(false, false, true, false)
+        
+      })
+    })*/
+
+    this.platformLayer.forEachTile(function (tile) {
+        //console.log(index)
+        //index++;  
+        tile.collideDown = false
+        tile.collideLeft = false
+        tile.collideRight = false
+        tile.collideUp = true
+        // or less verbosely:
+        // tile.setCollision(false, false, true, false)
+        
+    });
+
+
+    //this.platformLayerCollider = this.physics.add.collider(this.player, this.platformLayer);
+
+    
 
     this.fullscreenButton.on('pointerup', function () {
 
@@ -68,6 +107,7 @@ export default class Level extends Phaser.Scene {
             }
 
         }, this);
+
   }
 
   /**
@@ -88,7 +128,8 @@ export default class Level extends Phaser.Scene {
     this.add.image(640,360,'muerte').setScale(0.75);
     this.time.delayedCall(4000, () => {
       this.scene.start('level');
-    },
+    }
+    ,
   [], this);
     //this.time.delayedCall(2000, () => {this.scene.start('end')}, [], this);
   }

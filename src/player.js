@@ -1,5 +1,4 @@
 import Enemy from './enemy.js';
-import Platform from './platform.js';
 import Knife from './knife.js';
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
@@ -25,6 +24,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.lives = MAX_VIDAS;
     this.potions = 5;
     this.canMove = true;
+    this.isOnAction = false;
     this.isInvulnerable = false;
     this.canAnimate = true;
     this.canThrow = true;
@@ -42,7 +42,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.add(this.sprite);
     this.body.setSize(65,102);
     // Queremos que el jugador no se salga de los límites del mundo
-    this.body.setCollideWorldBounds();
+    //this.body.setCollideWorldBounds();
 
     //Zone Arma
     this.weaponHitbox = this.scene.add.zone(100, 35, 70, 70);
@@ -52,10 +52,12 @@ export default class Player extends Phaser.GameObjects.Container {
     this.add(this.weaponHitbox);
 
 
-    //this.body.bounce.setTo(1, 1);ded
+    //this.body.bounce.setTo(1, 1);
+    //this.body.setMaxSpeed(500);
     this.speed = 400;
     this.jumpSpeed = -500;
-    this.dashSpeed = 2000;
+    this.dashSpeed = 960;
+    this.dashTime = 200;
     this.knockBackSpeedX = 250;
     this.knockBackSpeedY = -250;
     this.numJumps = 0;
@@ -73,7 +75,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.c = this.scene.input.keyboard.addKey('C');
     //this.j = this.scene.input.keyboard.addKey('J');
     
-    this.platformCollider = this.scene.physics.add.collider(this, this.scene.platforms, this.platformCollision);
+    this.platformCollider = this.scene.physics.add.collider(this, this.scene.platformLayer, this.platformCollision);
 
     this.updateUI();
   }
@@ -201,7 +203,7 @@ export default class Player extends Phaser.GameObjects.Container {
   preUpdate(t,dt) {
    // this.sprite.preUpdate();
     //this.dealWeaponDamage();
-    if(this.canMove){
+    if(this.canMove && !this.isOnAction){
       this.movePlayer();
       this.attack();
       this.throw();
@@ -234,8 +236,17 @@ export default class Player extends Phaser.GameObjects.Container {
       this.sprite.x = 10;
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
         this.body.setVelocityX(-this.dashSpeed);
-        this.canMove = false;
-        this.scene.time.delayedCall(50, () => {this.canMove = true;}, [], this);
+        this.isOnAction = true;
+        this.canAnimate = false;
+        this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
+
+        this.scene.time.delayedCall(this.dashTime, () => {
+          if(this.sprite.anims.currentAnim.key === 'dash_player'){
+            this.sprite.stop();
+            this.canAnimate = true;
+          }
+          this.isOnAction = false;
+        }, [], this);
       }
       else{
         this.body.setVelocityX(-this.speed);
@@ -248,8 +259,17 @@ export default class Player extends Phaser.GameObjects.Container {
       this.sprite.x = 55;
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
         this.body.setVelocityX(this.dashSpeed);
-        this.canMove = false;
-        this.scene.time.delayedCall(50, () => {this.canMove = true;}, [], this);
+        this.isOnAction = true;
+        this.canAnimate = false;
+        this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
+
+        this.scene.time.delayedCall(this.dashTime, () => {
+          if(this.sprite.anims.currentAnim.key === 'dash_player'){
+            this.sprite.stop();
+            this.canAnimate = true;
+          }
+          this.isOnAction = false;
+        }, [], this);
       }
       else{
         this.body.setVelocityX(this.speed);
@@ -297,6 +317,14 @@ export default class Player extends Phaser.GameObjects.Container {
       if(this.canAttack === true){
         this.canAttack = false;
         this.dealWeaponDamage();
+        this.canAnimate = false;
+        this.isOnAction = true;
+        this.sprite.play('attack2_player',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
+        this.scene.time.delayedCall(1000, () => {
+          this.sprite.stop();
+          this.isOnAction = false;
+          this.canAnimate = true;
+        }, [], this);
         this.scene.time.delayedCall(this.attackSpeed, () => {this.canAttack = true;}, [], this);
       }
     }

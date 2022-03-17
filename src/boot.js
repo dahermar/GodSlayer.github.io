@@ -18,7 +18,7 @@ export default class Boot extends Phaser.Scene {
    */
   preload() {
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
-    this.load.tilemapTiledJSON('tilemap', 'assets/map/map.json')
+    this.load.tilemapTiledJSON('tilemap', 'assets/map/map3.json')
     this.load.setPath('assets/sprites/');
     this.load.image('atlas', 'PlatformerSet1/main_lev_build_doble.png');
     this.load.image('atlas2', 'PlatformerSet1/other_and_decorative_doble.png');
@@ -45,11 +45,13 @@ export default class Boot extends Phaser.Scene {
     this.scene.start('level');
     this.anims.create({key: 'standing_player', frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),frameRate: 6, repeat: -1 });
     this.anims.create({key: 'running_player', frames: this.anims.generateFrameNumbers('player', { start: 6, end: 13 }),frameRate: 10, repeat: -1 });
+    this.anims.create({key: 'attack1_player', frames: this.anims.generateFrameNumbers('player', { start: 14, end: 25 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'death_player', frames: this.anims.generateFrameNumbers('player', { start: 26, end: 36 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'hurt_player', frames: this.anims.generateFrameNumbers('player', { start: 37, end: 40 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'jump_player', frames: this.anims.generateFrameNumbers('player', { start: 41, end: 43 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'uptofall_player', frames: this.anims.generateFrameNumbers('player', { start: 44, end: 45 }),frameRate: 10, repeat: 0 });
-    this.anims.create({key: 'fall_player', frames: this.anims.generateFrameNumbers('player', { start: 46, end: 47 }),frameRate: 10, repeat: -1 });
-
+    this.anims.create({key: 'fall_player', frames: this.anims.generateFrameNumbers('player', { start: 46, end: 48 }),frameRate: 10, repeat: -1 });
+    this.anims.create({key: 'dash_player', frames: this.anims.generateFrameNumbers('player', { start: 69, end: 72 }),frameRate: 20, repeat: -1 });
+    this.anims.create({key: 'attack2_player', frames: this.anims.generateFrameNumbers('player', { start: 76, end: 85 }),frameRate: 10, repeat: 0 });
   }
 }
