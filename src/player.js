@@ -1,12 +1,11 @@
 import Enemy from './enemy.js';
 import Knife from './knife.js';
+
+const MAX_VIDAS = 3;
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
  */
-
-
-  const MAX_VIDAS = 3;
 
 export default class Player extends Phaser.GameObjects.Container { 
   /**
@@ -35,6 +34,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.healthbar = this.scene.add.sprite(86, 80, 'bar');
     this.scene.physics.add.existing(this);
     this.sprite = this.scene.add.sprite(55, 36, 'player');
+    
     
     
     //sprite.setDisplaySize(100,100);
@@ -76,6 +76,7 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.j = this.scene.input.keyboard.addKey('J');
     
     this.platformCollider = this.scene.physics.add.collider(this, this.scene.platformLayer, this.platformCollision);
+    //this.wallCollider = this.scene.physics.add.collider(this, this.scene.WallLayer, this.wallCollision);
 
     //Fijar la interfaz grafica
     this.healthbar.setScrollFactor(0,0);
@@ -93,6 +94,16 @@ export default class Player extends Phaser.GameObjects.Container {
         }
       }
     }
+
+  checkWallCollision(){
+    if(this.scene.physics.collide(this, this.scene.wallLayer)){
+      console.log("Ha llegado");
+      this.body.setDragY(10000);
+    }
+    else{
+      this.body.setDragY(0);
+    }
+  }
 
   throw(){
     if(Phaser.Input.Keyboard.JustDown(this.l) && this.throwing_object >0 && this.canThrow){
@@ -215,6 +226,7 @@ export default class Player extends Phaser.GameObjects.Container {
       this.consume();
     }
     this.animations();
+    this.checkWallCollision();
   }
   
 

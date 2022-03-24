@@ -34,11 +34,12 @@ export default class Level extends Phaser.Scene {
     const tileset2 = this.map.addTilesetImage('other_and_decorative_doble', 'atlas2');
     
     
-    this.wallLayer = this.map.createLayer('Wall', tileset1);
+    this.backWallLayer = this.map.createLayer('BackWall', tileset1);
     this.groundLayer = this.map.createLayer('Ground', tileset1);
+    this.wallLayer = this.map.createLayer('Wall', tileset1);
     this.decorativesLayer = this.map.createLayer('Decoratives', tileset2);
     this.platformLayer = this.map.createLayer('Platform', tileset1);
-    this.platformLayer.setCollisionByProperty({collides:true});
+    
     
     
     
@@ -55,9 +56,13 @@ export default class Level extends Phaser.Scene {
     this.fullscreenButton.setScrollFactor(0,0);
 
     this.groundLayer.setCollisionByProperty({collides:true});
+    this.wallLayer.setCollisionByProperty({collides:true});
+    this.platformLayer.setCollisionByProperty({collides:true});
     this.physics.add.collider(this.player, this.groundLayer);
     this.physics.add.collider(this.enemies, this.groundLayer);
     this.physics.add.collider(this.enemies, this.platformLayer);
+    this.physics.add.collider(this.player, this.wallLayer);
+    this.physics.add.collider(this.enemies, this.wallLayer);
 
     
     
