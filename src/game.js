@@ -23,7 +23,8 @@ let config = {
         arcade: {
             gravity: { y: 1300 },
             debug: false,
-            TILE_BIAS: 32
+            TILE_BIAS: 32,
+            fps: 120
         }
     }
 };

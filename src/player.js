@@ -56,7 +56,7 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.body.setMaxSpeed(500);
     this.speed = 400;
     this.jumpSpeed = -500;
-    this.dashSpeed = 960;
+    this.dashSpeed = 1500;
     this.dashTime = 200;
     this.knockBackSpeedX = 250;
     this.knockBackSpeedY = -250;
@@ -324,6 +324,7 @@ export default class Player extends Phaser.GameObjects.Container {
         this.dealWeaponDamage();
         this.canAnimate = false;
         this.isOnAction = true;
+        this.body.setVelocityX(0);
         this.sprite.play('attack2_player',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
         this.scene.time.delayedCall(1000, () => {
           this.sprite.stop();
