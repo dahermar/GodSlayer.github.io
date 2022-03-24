@@ -77,6 +77,11 @@ export default class Player extends Phaser.GameObjects.Container {
     
     this.platformCollider = this.scene.physics.add.collider(this, this.scene.platformLayer, this.platformCollision);
 
+    //Fijar la interfaz grafica
+    this.healthbar.setScrollFactor(0,0);
+    this.healthlabel.setScrollFactor(0,0);
+    this.label.setScrollFactor(0,0);
+
     this.updateUI();
   }
 
