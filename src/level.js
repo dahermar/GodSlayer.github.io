@@ -52,6 +52,7 @@ export default class Level extends Phaser.Scene {
 
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);
+    this.fullscreenButton.setScrollFactor(0,0);
 
     this.groundLayer.setCollisionByProperty({collides:true});
     this.physics.add.collider(this.player, this.groundLayer);
@@ -125,7 +126,7 @@ export default class Level extends Phaser.Scene {
  
 
   playerDeath() {
-    this.add.image(640,360,'muerte').setScale(0.75);
+    this.add.image(640,360,'muerte').setScale(0.75).setScrollFactor(0,0);;
     this.time.delayedCall(4000, () => {
       this.scene.start('level');
     }
