@@ -1,7 +1,7 @@
 import Enemy from './enemy.js';
 import Knife from './knife.js';
 
-const MAX_VIDAS = 3;
+const MAX_VIDAS = 5;
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
@@ -45,7 +45,7 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.body.setCollideWorldBounds();
 
     //Zone Arma
-    this.weaponHitbox = this.scene.add.zone(100, 35, 70, 70);
+    this.weaponHitbox = this.scene.add.zone(100, 40, 70, 80);
     this.scene.physics.add.existing(this.weaponHitbox);
     this.weaponHitbox.body.setAllowGravity(false);
 
@@ -135,17 +135,14 @@ export default class Player extends Phaser.GameObjects.Container {
    * El jugador ha sido atacado por un enemigo por lo que este método quita una vida y
    * actualiza la UI con la vida actual.
    */
-  getDamage() {
+  getDamage(numDamage, isRight) {
     if(!this.isInvulnerable){
-      this.lives--;
-      if(this.body.touching.right){
+      this.lives -= numDamage;
+      if(isRight){
         this.body.setVelocityX(-this.knockBackSpeedX);
       }
-      else if(this.body.touching.left){
+      else {
         this.body.setVelocityX(this.knockBackSpeedX);
-      }
-      else{
-        this.body.setVelocityX(-this.knockBackSpeedX*2);
       }
       this.body.setVelocityY(this.knockBackSpeedY);
       this.canMove = false;
@@ -155,7 +152,7 @@ export default class Player extends Phaser.GameObjects.Container {
       //this.scene.events.on(this.body.onFloor(), () => {this.body.setVelocityX(0)});
       this.scene.time.delayedCall(400, () => {this.canMove = true;}, [], this);
       
-      if(this.lives === 0){  
+      if(this.lives <= 0){  
         this.death();
       }
       else{
@@ -175,7 +172,14 @@ export default class Player extends Phaser.GameObjects.Container {
   }
 
   recivePotion(){
-    this.potions++;
+    //this.potions++;
+    if(this.lives < MAX_VIDAS){
+      this.lives++;
+      this.potions--;
+      this.canConsume=false;
+      this.scene.time.delayedCall(1000, () => {this.canConsume = true;}, [], this);
+      this.updateUI();
+}
   }
 
   enableKeys(enable){
@@ -202,7 +206,6 @@ export default class Player extends Phaser.GameObjects.Container {
    */
   updateUI() {
     this.label.text = 'Throwable: '+ this.throwing_object +'\nPotions: '+ this.potions;
-    console.log(this.lives);
     // this.healthbar.setCrop(0,0,this.healthbar.totalx*((this.lives/ MAX_VIDAS)), 50);
     this.healthbar.setCrop(0,0,this.healthbar.width*((this.lives/ MAX_VIDAS)), 50);
   }
@@ -325,7 +328,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
   dealWeaponDamage(){
     this.scene.physics.overlap(this.weaponHitbox, this.scene.enemies,(hitbox, enemy) => {
-      enemy.getDamage();
+      enemy.getDamage(1);
     });
   }
 
@@ -334,15 +337,15 @@ export default class Player extends Phaser.GameObjects.Container {
       if(this.canAttack === true){
         this.body.setVelocityX(0); //TODO mirar si cambiarlo
         this.canAttack = false;
-        this.dealWeaponDamage();
+        this.scene.time.delayedCall(500, () => {this.dealWeaponDamage();}, [], this);
         this.canAnimate = false;
         this.isOnAction = true;
-        this.body.setVelocityX(0);
         this.sprite.play('attack2_player',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
         this.scene.time.delayedCall(1000, () => {
-          this.sprite.stop();
+          //this.sprite.stop();
           this.isOnAction = false;
-          this.canAnimate = true;
+          if(this.lives > 0)
+            this.canAnimate = true;
         }, [], this);
         this.scene.time.delayedCall(this.attackSpeed, () => {this.canAttack = true;}, [], this);
       }

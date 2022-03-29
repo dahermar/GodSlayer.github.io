@@ -1,5 +1,6 @@
 import Enemy from './enemy.js';
 import Player from './player.js';
+import Potion from './potion.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -45,9 +46,13 @@ export default class Level extends Phaser.Scene {
     
     this.enemies = this.add.group();
     
-    this.player = new Player(this, 200, 400);
-    this.enemies.add(new Enemy(this, 500, 500));
-    
+    this.player = new Player(this, 200, 610);
+    this.enemies.add(new Enemy(this, 700, 610));
+
+    this.potions = this.add.group();
+    this.potions.add(new Potion(this, 450, 400));
+    this.potions.add(new Potion(this, 1050, 200));
+
     //this.cameras.main.setBounds(0,0, 500, 1000);
     this.cameras.main.startFollow(this.player);
 
@@ -60,7 +65,9 @@ export default class Level extends Phaser.Scene {
     this.platformLayer.setCollisionByProperty({collides:true});
     this.physics.add.collider(this.player, this.groundLayer);
     this.physics.add.collider(this.enemies, this.groundLayer);
+    this.physics.add.collider(this.potions, this.groundLayer);
     this.physics.add.collider(this.enemies, this.platformLayer);
+    this.physics.add.collider(this.potions, this.platformLayer);
     this.physics.add.collider(this.player, this.wallLayer);
     this.physics.add.collider(this.enemies, this.wallLayer);
 
@@ -141,7 +148,7 @@ export default class Level extends Phaser.Scene {
   }
 
   enemyKilled() {
-    this.time.delayedCall(500, () => {this.enemies.add(this.add.existing(new Enemy(this, 500, 500)));
+    this.time.delayedCall(3000, () => {this.enemies.add(this.add.existing(new Enemy(this, 700, 610)));
     }, [], this);
   }
 }
