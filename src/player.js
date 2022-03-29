@@ -315,6 +315,7 @@ export default class Player extends Phaser.GameObjects.Container {
   attack(){
     if(Phaser.Input.Keyboard.JustDown(this.f)){
       if(this.canAttack === true){
+        this.body.setVelocityX(0); //TODO mirar si cambiarlo
         this.canAttack = false;
         this.dealWeaponDamage();
         this.canAnimate = false;
