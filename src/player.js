@@ -1,12 +1,11 @@
 import Enemy from './enemy.js';
 import Knife from './knife.js';
+
+const MAX_VIDAS = 3;
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
  */
-
-
-  const MAX_VIDAS = 3;
 
 export default class Player extends Phaser.GameObjects.Container { 
   /**
@@ -37,6 +36,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.sprite = this.scene.add.sprite(55, 36, 'player');
     
     
+    
     //sprite.setDisplaySize(100,100);
     this.sprite.setScale(3);
     this.add(this.sprite);
@@ -56,7 +56,7 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.body.setMaxSpeed(500);
     this.speed = 400;
     this.jumpSpeed = -500;
-    this.dashSpeed = 960;
+    this.dashSpeed = 1500;
     this.dashTime = 200;
     this.knockBackSpeedX = 250;
     this.knockBackSpeedY = -250;
@@ -76,6 +76,12 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.j = this.scene.input.keyboard.addKey('J');
     
     this.platformCollider = this.scene.physics.add.collider(this, this.scene.platformLayer, this.platformCollision);
+    //this.wallCollider = this.scene.physics.add.collider(this, this.scene.WallLayer, this.wallCollision);
+
+    //Fijar la interfaz grafica
+    this.healthbar.setScrollFactor(0,0);
+    this.healthlabel.setScrollFactor(0,0);
+    this.label.setScrollFactor(0,0);
 
     this.updateUI();
   }
@@ -88,6 +94,16 @@ export default class Player extends Phaser.GameObjects.Container {
         }
       }
     }
+
+  checkWallCollision(){
+    if(this.scene.physics.collide(this, this.scene.wallLayer)){
+      console.log("Ha llegado");
+      this.body.setDragY(10000);
+    }
+    else{
+      this.body.setDragY(0);
+    }
+  }
 
   throw(){
     if(Phaser.Input.Keyboard.JustDown(this.l) && this.throwing_object >0 && this.canThrow){
@@ -210,6 +226,7 @@ export default class Player extends Phaser.GameObjects.Container {
       this.consume();
     }
     this.animations();
+    this.checkWallCollision();
   }
   
 
@@ -320,6 +337,7 @@ export default class Player extends Phaser.GameObjects.Container {
         this.dealWeaponDamage();
         this.canAnimate = false;
         this.isOnAction = true;
+        this.body.setVelocityX(0);
         this.sprite.play('attack2_player',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
         this.scene.time.delayedCall(1000, () => {
           this.sprite.stop();
