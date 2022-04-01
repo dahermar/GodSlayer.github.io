@@ -18,7 +18,7 @@ export default class Knife extends Phaser.GameObjects.Sprite {
         this.body.setAllowGravity(false);
         this.body.setVelocityX(direction*this.speed);
         this.scene.physics.add.collider(this, this.scene.enemies,(object, enemy) => {
-            enemy.getDamage();
+            enemy.getDamage(1);
             this.destroy();
         });
     }

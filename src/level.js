@@ -1,4 +1,4 @@
-import Enemy from './enemy.js';
+import Skeleton from './skeleton.js';
 import Player from './player.js';
 import Potion from './potion.js';
 
@@ -47,7 +47,7 @@ export default class Level extends Phaser.Scene {
     this.enemies = this.add.group();
     
     this.player = new Player(this, 200, 610);
-    this.enemies.add(new Enemy(this, 700, 610));
+    this.enemies.add(new Skeleton(this, 700, 610));
 
     this.potions = this.add.group();
     this.potions.add(new Potion(this, 450, 400));
@@ -148,7 +148,7 @@ export default class Level extends Phaser.Scene {
   }
 
   enemyKilled() {
-    this.time.delayedCall(3000, () => {this.enemies.add(this.add.existing(new Enemy(this, 700, 610)));
+    this.time.delayedCall(3000, () => {this.enemies.add(this.add.existing(new Skeleton(this, 700, 610)));
     }, [], this);
   }
 }
