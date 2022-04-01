@@ -29,6 +29,10 @@ export default class Player extends Phaser.GameObjects.Container {
     this.canThrow = true;
     this.canAttack = true;
     this.canConsume=true;
+    this.touchingWall = false;
+    this.wasTouchingWall = false;
+    this.lastWallX = -1000;
+    this.lastWallY = -1000;
     this.scene.add.existing(this);
     this.healthlabel = this.scene.add.sprite(80, 80, 'emptybar');
     this.healthbar = this.scene.add.sprite(86, 80, 'bar');
@@ -58,6 +62,8 @@ export default class Player extends Phaser.GameObjects.Container {
     this.jumpSpeed = -500;
     this.dashSpeed = 1500;
     this.dashTime = 200;
+    this.dashCoolDown = 1000;
+    this.canDash = true;
     this.knockBackSpeedX = 250;
     this.knockBackSpeedY = -250;
     this.numJumps = 0;
@@ -82,6 +88,8 @@ export default class Player extends Phaser.GameObjects.Container {
     this.healthbar.setScrollFactor(0,0);
     this.healthlabel.setScrollFactor(0,0);
     this.label.setScrollFactor(0,0);
+    
+   
 
     this.updateUI();
   }
@@ -96,13 +104,19 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
   checkWallCollision(){
-    if(this.scene.physics.collide(this, this.scene.wallLayer)){
-      console.log("Ha llegado");
-      this.body.setDragY(10000);
+    console.log(this.wasTouchingWall);
+    
+    if(this.touchingWall === true){
+      if(!this.body.onFloor()){
+        this.body.setMaxVelocityY(200);
+      }
     }
-    else{
-      this.body.setDragY(0);
+    else if(!this.scene.wallLayer.hasTileAtWorldXY(this.x - 1, this.y + 51) && !this.scene.wallLayer.hasTileAtWorldXY(this.x + 66, this.y + 51)){
+      this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
     }
+    this.wasTouchingWall = this.touchingWall;
+    this.touchingWall = false;
+    
   }
 
   throw(){
@@ -125,11 +139,6 @@ export default class Player extends Phaser.GameObjects.Container {
           this.updateUI();
   }
 }
-
-  /**
-   * El jugador ha recogido una estrella por lo que este método añade un punto y
-   * actualiza la UI con la puntuación actual.
-   */
   
  /**
    * El jugador ha sido atacado por un enemigo por lo que este método quita una vida y
@@ -229,7 +238,7 @@ export default class Player extends Phaser.GameObjects.Container {
       this.consume();
     }
     this.animations();
-    this.checkWallCollision();
+    this.checkWallCollision(); 
   }
   
 
@@ -239,15 +248,15 @@ export default class Player extends Phaser.GameObjects.Container {
       this.numJumps = 0;
     }
     if (Phaser.Input.Keyboard.JustDown(this.w)) { 
-      
+      this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
       if(this.body.onFloor()){
         this.numJumps = 0;
         this.body.setVelocityY(this.jumpSpeed);
       }
-      else if(this.numJumps <= 0){
+      //else if(this.numJumps <= 0){
         this.body.setVelocityY(this.jumpSpeed);
         this.numJumps += 1;
-      }
+      //}
     }
     if (this.a.isDown) {
       this.weaponHitbox.setX(-35);
@@ -255,18 +264,22 @@ export default class Player extends Phaser.GameObjects.Container {
       this.sprite.flipX = true;
       this.sprite.x = 10;
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
-        this.body.setVelocityX(-this.dashSpeed);
-        this.isOnAction = true;
-        this.canAnimate = false;
-        this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
-
-        this.scene.time.delayedCall(this.dashTime, () => {
-          if(this.sprite.anims.currentAnim.key === 'dash_player'){
-            this.sprite.stop();
-            this.canAnimate = true;
-          }
-          this.isOnAction = false;
-        }, [], this);
+        if(this.canDash){
+          this.canDash = false;
+          this.body.setVelocityX(-this.dashSpeed);
+          this.isOnAction = true;
+          this.canAnimate = false;
+          this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
+  
+          this.scene.time.delayedCall(this.dashTime, () => {
+            if(this.sprite.anims.currentAnim.key === 'dash_player'){
+              this.sprite.stop();
+              this.canAnimate = true;
+            }
+            this.isOnAction = false;
+          }, [], this);
+          this.scene.time.delayedCall(this.dashCoolDown, () => {this.canDash = true;}, [], this);
+        }
       }
       else{
         this.body.setVelocityX(-this.speed);
@@ -278,18 +291,22 @@ export default class Player extends Phaser.GameObjects.Container {
       this.sprite.flipX = false;
       this.sprite.x = 55;
       if(Phaser.Input.Keyboard.JustDown(this.shift)){
-        this.body.setVelocityX(this.dashSpeed);
-        this.isOnAction = true;
-        this.canAnimate = false;
-        this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
-
-        this.scene.time.delayedCall(this.dashTime, () => {
-          if(this.sprite.anims.currentAnim.key === 'dash_player'){
-            this.sprite.stop();
-            this.canAnimate = true;
-          }
-          this.isOnAction = false;
-        }, [], this);
+        if(this.canDash){
+          this.canDash = false;
+          this.body.setVelocityX(this.dashSpeed);
+          this.isOnAction = true;
+          this.canAnimate = false;
+          this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
+  
+          this.scene.time.delayedCall(this.dashTime, () => {
+            if(this.sprite.anims.currentAnim.key === 'dash_player'){
+              this.sprite.stop();
+              this.canAnimate = true;
+            }
+            this.isOnAction = false;
+          }, [], this);
+          this.scene.time.delayedCall(this.dashCoolDown, () => {this.canDash = true;}, [], this);
+        }
       }
       else{
         this.body.setVelocityX(this.speed);
