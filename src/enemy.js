@@ -1,10 +1,11 @@
 import Potion from "./potion.js";
 
 /**
- * Clase que representa a un enemigo basico del juego.
+ * Clase que representa a un enemigo basico del juego
+ * 
  */
  export default class Enemy extends Phaser.GameObjects.Container {
-    constructor(scene, x, y, lives, speed, jumpSpeed, numJumps, fieldOfView, rangeAttack, attackSpeed, sprite_x, sprite_y , scale) {
+    constructor(scene, x, y, lives, speed, jumpSpeed, numJumps, fieldOfView, rangeAttack, attackSpeed, sprite_x, sprite_y , scale, damage) {
       super(scene, x, y);
 
       this.lives = lives;
@@ -23,6 +24,8 @@ import Potion from "./potion.js";
       this.fieldOfView = fieldOfView;
       this.rangeAttack = rangeAttack;
       this.attackSpeed = attackSpeed;
+
+      this.damage = damage
       
       this.sprite = this.scene.add.sprite(sprite_x, sprite_y);
       this.sprite.setScale(scale);

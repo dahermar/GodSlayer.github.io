@@ -5,15 +5,14 @@ import Projectile from './projectile.js';
  * Como atributos tiene la velocidad de los cuchillos.
  */
 
-export default class Knife extends Projectile {
+export default class Arrow extends Projectile {
 
     constructor(scene, x, y,direction) {
 
-        super(scene, x, y, direction, 44, 25, 0.1, 600, 1,'knife');
-        
-        this.scene.physics.add.collider(this, this.scene.enemies,(object, enemy) => {
-            enemy.getDamage(this.damage);
-            this.destroy();
+        super(scene, x, y, direction, 44, 25, 2, 800, 2,'arrow');
+        this.scene.physics.add.collider(this, this.scene.player,(object, player) => {
+            player.getDamage(this.damage);
+            object.destroy();
         });
     }
     

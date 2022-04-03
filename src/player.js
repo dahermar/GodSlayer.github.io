@@ -104,7 +104,7 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
   checkWallCollision(){
-    console.log(this.wasTouchingWall);
+    //console.log(this.wasTouchingWall);
     
     if(this.touchingWall === true){
       if(!this.body.onFloor()){

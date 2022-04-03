@@ -7,7 +7,7 @@ import Enemy from "./enemy.js";
 
     constructor(scene, x, y) {
 
-      super(scene, x, y, 3, 200, -700, 0, 400, 150, 2500, 48, 44,4)
+      super(scene, x, y, 3, 200, -700, 0, 400, 150, 2500, 48, 44, 4, 1)
 
       this.oldX = 48;
     
@@ -18,7 +18,6 @@ import Enemy from "./enemy.js";
       this.weaponHitbox.body.setAllowGravity(false);
 
       this.add(this.weaponHitbox);
-      this.cursors = this.scene.input.keyboard.createCursorKeys();
       
       this.hpText = this.scene.add.text(1090, 15, `HP: ${this.lives}`);
       this.hpText.setScrollFactor(0,0);
@@ -41,7 +40,6 @@ import Enemy from "./enemy.js";
           this.death();
         }
         else{
-
           this.scene.time.delayedCall(1000, () => {this.hasBeenHurt = false;}, [], this);
           this.canAnimate = false;
           this.sprite.play('hit_skeleton',true).on('animationcomplete-hit_skeleton', () => {this.canAnimate = true;});
@@ -85,7 +83,7 @@ import Enemy from "./enemy.js";
         let isRight = false;
         if(this.x > player.x)
           isRight = true;
-        player.getDamage(1, isRight);
+        player.getDamage(this.damage, isRight);
       });
     }
 
@@ -93,7 +91,7 @@ import Enemy from "./enemy.js";
      * @override
      */
     move(){
-      if(this.lives <= 0 &&  this.hasBeenHurt){
+      if(this.lives <= 0 ){
         this.body.setVelocityX(0);
         this.canAttack = false;
       }
@@ -115,6 +113,7 @@ import Enemy from "./enemy.js";
             this.sprite.x = this.oldX = 48;
             this.body.setVelocityX(this.speed);
           }
+
         }
         else{
           this.body.setVelocityX(0);
@@ -131,7 +130,7 @@ import Enemy from "./enemy.js";
       if(this.canAnimate){
         this.sprite.x = this.oldX;
         this.sprite.y = 44;
-        if(this.cursors.left.isDown || this.cursors.right.isDown){      
+        if(this.body.velocity.x != 0){      
           this.sprite.play('walk_skeleton',true);
         }
         else{  

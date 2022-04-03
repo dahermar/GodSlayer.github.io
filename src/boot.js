@@ -26,12 +26,14 @@ export default class Boot extends Phaser.Scene {
     this.load.image('background', 'background720.jpg');
     this.load.image('enemy', 'skeleton.png');
     this.load.image('knife','knife.png');
+    this.load.image('arrow','./Archer/projectile.png');
     this.load.image('potion','potion.png');
     this.load.image('fullscreen', 'fullscreen_white.png');
     this.load.image('muerte', 'muerte.png');
     this.load.image('emptybar', 'emptybar.png');
     this.load.image('bar', 'bar.png');
     this.load.spritesheet('player', './Warrior/SpriteSheet/Warrior_Sheet-Effect.png', { frameWidth: 69, frameHeight: 44 })
+    this.load.spritesheet('archer', './Archer/SpriteSheet/spritesheet.png', { frameWidth: 64, frameHeight: 64 })
     this.load.spritesheet('skeletonAttack', './Skeleton/SkeletonAttack.png', { frameWidth: 43, frameHeight: 37 })
     this.load.spritesheet('skeletonDead', './Skeleton/SkeletonDead.png', { frameWidth: 33, frameHeight: 32 })
     this.load.spritesheet('skeletonHit', './Skeleton/SkeletonHit.png', { frameWidth: 30, frameHeight: 32 })
@@ -62,6 +64,14 @@ export default class Boot extends Phaser.Scene {
     this.anims.create({key: 'hit_skeleton', frames: this.anims.generateFrameNumbers('skeletonHit', { start: 0, end: 7 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'idle_skeleton', frames: this.anims.generateFrameNumbers('skeletonIdle', { start: 0, end: 7 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'walk_skeleton', frames: this.anims.generateFrameNumbers('skeletonWalk', { start: 0, end: 12 }),frameRate: 10, repeat: -1 });
+    
+    this.anims.create({key: 'attack_archer', frames: this.anims.generateFrameNumbers('archer', { start: 24, end: 30 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'dead_archer', frames: this.anims.generateFrameNumbers('archer', { start: 8, end: 15 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'idle_archer', frames: this.anims.generateFrameNumbers('archer', { start: 40, end: 43 }),frameRate: 10, repeat: -1 });
+    this.anims.create({key: 'walk_archer', frames: this.anims.generateFrameNumbers('archer', { start: 0, end: 7 }),frameRate: 10, repeat: -1 });
+    this.anims.create({key: 'roll_archer', frames: this.anims.generateFrameNumbers('archer', { start: 16, end: 14 }),frameRate: 10, repeat: 0 });
+    
+    
 
   }
 }
