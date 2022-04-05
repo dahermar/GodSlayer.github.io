@@ -11,6 +11,10 @@ export default class Arrow extends Projectile {
 
         super(scene, x, y, direction, 44, 25, 2, 800, 2,'arrow');
         this.scene.physics.add.collider(this, this.scene.player,(object, player) => {
+            let isRight = false;
+            if(this.x > player.x)
+                isRight = true;
+            player.getDamage(this.damage, isRight);
             player.getDamage(this.damage);
             object.destroy();
         });

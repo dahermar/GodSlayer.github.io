@@ -49,7 +49,7 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.body.setCollideWorldBounds();
 
     //Zone Arma
-    this.weaponHitbox = this.scene.add.zone(100, 40, 70, 80);
+    this.weaponHitbox = this.scene.add.zone(110, 40, 90, 80);
     this.scene.physics.add.existing(this.weaponHitbox);
     this.weaponHitbox.body.setAllowGravity(false);
 
@@ -59,14 +59,14 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.body.bounce.setTo(1, 1);
     //this.body.setMaxSpeed(500);
     this.speed = 400;
-    this.jumpSpeed = -500;
+    this.jumpSpeed = -600;
     this.dashSpeed = 1500;
     this.dashTime = 200;
     this.dashCoolDown = 1000;
     this.canDash = true;
     this.knockBackSpeedX = 250;
     this.knockBackSpeedY = -250;
-    this.numJumps = 0;
+    this.numJumps = 1;
     this.attackSpeed = 1000;
     this.lastVelocityY = -100;
     // Esta label es la UI en la que pondremos la puntuación del jugador
@@ -104,17 +104,15 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
   checkWallCollision(){
-<<<<<<< Updated upstream
-    //console.log(this.wasTouchingWall);
-=======
->>>>>>> Stashed changes
     
     if(this.touchingWall === true){
       if(!this.body.onFloor()){
+        this.numJumps = 0;
         this.body.setMaxVelocityY(200);
       }
     }
     else if(!this.scene.wallLayer.hasTileAtWorldXY(this.x - 1, this.y + 51) && !this.scene.wallLayer.hasTileAtWorldXY(this.x + 66, this.y + 51)){
+      this.numJumps = 1;
       this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
     }
     this.wasTouchingWall = this.touchingWall;
@@ -232,8 +230,6 @@ export default class Player extends Phaser.GameObjects.Container {
 
 
   preUpdate(t,dt) {
-   // this.sprite.preUpdate();
-    //this.dealWeaponDamage();
     if(this.canMove && !this.isOnAction){
       this.movePlayer();
       this.attack();
@@ -247,77 +243,101 @@ export default class Player extends Phaser.GameObjects.Container {
 
   movePlayer(){
 
-    if(this.body.onFloor()){
-      this.numJumps = 0;
-    }
+    
     if (Phaser.Input.Keyboard.JustDown(this.w)) { 
-      this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
+      
       if(this.body.onFloor()){
-        this.numJumps = 0;
+        this.numJumps = 1;
+        this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
         this.body.setVelocityY(this.jumpSpeed);
+        
       }
-      else if(this.numJumps <= 0){
+      else if(this.numJumps <= 0){ //0
+        
         this.body.setVelocityY(this.jumpSpeed);
+        if(this.body.maxVelocity.y === 200){
+          this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
+          this.canMove = false;
+          this.scene.time.delayedCall(200, () => {this.canMove = true;}, [], this);
+          this.body.setVelocityY(this.jumpSpeed);
+          if(this.scene.wallLayer.hasTileAtWorldXY(this.x - 1, this.y + 51)){
+            this.direction = 1;
+            this.weaponHitbox.setX(110);
+            this.sprite.flipX = false;
+            this.sprite.x = 55;
+            this.body.setVelocityX(500);
+          }
+          else{
+            this.weaponHitbox.setX(-45);
+            this.direction = -1;
+            this.sprite.flipX = true;
+            this.sprite.x = 10;
+            this.body.setVelocityX(-500);
+          }
+        }
         this.numJumps += 1;
       }
     }
-    if (this.a.isDown) {
-      this.weaponHitbox.setX(-35);
-      this.direction = -1;
-      this.sprite.flipX = true;
-      this.sprite.x = 10;
-      if(Phaser.Input.Keyboard.JustDown(this.shift)){
-        if(this.canDash){
-          this.canDash = false;
-          this.body.setVelocityX(-this.dashSpeed);
-          this.isOnAction = true;
-          this.canAnimate = false;
-          this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
-  
-          this.scene.time.delayedCall(this.dashTime, () => {
-            if(this.sprite.anims.currentAnim.key === 'dash_player'){
-              this.sprite.stop();
-              this.canAnimate = true;
-            }
-            this.isOnAction = false;
-          }, [], this);
-          this.scene.time.delayedCall(this.dashCoolDown, () => {this.canDash = true;}, [], this);
+    if(this.canMove){
+      if (this.a.isDown) {
+        this.weaponHitbox.setX(-45);
+        this.direction = -1;
+        this.sprite.flipX = true;
+        this.sprite.x = 10;
+        if(Phaser.Input.Keyboard.JustDown(this.shift)){
+          if(this.canDash){
+            this.canDash = false;
+            this.body.setVelocityX(-this.dashSpeed);
+            this.isOnAction = true;
+            this.canAnimate = false;
+            this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
+    
+            this.scene.time.delayedCall(this.dashTime, () => {
+              if(this.sprite.anims.currentAnim.key === 'dash_player'){
+                this.sprite.stop();
+                this.canAnimate = true;
+              }
+              this.isOnAction = false;
+            }, [], this);
+            this.scene.time.delayedCall(this.dashCoolDown, () => {this.canDash = true;}, [], this);
+          }
+        }
+        else{
+          this.body.setVelocityX(-this.speed);
         }
       }
-      else{
-        this.body.setVelocityX(-this.speed);
-      }
-    }
-    else if (this.d.isDown) {
-      this.direction = 1;
-      this.weaponHitbox.setX(100);
-      this.sprite.flipX = false;
-      this.sprite.x = 55;
-      if(Phaser.Input.Keyboard.JustDown(this.shift)){
-        if(this.canDash){
-          this.canDash = false;
-          this.body.setVelocityX(this.dashSpeed);
-          this.isOnAction = true;
-          this.canAnimate = false;
-          this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
-  
-          this.scene.time.delayedCall(this.dashTime, () => {
-            if(this.sprite.anims.currentAnim.key === 'dash_player'){
-              this.sprite.stop();
-              this.canAnimate = true;
-            }
-            this.isOnAction = false;
-          }, [], this);
-          this.scene.time.delayedCall(this.dashCoolDown, () => {this.canDash = true;}, [], this);
+      else if (this.d.isDown) {
+        this.direction = 1;
+        this.weaponHitbox.setX(110);
+        this.sprite.flipX = false;
+        this.sprite.x = 55;
+        if(Phaser.Input.Keyboard.JustDown(this.shift)){
+          if(this.canDash){
+            this.canDash = false;
+            this.body.setVelocityX(this.dashSpeed);
+            this.isOnAction = true;
+            this.canAnimate = false;
+            this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
+    
+            this.scene.time.delayedCall(this.dashTime, () => {
+              if(this.sprite.anims.currentAnim.key === 'dash_player'){
+                this.sprite.stop();
+                this.canAnimate = true;
+              }
+              this.isOnAction = false;
+            }, [], this);
+            this.scene.time.delayedCall(this.dashCoolDown, () => {this.canDash = true;}, [], this);
+          }
+        }
+        else{
+          this.body.setVelocityX(this.speed);
         }
       }
-      else{
-        this.body.setVelocityX(this.speed);
+      else {
+        this.body.setVelocityX(0);
       }
     }
-    else {
-      this.body.setVelocityX(0);
-    }
+    
   }
 
   animations(){

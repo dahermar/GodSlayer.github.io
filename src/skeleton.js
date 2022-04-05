@@ -7,7 +7,7 @@ import Enemy from "./enemy.js";
 
     constructor(scene, x, y) {
 
-      super(scene, x, y, 3, 200, -700, 0, 400, 150, 2500, 48, 44, 4, 1)
+      super(scene, x - 60, y - 108, 3, 200, -700, 0, 400, 150, 2500, 48, 44, 4, 1)
 
       this.oldX = 48;
     

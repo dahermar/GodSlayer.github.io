@@ -45,13 +45,17 @@ export default class Level extends Phaser.Scene {
     this.enemies = this.add.group();
     
     this.player = new Player(this, 200, 610);
-<<<<<<< Updated upstream
-    this.enemies.add(new Archer(this, 900, 610));
+    //this.enemies.add(new Archer(this, 900, 610));
     //this.enemies.add(new Skeleton(this, 700, 610));
-=======
-    this.enemies.add(new Skeleton(this, 700, 610));
->>>>>>> Stashed changes
 
+    const enemiesLayer = this.map.getObjectLayer('Enemies');
+    enemiesLayer.objects.forEach(enem => {
+      if(enem.type === "Skeleton")
+        this.enemies.add(new Skeleton(this, enem.x, enem.y));
+      else if(enem.type === "Archer")
+        this.enemies.add(new Archer(this, enem.x, enem.y));
+      });
+    //this.enemies.add(new Skeleton(this, 560 , 556));
     this.potions = this.add.group();
     this.potions.add(new Potion(this, 450, 400));
     this.potions.add(new Potion(this, 1050, 200));
@@ -104,8 +108,6 @@ export default class Level extends Phaser.Scene {
 
 
     //this.platformLayerCollider = this.physics.add.collider(this.player, this.platformLayer);
-
-    
 
     this.fullscreenButton.on('pointerup', function () {
 
