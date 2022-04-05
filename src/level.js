@@ -41,15 +41,16 @@ export default class Level extends Phaser.Scene {
     this.wallLayer = this.map.createLayer('Wall', tileset1);
     this.decorativesLayer = this.map.createLayer('Decoratives', tileset2);
     this.platformLayer = this.map.createLayer('Platform', tileset1);
-    
-    
-    
-    
+  
     this.enemies = this.add.group();
     
     this.player = new Player(this, 200, 610);
+<<<<<<< Updated upstream
     this.enemies.add(new Archer(this, 900, 610));
     //this.enemies.add(new Skeleton(this, 700, 610));
+=======
+    this.enemies.add(new Skeleton(this, 700, 610));
+>>>>>>> Stashed changes
 
     this.potions = this.add.group();
     this.potions.add(new Potion(this, 450, 400));
