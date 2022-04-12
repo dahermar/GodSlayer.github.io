@@ -31,12 +31,7 @@ import Potion from "./potion.js";
       this.sprite.setScale(scale);
       this.add(this.sprite);
 
-    }
-  
-    updateUI() {
-      if(this.lives >= 0)
-        this.hpText.text = 'Enemy lives: ' + this.lives + '\n';
-    }
+    } 
 
     getDamage(numDamage) {}
 

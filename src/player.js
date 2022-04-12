@@ -17,7 +17,7 @@ export default class Player extends Phaser.GameObjects.Container {
  
 
   constructor(scene, x, y) {
-    super(scene, x - 65, y - 102);
+    super(scene, x + 20, y - 102);
     this.direction=1;
     this.throwing_object=10;
     this.lives = MAX_VIDAS;

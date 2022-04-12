@@ -20,15 +20,14 @@ export default class Boot extends Phaser.Scene {
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     this.load.tilemapTiledJSON('tilemap', 'assets/map/finalMap.json')
     this.load.setPath('assets/sprites/');
-    this.load.image('castle', 'PlatformerSet1/main_lev_build_doble.png');
-    this.load.image('castleDecorative', 'PlatformerSet1/other_and_decorative_doble.png');
-    this.load.image('forestMain', 'Forest/TX Tileset Ground.png');
-    this.load.image('background01', 'BackGround/01 background.png');
-    this.load.image('background03A', 'BackGround/03 background A.png');
-    this.load.image('backgroundDay2', 'BackGround/SET1_bakcground_day2.png');
-    this.load.image('backgroundDay3', 'BackGround/SET1_bakcground_day3.png');
-    this.load.image('backgroundObj', 'BackGround/SET1_background_obj.png');
-    this.load.image('background', 'background720.jpg');
+    this.load.image('castleMain', 'PlatformerSet1/main_lev_build_rescaled.png');
+    this.load.image('castleDecorative', 'PlatformerSet1/other_and_decorative_rescaled.png');
+    this.load.image('forestMain', 'Forest/SET1_Mainlev_build_rescaled.png');
+    this.load.image('01_background', 'Background/01 background_rescaled.png');
+    this.load.image('02_background', 'Background/02 background_rescaled.png');
+    this.load.image('03_background_A', 'Background/03 background A_rescaled.png');
+    this.load.image('04_background', 'Background/04 background_rescaled.png');
+    this.load.image('05_background', 'Background/05 background_rescaled.png');
     this.load.image('enemy', 'skeleton.png');
     this.load.image('knife','knife.png');
     this.load.image('arrow','./Archer/projectile.png');
@@ -64,6 +63,7 @@ export default class Boot extends Phaser.Scene {
     this.anims.create({key: 'fall_player', frames: this.anims.generateFrameNumbers('player', { start: 46, end: 48 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'dash_player', frames: this.anims.generateFrameNumbers('player', { start: 69, end: 72 }),frameRate: 20, repeat: -1 });
     this.anims.create({key: 'attack2_player', frames: this.anims.generateFrameNumbers('player', { start: 76, end: 85 }),frameRate: 10, repeat: 0 });
+   
     this.anims.create({key: 'attack_skeleton', frames: this.anims.generateFrameNumbers('skeletonAttack', { start: 0, end: 17 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'dead_skeleton', frames: this.anims.generateFrameNumbers('skeletonDead', { start: 0, end: 14 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'hit_skeleton', frames: this.anims.generateFrameNumbers('skeletonHit', { start: 0, end: 7 }),frameRate: 10, repeat: 0 });
@@ -72,7 +72,7 @@ export default class Boot extends Phaser.Scene {
     
     this.anims.create({key: 'attack_archer', frames: this.anims.generateFrameNumbers('archer', { start: 24, end: 30 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'dead_archer', frames: this.anims.generateFrameNumbers('archer', { start: 8, end: 15 }),frameRate: 10, repeat: 0 });
-    this.anims.create({key: 'idle_archer', frames: this.anims.generateFrameNumbers('archer', { start: 40, end: 43 }),frameRate: 10, repeat: -1 });
+    this.anims.create({key: 'idle_archer', frames: this.anims.generateFrameNumbers('archer', { start: 40, end: 43 }),frameRate: 8, repeat: -1 });
     this.anims.create({key: 'walk_archer', frames: this.anims.generateFrameNumbers('archer', { start: 0, end: 7 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'roll_archer', frames: this.anims.generateFrameNumbers('archer', { start: 16, end: 14 }),frameRate: 10, repeat: 0 });
     

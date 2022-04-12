@@ -15,10 +15,14 @@ export default class Projectile extends Phaser.GameObjects.Sprite {
         this.body.setVelocityX(direction*this.speed);
         this.damage = damage;
 
-        
+        this.scene.physics.add.collider(this, this.scene.groundLayer, this.worldCollision);
+        this.scene.physics.add.collider(this, this.scene.wallLayer, this.worldCollision);
     }
-    
-    preUpdate(t,dt) {
-        
+
+
+    preUpdate(t,dt) { }
+
+    worldCollision(proj, worldObj){
+        proj.destroy();
     }
 }

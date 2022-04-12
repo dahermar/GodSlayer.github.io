@@ -7,7 +7,7 @@ import Enemy from "./enemy.js";
 
     constructor(scene, x, y) {
 
-      super(scene, x - 60, y - 108, 3, 200, -700, 0, 400, 150, 2500, 48, 44, 4, 1)
+      super(scene, x + 25, y - 108, 3, 200, -700, 0, 400, 150, 2500, 48, 44, 4, 1)
 
       this.oldX = 48;
     
@@ -19,9 +19,7 @@ import Enemy from "./enemy.js";
 
       this.add(this.weaponHitbox);
       
-      this.hpText = this.scene.add.text(1090, 15, `HP: ${this.lives}`);
-      this.hpText.setScrollFactor(0,0);
-      this.updateUI();
+      
     }
 
    /**
@@ -30,8 +28,7 @@ import Enemy from "./enemy.js";
     getDamage(numDamage) {
       if(this.lives > 0){
         this.lives -= numDamage;
-        this.updateUI();
-        
+        this.body.setVelocityX(0);
         this.sprite.x = this.oldX;
         this.sprite.y = 44;
         this.hasBeenHurt = true;
@@ -55,7 +52,6 @@ import Enemy from "./enemy.js";
     death(){
       this.sprite.play('dead_skeleton',true);
       this.canAnimate = false;
-      this.hpText.destroy();
       //new Potion(this.scene,this.x,this.y);
       this.scene.time.delayedCall(8000, () => {this.destroy();}, [], this);
     }

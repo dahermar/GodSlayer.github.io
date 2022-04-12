@@ -32,25 +32,34 @@ export default class Level extends Phaser.Scene {
     });
     const fondo = this.add.image(0,0,'background').setOrigin(0);
     fondo.setScale(1.2);
-    const castleSet = this.map.addTilesetImage('main_lev_build_doble', 'castle');
-    const castleDecorativeSet = this.map.addTilesetImage('other_and_decorative_doble', 'castleDecorative');
-    const forestMainSet = this.map.addTilesetImage('TX Tileset Ground', 'forestMain');
-    const background01Set = this.map.addTilesetImage('01 background', 'background01');
-    const background03ASet = this.map.addTilesetImage('03 background A', 'background03A');
-    const backgroundDay2Set = this.map.addTilesetImage('SET1_bakcground_day2', 'backgroundDay2');
-    const backgroundDay3Set = this.map.addTilesetImage('SET1_bakcground_day3', 'backgroundDay3');
-    const backgroundObjSet = this.map.addTilesetImage('SET1_background_obj', 'backgroundObj');
+    const castleMainSet = this.map.addTilesetImage('main_lev_build_rescaled', 'castleMain');
+    const castleDecorativeSet = this.map.addTilesetImage('other_and_decorative_rescaled', 'castleDecorative');
+    const forestMainSet = this.map.addTilesetImage('SET1_Mainlev_build_rescaled', 'forestMain');
+    
+    
+    this.bg1 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, '01_background');
+    this.bg1.setScrollFactor(0,0);
+    this.bg1.setOrigin(0,0);
+    this.bg2 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, '02_background');
+    this.bg2.setScrollFactor(0,0);
+    this.bg2.setOrigin(0,0);
+    this.bg3 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, '03_background_A');
+    this.bg3.setScrollFactor(0,0);
+    this.bg3.setOrigin(0,0);
+    this.bg4 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, '04_background');
+    this.bg4.setScrollFactor(0,0);
+    this.bg4.setOrigin(0,0);
+    this.bg5 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, '05_background');
+    this.bg5.setScrollFactor(0,0);
+    this.bg5.setOrigin(0,0);
     
 
-    this.backGround1Layer = this.map.createLayer('BackGround1', [background01Set]);
-    this.backGround2Layer = this.map.createLayer('BackGround2', [backgroundDay2Set]);
-    this.backGround3Layer = this.map.createLayer('BackGround3', [backgroundDay3Set]);
-    this.backGround4Layer = this.map.createLayer('BackGround4', [backgroundObjSet]);
-    this.backWallLayer = this.map.createLayer('BackWall', [castleSet]);
-    this.groundLayer = this.map.createLayer('Ground', [castleSet, forestMainSet]);
-    this.wallLayer = this.map.createLayer('Wall', castleSet);
-    this.decorativesLayer = this.map.createLayer('Decoratives', castleDecorativeSet);
-    this.platformLayer = this.map.createLayer('Platform', [castleSet, forestMainSet]);
+    
+    this.backWallLayer = this.map.createLayer('BackWall', [castleMainSet, forestMainSet]);
+    this.groundLayer = this.map.createLayer('Ground', [castleMainSet, forestMainSet]);
+    this.wallLayer = this.map.createLayer('Wall', [castleMainSet, forestMainSet]);
+    this.decorativesLayer = this.map.createLayer('Decoratives', [castleDecorativeSet,forestMainSet]);
+    this.platformLayer = this.map.createLayer('Platform', [castleMainSet, forestMainSet]);
   
     this.enemies = this.add.group();
     //this.backGround4Layer.scrollFactorX = 0.3;
@@ -70,15 +79,15 @@ export default class Level extends Phaser.Scene {
       else if(charObj.type === "Archer")
         this.enemies.add(new Archer(this, charObj.x, charObj.y));
       });
+    //Phaser.Display.Align.In.Center(this.bg1, this.player);
     //this.enemies.add(new Skeleton(this, 560 , 556));
     this.potions = this.add.group();
     this.potions.add(new Potion(this, 450, 400));
     this.potions.add(new Potion(this, 1050, 200));
 
     //this.cameras.main.setBounds(0,0, 500, 1000);
-    this.cameras.main.startFollow(this.player);
-    this.cameras.main.setZoom(0.1);
-
+    this.playerCamera = this.cameras.main.startFollow(this.player);
+    //this.cameras.main.setZoom(0.1);
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);
     this.fullscreenButton.setScrollFactor(0,0);
@@ -142,6 +151,16 @@ export default class Level extends Phaser.Scene {
 
         }, this);
 
+  }
+
+  update(){
+    this.bg1.tilePositionX = this.playerCamera.scrollX * 0.1;
+    this.bg2.tilePositionX = this.playerCamera.scrollX * 0.15;
+    this.bg3.tilePositionX = this.playerCamera.scrollX * 0.2;
+    this.bg4.tilePositionX = this.playerCamera.scrollX * 0.6;
+    this.bg5.tilePositionX = this.playerCamera.scrollX * 0.7;
+    //this.bg1.tilePositionY = this.playerCamera.scrollY * 0;
+    //this.bg3.tilePositionY = this.playerCamera.scrollY * 0;
   }
 
   /**
