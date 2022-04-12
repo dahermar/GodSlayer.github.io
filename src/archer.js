@@ -15,9 +15,6 @@ import Arrow from "./arrow.js";
       this.direction = -1;
       this.runawayRange = 500;
       
-      this.hpText = this.scene.add.text(1090, 15, `HP: ${this.lives}`);
-      this.hpText.setScrollFactor(0,0);
-      this.updateUI();
     }
 
    /**
@@ -26,7 +23,6 @@ import Arrow from "./arrow.js";
     getDamage(numDamage) {
       if(this.lives > 0){
         this.lives -= numDamage;
-        this.updateUI();
         this.hasBeenHurt = true;
   
         if(this.lives <= 0){
@@ -49,8 +45,6 @@ import Arrow from "./arrow.js";
     death(){
       this.sprite.play('dead_archer',true);
       this.canAnimate = false;
-      this.hpText.destroy();
-      this.scene.enemyKilled();
       //new Potion(this.scene,this.x,this.y);
       this.scene.time.delayedCall(8000, () => {this.destroy();}, [], this);
     }

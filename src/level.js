@@ -32,28 +32,43 @@ export default class Level extends Phaser.Scene {
     });
     const fondo = this.add.image(0,0,'background').setOrigin(0);
     fondo.setScale(1.2);
-    const tileset1 = this.map.addTilesetImage('main_lev_build_doble', 'atlas');
-    const tileset2 = this.map.addTilesetImage('other_and_decorative_doble', 'atlas2');
+    const castleSet = this.map.addTilesetImage('main_lev_build_doble', 'castle');
+    const castleDecorativeSet = this.map.addTilesetImage('other_and_decorative_doble', 'castleDecorative');
+    const forestMainSet = this.map.addTilesetImage('TX Tileset Ground', 'forestMain');
+    const background01Set = this.map.addTilesetImage('01 background', 'background01');
+    const background03ASet = this.map.addTilesetImage('03 background A', 'background03A');
+    const backgroundDay2Set = this.map.addTilesetImage('SET1_bakcground_day2', 'backgroundDay2');
+    const backgroundDay3Set = this.map.addTilesetImage('SET1_bakcground_day3', 'backgroundDay3');
+    const backgroundObjSet = this.map.addTilesetImage('SET1_background_obj', 'backgroundObj');
     
-    
-    this.backWallLayer = this.map.createLayer('BackWall', tileset1);
-    this.groundLayer = this.map.createLayer('Ground', tileset1);
-    this.wallLayer = this.map.createLayer('Wall', tileset1);
-    this.decorativesLayer = this.map.createLayer('Decoratives', tileset2);
-    this.platformLayer = this.map.createLayer('Platform', tileset1);
+
+    this.backGround1Layer = this.map.createLayer('BackGround1', [background01Set]);
+    this.backGround2Layer = this.map.createLayer('BackGround2', [backgroundDay2Set]);
+    this.backGround3Layer = this.map.createLayer('BackGround3', [backgroundDay3Set]);
+    this.backGround4Layer = this.map.createLayer('BackGround4', [backgroundObjSet]);
+    this.backWallLayer = this.map.createLayer('BackWall', [castleSet]);
+    this.groundLayer = this.map.createLayer('Ground', [castleSet, forestMainSet]);
+    this.wallLayer = this.map.createLayer('Wall', castleSet);
+    this.decorativesLayer = this.map.createLayer('Decoratives', castleDecorativeSet);
+    this.platformLayer = this.map.createLayer('Platform', [castleSet, forestMainSet]);
   
     this.enemies = this.add.group();
+    //this.backGround4Layer.scrollFactorX = 0.3;
+    //this.backGround3Layer.scrollFactorX = 0.2;
+    //this.backGround2Layer.scrollFactorX = 0.1;
+    //this.backGround1Layer.scrollFactorX = 0.05;
     
-    this.player = new Player(this, 200, 610);
     //this.enemies.add(new Archer(this, 900, 610));
     //this.enemies.add(new Skeleton(this, 700, 610));
 
-    const enemiesLayer = this.map.getObjectLayer('Enemies');
-    enemiesLayer.objects.forEach(enem => {
-      if(enem.type === "Skeleton")
-        this.enemies.add(new Skeleton(this, enem.x, enem.y));
-      else if(enem.type === "Archer")
-        this.enemies.add(new Archer(this, enem.x, enem.y));
+    const charactersLayer = this.map.getObjectLayer('Characters');
+    charactersLayer.objects.forEach(charObj => {
+      if(charObj.type === "Main")
+      this.player = new Player(this, charObj.x, charObj.y);
+      else if(charObj.type === "Skeleton")
+        this.enemies.add(new Skeleton(this, charObj.x, charObj.y));
+      else if(charObj.type === "Archer")
+        this.enemies.add(new Archer(this, charObj.x, charObj.y));
       });
     //this.enemies.add(new Skeleton(this, 560 , 556));
     this.potions = this.add.group();
@@ -62,6 +77,7 @@ export default class Level extends Phaser.Scene {
 
     //this.cameras.main.setBounds(0,0, 500, 1000);
     this.cameras.main.startFollow(this.player);
+    this.cameras.main.setZoom(0.1);
 
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);

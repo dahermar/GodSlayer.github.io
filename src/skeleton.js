@@ -56,7 +56,6 @@ import Enemy from "./enemy.js";
       this.sprite.play('dead_skeleton',true);
       this.canAnimate = false;
       this.hpText.destroy();
-      this.scene.enemyKilled();
       //new Potion(this.scene,this.x,this.y);
       this.scene.time.delayedCall(8000, () => {this.destroy();}, [], this);
     }
