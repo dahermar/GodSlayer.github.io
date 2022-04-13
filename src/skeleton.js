@@ -95,18 +95,21 @@ import Enemy from "./enemy.js";
           if((this.x - 10 < this.scene.player.x)  && (this.scene.player.x < this.x + 10)){
              this.body.setVelocityX(0);
            }
-           else if (this.scene.player.x<this.x) {
+           else if (this.scene.player.x<this.x && (this.scene.groundLayer.hasTileAtWorldXY(this.x -10, this.y + 110) || this.scene.platformLayer.hasTileAtWorldXY(this.x -10, this.y + 110)) && !this.scene.wallLayer.hasTileAtWorldXY(this.x -35, this.y + 50) && !this.scene.groundLayer.hasTileAtWorldXY(this.x -35, this.y + 50)) {
             this.weaponHitbox.setX(-45);
             this.sprite.flipX = true;
             this.sprite.x = this.oldX = 12;  
             this.body.setVelocityX(-this.speed);
             
           }
-          else if (this.scene.player.x>this.x) {
+          else if (this.scene.player.x>this.x && (this.scene.groundLayer.hasTileAtWorldXY(this.x + 70, this.y + 109) || this.scene.platformLayer.hasTileAtWorldXY(this.x + 70, this.y + 109)) && !this.scene.wallLayer.hasTileAtWorldXY(this.x + 95, this.y + 50) && !this.scene.groundLayer.hasTileAtWorldXY(this.x + 95, this.y + 50)) {
             this.weaponHitbox.setX(105);
             this.sprite.flipX = false;
             this.sprite.x = this.oldX = 48;
             this.body.setVelocityX(this.speed);
+          }
+          else{
+            this.body.setVelocityX(0);
           }
 
         }
@@ -150,6 +153,7 @@ import Enemy from "./enemy.js";
      * @override
      */
     attack(){
+      
       if((this.x - this.rangeAttack < this.scene.player.x)  && (this.scene.player.x < this.x + this.rangeAttack) && ( this.y - this.rangeAttack < this.scene.player.y)  && (this.scene.player.y < this.y + this.rangeAttack) && this.lives > 0){
         this.body.setVelocityX(0);
         if (this.scene.player.x<this.x) {

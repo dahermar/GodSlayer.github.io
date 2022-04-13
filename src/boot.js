@@ -43,6 +43,9 @@ export default class Boot extends Phaser.Scene {
     this.load.spritesheet('skeletonHit', './Skeleton/SkeletonHit.png', { frameWidth: 30, frameHeight: 32 })
     this.load.spritesheet('skeletonIdle', './Skeleton/SkeletonIdle.png', { frameWidth: 24, frameHeight: 32 })
     this.load.spritesheet('skeletonWalk', './Skeleton/SkeletonWalk.png', { frameWidth: 22, frameHeight: 33 })
+
+    this.load.spritesheet('necromancer', './Necromancer/Necromancer_creativekind-Sheet.png', { frameWidth: 128, frameHeight: 128 })
+
   }
   
 
@@ -76,6 +79,11 @@ export default class Boot extends Phaser.Scene {
     this.anims.create({key: 'walk_archer', frames: this.anims.generateFrameNumbers('archer', { start: 0, end: 7 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'roll_archer', frames: this.anims.generateFrameNumbers('archer', { start: 16, end: 14 }),frameRate: 10, repeat: 0 });
     
+    this.anims.create({key: 'idle_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 0, end: 7 }),frameRate: 8, repeat: -1 });
+    this.anims.create({key: 'spawn_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 34, end: 46 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'dead_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 102, end: 111 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'walk_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 17, end: 24 }),frameRate: 10, repeat: -1 });
+    this.anims.create({key: 'hit_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 85, end: 89 }),frameRate: 10, repeat: 0 });
     
 
   }

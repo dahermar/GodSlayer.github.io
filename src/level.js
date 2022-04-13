@@ -2,6 +2,7 @@ import Skeleton from './skeleton.js';
 import Archer from './archer.js';
 import Player from './player.js';
 import Potion from './potion.js';
+import Necromancer from './necromancer.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -69,7 +70,8 @@ export default class Level extends Phaser.Scene {
     
     //this.enemies.add(new Archer(this, 900, 610));
     //this.enemies.add(new Skeleton(this, 700, 610));
-
+    let necromancerPosition;
+    const necromancerSkeletons = [];
     const charactersLayer = this.map.getObjectLayer('Characters');
     charactersLayer.objects.forEach(charObj => {
       if(charObj.type === "Main")
@@ -78,7 +80,15 @@ export default class Level extends Phaser.Scene {
         this.enemies.add(new Skeleton(this, charObj.x, charObj.y));
       else if(charObj.type === "Archer")
         this.enemies.add(new Archer(this, charObj.x, charObj.y));
+      else if(charObj.type === "Necromancer")
+        necromancerPosition = [charObj.x, charObj.y];
+      else if(charObj.type === "NecromancerSkeleton")
+         necromancerSkeletons.push([charObj.x, charObj.y, false]);
       });
+      console.log("Lista level:"+necromancerSkeletons);
+
+     this.enemies.add(new Necromancer(this, necromancerPosition[0], necromancerPosition[1], necromancerSkeletons));
+
     //Phaser.Display.Align.In.Center(this.bg1, this.player);
     //this.enemies.add(new Skeleton(this, 560 , 556));
     this.potions = this.add.group();
