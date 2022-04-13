@@ -18,7 +18,6 @@ export default class necromancerSkeleton extends Skeleton {
      * @override
      */
      death(){
-         console.log("sa muerto");
         this.sprite.play('dead_skeleton',true);
         this.canAnimate = false;
         //new Potion(this.scene,this.x,this.y);
