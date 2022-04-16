@@ -85,7 +85,6 @@ export default class Level extends Phaser.Scene {
       else if(charObj.type === "NecromancerSkeleton")
          necromancerSkeletons.push([charObj.x, charObj.y, false]);
       });
-      console.log("Lista level:"+necromancerSkeletons);
 
      this.enemies.add(new Necromancer(this, necromancerPosition[0], necromancerPosition[1], necromancerSkeletons));
 

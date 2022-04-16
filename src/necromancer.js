@@ -8,10 +8,9 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
  export default class Necromancer extends Enemy {
 
     constructor(scene, x, y, skeletonList) {
-        console.log("Lista necro:"+ skeletonList);
-        super(scene, x + 5, y - 98, 1, 200, -700, 0, 1000, 700, 2500, 48, 44, 3.3, 2)
+        super(scene, x + 5, y - 140, 3, 200, -700, 0, 1000, 700, 2500, 44, -5, 2.7, 2)
         this.skeletons = skeletonList;
-        this.body.setSize(80,98);
+        this.body.setSize(90,138);
         this.direction = -1;
     }
 
@@ -45,7 +44,8 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
       this.sprite.play('dead_necromancer',true);
       this.canAnimate = false;
       //new Potion(this.scene,this.x,this.y);
-      this.scene.time.delayedCall(20000, () => {this.destroy();}, [], this);
+      this.isOnAction = true;
+      this.scene.time.delayedCall(5000, () => {this.destroy();}, [], this);
       this.skeletons.forEach(charObj => {
         if(charObj[2]){
             charObj[3].getDamage(100);
@@ -59,14 +59,12 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
      */
     preUpdate(t,dt) { 
       //this.checkCollision();
-      /*if(!this.isOnAction){
-        if(!this.attack()){
-          //this.move();
-        }
-      }*/
-      console.log(this.skeletons[0]);
-      this.spawnSkeleton();
-        this.animations();
+      if(!this.isOnAction){
+        this.spawnSkeleton();
+        this.move();
+      } 
+
+      this.animations();
     }
 
     /**
@@ -92,44 +90,15 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
       
       //else if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView )){
         
-      else if((this.x - this.runawayRange < this.scene.player.x)  && (this.scene.player.x < this.x + this.runawayRange) && (this.y - this.runawayRange< this.scene.player.y)  && (this.scene.player.y < this.y + this.runawayRange )){
-        if (this.scene.player.x<this.x && (this.scene.groundLayer.hasTileAtWorldXY(this.x + 70, this.y + 99) || this.scene.platformLayer.hasTileAtWorldXY(this.x + 70, this.y + 99)) && !this.scene.wallLayer.hasTileAtWorldXY(this.x + 100, this.y + 50) && !this.scene.groundLayer.hasTileAtWorldXY(this.x + 100, this.y + 50)) {
-        
-          this.sprite.flipX = false;
-          this.direction = -1;
-          this.body.setVelocityX(this.speed);
-        
-        }
-        else if (this.scene.player.x>this.x && (this.scene.groundLayer.hasTileAtWorldXY(this.x +25, this.y + 99) || this.scene.platformLayer.hasTileAtWorldXY(this.x +25, this.y + 99)) && !this.scene.wallLayer.hasTileAtWorldXY(this.x - 5, this.y + 50) && !this.scene.groundLayer.hasTileAtWorldXY(this.x - 5, this.y + 50)) {
-        
-        this.sprite.flipX = true;
-        this.direction = +1;
-        this.body.setVelocityX(-this.speed);
-        }
+      else if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView )){
+       if(this.scene.player.x < this.x){
+         this.sprite.flipX = true;
+       }
+       else{
+        this.sprite.flipX = false;
       }
-        /*else{ //Codigo para que vaya hacia ti
-          
-          if((this.scene.player.x > this.x - 10)  && (this.scene.player.x < this.x + 10)){
-            this.body.setVelocityX(0);
-          }
-          else if (this.scene.player.x<this.x) {
-          
-            this.sprite.flipX = true;
-            this.direction = -1;
-            this.body.setVelocityX(-this.speed);
-          
-          }
-          else if (this.scene.player.x>this.x) {
-          
-          this.sprite.flipX = false;
-          this.direction = +1;
-          this.body.setVelocityX(+this.speed);
-          }
-        }*/
-      //}
-      else{
-        this.body.setVelocityX(0);
       }
+      
     }
 
     attack(){
@@ -192,10 +161,22 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
             let cont= 0;
             this.skeletons.forEach(charObj => {
             if(!charObj[2] && this.scene.player.x>charObj[0]-225 && this.scene.player.x<charObj[0]+275 && this.scene.player.y>charObj[1]-250 && this.scene.player.y<charObj[1]+250){
-                
-                charObj[3]=new necromancerSkeleton(this.scene, charObj[0], charObj[1], cont, this);
-                this.scene.enemies.add(charObj[3]);
-                charObj[2] = true;
+              this.canAnimate = false; 
+              this.isOnAction = true;         
+              this.sprite.play('spawn_necromancer',true).on('animationcomplete-spawn_necromancer', () => {this.canAnimate = true; this.isOnAction = false; 
+                });;
+              this.contAux = cont;
+              this.scene.time.delayedCall(1000, () => {
+                         
+              this.skeletons[this.contAux][3]=new necromancerSkeleton(this.scene, this.skeletons[this.contAux][0], this.skeletons[this.contAux][1], this.contAux, this);
+                this.scene.enemies.add(this.skeletons[this.contAux][3]);
+
+              }, [], this);
+
+              
+              this.skeletons[cont][2] = true;
+
+              return ;
             }
             cont++;
             });

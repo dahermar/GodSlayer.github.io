@@ -44,7 +44,7 @@ export default class Boot extends Phaser.Scene {
     this.load.spritesheet('skeletonIdle', './Skeleton/SkeletonIdle.png', { frameWidth: 24, frameHeight: 32 })
     this.load.spritesheet('skeletonWalk', './Skeleton/SkeletonWalk.png', { frameWidth: 22, frameHeight: 33 })
 
-    this.load.spritesheet('necromancer', './Necromancer/Necromancer_creativekind-Sheet.png', { frameWidth: 128, frameHeight: 128 })
+    this.load.spritesheet('necromancer', './Necromancer/Necromancer_creativekind-Sheet.png', { frameWidth: 160, frameHeight: 128 })
 
   }
   
