@@ -125,9 +125,9 @@ export default class Boot extends Phaser.Scene {
     this.anims.create({key: 'dead_worm', frames: this.anims.generateFrameNumbers('wormDead', { start: 0, end: 7 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'hit_worm', frames: this.anims.generateFrameNumbers('wormHit', { start: 0, end: 2 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'idle_worm', frames: this.anims.generateFrameNumbers('wormIdle', { start: 0, end: 8 }),frameRate: 10, repeat: -1 });
-    this.anims.create({key: 'walk_worm', frames: this.anims.generateFrameNumbers('wormWalk', { start: 0, end: 8 }),frameRate: 5, repeat: -1 });
+    this.anims.create({key: 'walk_worm', frames: this.anims.generateFrameNumbers('wormWalk', { start: 0, end: 8 }),frameRate: 10, repeat: -1 });
     
-    this.anims.create({key: 'fireBall_anim', frames: this.anims.generateFrameNumbers('fireBallAnim', { start: 0, end: 5 }),frameRate: 5, repeat: -1 });
+    this.anims.create({key: 'fireBall_anim', frames: this.anims.generateFrameNumbers('fireBallAnim', { start: 0, end: 5 }),frameRate: 10, repeat: -1 });
 
     this.anims.create({key: 'attack_wolf', frames: this.anims.generateFrameNumbers('wolfAttack', { start: 0, end: 15 }),frameRate: 20, repeat: 0 });
     this.anims.create({key: 'dead_wolf', frames: this.anims.generateFrameNumbers('wolfDead', { start: 0, end: 17 }),frameRate: 10, repeat: 0 });

@@ -134,7 +134,7 @@ export default class Level extends Phaser.Scene {
 
     //this.cameras.main.setBounds(0,0, 500, 1000);
     this.playerCamera = this.cameras.main.startFollow(this.player, false, 1, 1, 0, 75);
-    //this.cameras.main.setZoom(0.1);
+    //this.cameras.main.setZoom(0.8);
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);
     this.fullscreenButton.setScrollFactor(0,0);

@@ -7,7 +7,7 @@ import Projectile from './projectile.js';
 export default class Fireball extends Projectile {
 
     constructor(scene, x, y,direction,mode,sprite) {
-        super(scene, x, y, direction, 44, 25, 2, 300, 2,sprite);
+        super(scene, x, y, 20, 20, direction, false, 44, 25, 2, 600, 2,sprite);
         this.speed = 100;
         this.mode=mode;
         this.cambio=true;
@@ -31,7 +31,7 @@ export default class Fireball extends Projectile {
     }
     
     preUpdate(t,dt) {
-        this.play('fireBall_anim',true);
+        this.sprite.play('fireBall_anim',true);
         if(this.mode==3){
             this.body.setVelocityY(this.speed);
             if(this.cambio==true){

@@ -7,7 +7,7 @@ import Fireball from "./fireball.js";
 
     constructor(scene, x, y) {
 
-      super(scene, x + 25, y - 108, 3, 50, -700, 0, 1000, 600, 2500, 48, 44, 4, 1)
+      super(scene, x + 25, y - 108, 3, 50, -700, 0, 1000, 500, 2500, 48, 44, 4, 1)
       this.oldX = 100;
       this.body.setSize(200,100);
       this.direction = -1;

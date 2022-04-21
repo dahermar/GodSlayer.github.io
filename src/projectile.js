@@ -1,20 +1,23 @@
-export default class Projectile extends Phaser.GameObjects.Sprite {
+export default class Projectile extends Phaser.GameObjects.Container {
 
-    constructor(scene, x, y, direction, distance_x, distance_y, scale, speed, damage, sprite) {
+    constructor(scene, x, y, sizeX, sizeY, direction, isLeft, distance_x, distance_y, scale, speed, damage, spriteName) {
 
-        super(scene, x, y + distance_y, sprite);
-        if(direction == 1){
-            this.flipX = true;
+        super(scene, x, y + distance_y);
+        this.setSize(sizeX, sizeY);
+        this.sprite = this.scene.add.sprite(0,0,spriteName);
+        if((direction == 1 && isLeft) || (direction == -1 && !isLeft)){
+            this.sprite.flipX = true;
             this.x += distance_x;
         }
-        this.setScale(scale);
+        
+        this.sprite.setScale(scale);
         this.speed =speed;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
         this.body.setVelocityX(direction*this.speed);
         this.damage = damage;
-
+        this.add(this.sprite);
         this.scene.physics.add.collider(this, this.scene.groundLayer, this.worldCollision);
         this.scene.physics.add.collider(this, this.scene.wallLayer, this.worldCollision);
     }
