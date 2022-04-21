@@ -21,14 +21,12 @@ export default class Player extends Phaser.GameObjects.Container {
     this.direction=1;
     this.throwing_object=10;
     this.lives = MAX_VIDAS;
-    this.potions = 5;
     this.canMove = true;
     this.isOnAction = false;
     this.isInvulnerable = false;
     this.canAnimate = true;
     this.canThrow = true;
     this.canAttack = true;
-    this.canConsume=true;
     this.touchingWall = false;
     this.wasTouchingWall = false;
     this.lastWallX = -1000;
@@ -78,7 +76,6 @@ export default class Player extends Phaser.GameObjects.Container {
     this.shift = this.scene.input.keyboard.addKey('SHIFT');
     this.f = this.scene.input.keyboard.addKey('F');
     this.l = this.scene.input.keyboard.addKey('L');
-    this.c = this.scene.input.keyboard.addKey('C');
     //this.j = this.scene.input.keyboard.addKey('J');
     
     this.platformCollider = this.scene.physics.add.collider(this, this.scene.platformLayer, this.platformCollision);
@@ -131,15 +128,6 @@ export default class Player extends Phaser.GameObjects.Container {
   }
 
 
-  consume(){
-    if(Phaser.Input.Keyboard.JustDown(this.c)&&this.potions>0 && this.canConsume && this.lives< MAX_VIDAS){
-          this.lives++;
-          this.potions--;
-          this.canConsume=false;
-          this.scene.time.delayedCall(1000, () => {this.canConsume = true;}, [], this);
-          this.updateUI();
-  }
-}
   
  /**
    * El jugador ha sido atacado por un enemigo por lo que este método quita una vida y
@@ -178,16 +166,13 @@ export default class Player extends Phaser.GameObjects.Container {
     this.sprite.play('death_player',true);
     this.canAnimate = false;
     this.enableKeys(false);
+    this.scene.damageLayerCollider.active = false;
     this.scene.playerDeath();
   }
 
   recivePotion(){
-    //this.potions++;
     if(this.lives < MAX_VIDAS){
       this.lives++;
-      this.potions--;
-      this.canConsume=false;
-      this.scene.time.delayedCall(1000, () => {this.canConsume = true;}, [], this);
       this.updateUI();
 }
   }
@@ -207,15 +192,13 @@ export default class Player extends Phaser.GameObjects.Container {
     this.f.enabled = enable;
     this.l.reset();
     this.l.enabled = enable;
-    this.c.reset();
-    this.c.enabled = enable;
   }
   
   /**
    * Actualiza la UI con la puntuación actual
    */
   updateUI() {
-    this.label.text = 'Throwable: '+ this.throwing_object +'\nPotions: '+ this.potions;
+    this.label.text = 'Throwable: '+ this.throwing_object;
     // this.healthbar.setCrop(0,0,this.healthbar.totalx*((this.lives/ MAX_VIDAS)), 50);
     this.healthbar.setCrop(0,0,this.healthbar.width*((this.lives/ MAX_VIDAS)), 50);
   }
@@ -234,7 +217,6 @@ export default class Player extends Phaser.GameObjects.Container {
       this.movePlayer();
       this.attack();
       this.throw();
-      this.consume();
     }
     this.animations();
     this.checkWallCollision(); 
@@ -290,7 +272,7 @@ export default class Player extends Phaser.GameObjects.Container {
             this.body.setVelocityX(-this.dashSpeed);
             this.isOnAction = true;
             this.canAnimate = false;
-            this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
+            this.sprite.play('dash_player',true);//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
     
             this.scene.time.delayedCall(this.dashTime, () => {
               if(this.sprite.anims.currentAnim.key === 'dash_player'){

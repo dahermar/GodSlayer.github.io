@@ -23,6 +23,10 @@ export default class Boot extends Phaser.Scene {
     this.load.image('castleMain', 'PlatformerSet1/main_lev_build_rescaled.png');
     this.load.image('castleDecorative', 'PlatformerSet1/other_and_decorative_rescaled.png');
     this.load.image('forestMain', 'Forest/SET1_Mainlev_build_rescaled.png');
+    this.load.image('forestSecundary', 'Forest/SET1_Main_bckgrdlev_build_rescaled.png');
+    this.load.image('caveMain', 'Caves/caves_mainlev_build_rescaled.png');
+    this.load.image('caveProps1', 'Caves/caves_props1_rescaled.png');
+    this.load.image('caveProps2', 'Caves/caves_props2_rescaled.png');
     this.load.image('01_background', 'Background/01 background_rescaled.png');
     this.load.image('02_background', 'Background/02 background_rescaled.png');
     this.load.image('03_background_A', 'Background/03 background A_rescaled.png');
@@ -36,15 +40,41 @@ export default class Boot extends Phaser.Scene {
     this.load.image('muerte', 'muerte.png');
     this.load.image('emptybar', 'emptybar.png');
     this.load.image('bar', 'bar.png');
-    this.load.spritesheet('player', './Warrior/SpriteSheet/Warrior_Sheet-Effect.png', { frameWidth: 69, frameHeight: 44 })
-    this.load.spritesheet('archer', './Archer/SpriteSheet/spritesheet.png', { frameWidth: 64, frameHeight: 64 })
-    this.load.spritesheet('skeletonAttack', './Skeleton/SkeletonAttack.png', { frameWidth: 43, frameHeight: 37 })
-    this.load.spritesheet('skeletonDead', './Skeleton/SkeletonDead.png', { frameWidth: 33, frameHeight: 32 })
-    this.load.spritesheet('skeletonHit', './Skeleton/SkeletonHit.png', { frameWidth: 30, frameHeight: 32 })
-    this.load.spritesheet('skeletonIdle', './Skeleton/SkeletonIdle.png', { frameWidth: 24, frameHeight: 32 })
-    this.load.spritesheet('skeletonWalk', './Skeleton/SkeletonWalk.png', { frameWidth: 22, frameHeight: 33 })
+    
+    this.load.spritesheet('player', './Warrior/SpriteSheet/Warrior_Sheet-Effect.png', { frameWidth: 69, frameHeight: 44 });
+    
+    this.load.spritesheet('archer', './Archer/SpriteSheet/spritesheet.png', { frameWidth: 64, frameHeight: 64 });
+    
+    this.load.spritesheet('skeletonAttack', './Skeleton/SkeletonAttack.png', { frameWidth: 43, frameHeight: 37 });
+    this.load.spritesheet('skeletonDead', './Skeleton/SkeletonDead.png', { frameWidth: 33, frameHeight: 32 });
+    this.load.spritesheet('skeletonHit', './Skeleton/SkeletonHit.png', { frameWidth: 30, frameHeight: 32 });
+    this.load.spritesheet('skeletonIdle', './Skeleton/SkeletonIdle.png', { frameWidth: 24, frameHeight: 32 });
+    this.load.spritesheet('skeletonWalk', './Skeleton/SkeletonWalk.png', { frameWidth: 22, frameHeight: 33 });
 
-    this.load.spritesheet('necromancer', './Necromancer/Necromancer_creativekind-Sheet.png', { frameWidth: 160, frameHeight: 128 })
+    this.load.spritesheet('necromancer', './Necromancer/Necromancer_creativekind-Sheet.png', { frameWidth: 160, frameHeight: 128 });
+
+    this.load.spritesheet('batAttack', './Bat/noBKG_BatAttack_strip.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('batDead', './Bat/noBKG_BatDeath_strip.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('batIdle', './Bat/noBKG_BatFlight_strip.png', { frameWidth: 64, frameHeight: 64 });
+
+    this.load.spritesheet('wormAttack', './FireWorm/Attack.png', { frameWidth: 90, frameHeight: 90 });
+    this.load.spritesheet('wormDead', './FireWorm/Death.png', { frameWidth: 90, frameHeight: 90 });
+    this.load.spritesheet('wormIdle', './FireWorm/Idle.png', { frameWidth: 90, frameHeight: 90 });
+    this.load.spritesheet('wormHit', './FireWorm/Get_Hit.png', { frameWidth: 90, frameHeight: 90 });
+    this.load.spritesheet('wormWalk', './FireWorm/Walk.png', { frameWidth: 90, frameHeight: 90 });
+
+    this.load.spritesheet('wolfAttack', './Wolf/WolfAttack.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('wolfDead', './Wolf/WolfDeath.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('wolfIdle', './Wolf/WolfIdle.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('wolfRun', './Wolf/WolfRun.png', { frameWidth: 64, frameHeight: 64 });
+
+    this.load.spritesheet('fireBallAnim', './FireWorm/FireBall.png', { frameWidth: 46, frameHeight: 46 });
+
+    this.load.image('fireball', './FireWorm/MoveSprite.png');
+    this.load.image('fireballBL', './FireWorm/Attack2.png');
+
+
+    this.load.image('fireball', './FireWorm/MoveSprite.png');
 
   }
   
@@ -85,6 +115,23 @@ export default class Boot extends Phaser.Scene {
     this.anims.create({key: 'walk_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 17, end: 24 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'hit_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 85, end: 89 }),frameRate: 10, repeat: 0 });
     
+    this.anims.create({key: 'idle_bat', frames: this.anims.generateFrameNumbers('batIdle', { start: 0, end: 7 }),frameRate: 8, repeat: -1 });
+    this.anims.create({key: 'attack_bat', frames: this.anims.generateFrameNumbers('batAttack', { start: 0, end: 9 }),frameRate: 20, repeat: 0 });
+    this.anims.create({key: 'dead_bat_start', frames: this.anims.generateFrameNumbers('batDead', { start: 0, end: 2 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'dead_bat_fall', frames: this.anims.generateFrameNumbers('batDead', { start: 3, end: 3 }),frameRate: 1, repeat: -1 });
+    this.anims.create({key: 'dead_bat_smash', frames: this.anims.generateFrameNumbers('batDead', { start: 4, end: 9 }),frameRate: 10, repeat: 0 });
+  
+    this.anims.create({key: 'attack_worm', frames: this.anims.generateFrameNumbers('wormAttack', { start: 0, end: 31 }),frameRate: 13, repeat: 0 });
+    this.anims.create({key: 'dead_worm', frames: this.anims.generateFrameNumbers('wormDead', { start: 0, end: 7 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'hit_worm', frames: this.anims.generateFrameNumbers('wormHit', { start: 0, end: 2 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'idle_worm', frames: this.anims.generateFrameNumbers('wormIdle', { start: 0, end: 8 }),frameRate: 10, repeat: -1 });
+    this.anims.create({key: 'walk_worm', frames: this.anims.generateFrameNumbers('wormWalk', { start: 0, end: 8 }),frameRate: 5, repeat: -1 });
+    
+    this.anims.create({key: 'fireBall_anim', frames: this.anims.generateFrameNumbers('fireBallAnim', { start: 0, end: 5 }),frameRate: 5, repeat: -1 });
 
+    this.anims.create({key: 'attack_wolf', frames: this.anims.generateFrameNumbers('wolfAttack', { start: 0, end: 15 }),frameRate: 20, repeat: 0 });
+    this.anims.create({key: 'dead_wolf', frames: this.anims.generateFrameNumbers('wolfDead', { start: 0, end: 17 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'idle_wolf', frames: this.anims.generateFrameNumbers('wolfIdle', { start: 0, end: 11 }),frameRate: 10, repeat: -1 });
+    this.anims.create({key: 'run_wolf', frames: this.anims.generateFrameNumbers('wolfRun', { start: 0, end: 7 }),frameRate: 5, repeat: -1 });
   }
 }

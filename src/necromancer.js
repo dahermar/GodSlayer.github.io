@@ -58,7 +58,6 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
      * @override
      */
     preUpdate(t,dt) { 
-      //this.checkCollision();
       if(!this.isOnAction){
         this.spawnSkeleton();
         this.move();
@@ -101,7 +100,7 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
       
     }
 
-    attack(){
+    /*attack(){
       if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView ) && this.lives > 0){
         this.body.setVelocityX(0);
         if (this.scene.player.x<this.x) {
@@ -135,7 +134,7 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
         
       }
       return false;
-    }
+    }*/
 
     /**
      * @override
@@ -170,7 +169,7 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
                          
               this.skeletons[this.contAux][3]=new necromancerSkeleton(this.scene, this.skeletons[this.contAux][0], this.skeletons[this.contAux][1], this.contAux, this);
                 this.scene.enemies.add(this.skeletons[this.contAux][3]);
-
+                this.scene.enemiesPlatformCol.add(this.skeletons[this.contAux][3]);
               }, [], this);
 
               

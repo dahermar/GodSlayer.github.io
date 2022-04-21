@@ -149,7 +149,7 @@ import Arrow from "./arrow.js";
           this.sprite.play('attack_archer',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
         
 
-          this.scene.time.delayedCall(1800, () => {
+          this.scene.time.delayedCall(1300, () => {
             this.isOnAction = false;
             if(this.lives > 0)
               this.canAnimate = true;

@@ -172,7 +172,7 @@ import Enemy from "./enemy.js";
           this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)this.dealWeaponDamage();}, [], this);
           this.canAnimate = false;
           this.isOnAction = true;
-          this.sprite.play('attack_skeleton',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
+          this.sprite.play('attack_skeleton',true).on('animationcomplete-attack_skeleton', () => {if(this.lives > 0){this.canAnimate = true;}});
           this.oldX = this.sprite.x;
           if(this.sprite.flipX === false){
             this.sprite.x = 74;
@@ -181,13 +181,7 @@ import Enemy from "./enemy.js";
             this.sprite.x = -14;
           }
           this.sprite.y = 34;
-          this.scene.time.delayedCall(1800, () => {
-            //this.sprite.stop();
-            this.isOnAction = false;
-            if(this.lives > 0)
-              this.canAnimate = true;
-            
-          }, [], this);
+          this.scene.time.delayedCall(1800, () => {this.isOnAction = false;}, [], this);
           this.scene.time.delayedCall(this.attackSpeed, () => {this.canAttack = true;}, [], this);
         }
         return true;
@@ -195,4 +189,3 @@ import Enemy from "./enemy.js";
       return false;
     }
   }
-  

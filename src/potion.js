@@ -10,7 +10,6 @@ export default class Potion extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(true);
-        this.body.setCollideWorldBounds();
         this.scene.physics.add.overlap(this, this.scene.player,(object, player) => {
             player.recivePotion();
             player.updateUI();
