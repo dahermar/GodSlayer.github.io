@@ -21,7 +21,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.direction=1;
     this.throwing_object=10;
     this.lives = MAX_VIDAS;
-    this.maxJumps = 2;
+    this.maxJumps = 1;
     this.canMove = true;
     this.isOnAction = false;
     this.isInvulnerable = false;
