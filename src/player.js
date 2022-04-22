@@ -234,7 +234,7 @@ export default class Player extends Phaser.GameObjects.Container {
         this.body.setVelocityY(this.jumpSpeed);
         
       }
-      else if(this.numJumps <= 0){ //0
+      else if(this.numJumps <= 1){ //0
         
         this.body.setVelocityY(this.jumpSpeed);
         if(this.body.maxVelocity.y === 200){

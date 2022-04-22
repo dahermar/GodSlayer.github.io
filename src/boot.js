@@ -27,6 +27,9 @@ export default class Boot extends Phaser.Scene {
     this.load.image('caveMain', 'Caves/caves_mainlev_build_rescaled.png');
     this.load.image('caveProps1', 'Caves/caves_props1_rescaled.png');
     this.load.image('caveProps2', 'Caves/caves_props2_rescaled.png');
+    this.load.image('forestProps', 'Forest_Segundo/TX_Village_Props.png');
+    this.load.image('forestProps_rescaled', 'Forest_Segundo/TX_Village_Props_rescaled.png');
+    this.load.image('forestProps_medium', 'Forest_Segundo/TX_Village_Props_medium.png');
     this.load.image('01_background', 'Background/01 background_rescaled.png');
     this.load.image('02_background', 'Background/02 background_rescaled.png');
     this.load.image('03_background_A', 'Background/03 background A_rescaled.png');

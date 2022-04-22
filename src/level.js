@@ -43,6 +43,9 @@ export default class Level extends Phaser.Scene {
     const caveMainSet = this.map.addTilesetImage('caves_mainlev_build_rescaled', 'caveMain');
     const caveProps1Set = this.map.addTilesetImage('caves_props1_rescaled', 'caveProps1');
     const caveProps2Set = this.map.addTilesetImage('caves_props2_rescaled', 'caveProps2');
+    const forestPropsSet = this.map.addTilesetImage('TX_Village_Props', 'forestProps');
+    const forestPropsRescaledSet = this.map.addTilesetImage('TX_Village_Props_rescaled', 'forestProps_rescaled');
+    const forestPropsMediumSet = this.map.addTilesetImage('TX_Village_Props_medium', 'forestProps_medium');
     
     
     this.Castlebg1 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, '01_background');
@@ -63,12 +66,13 @@ export default class Level extends Phaser.Scene {
 
     
     
-    this.backWallLayer = this.map.createLayer('BackWall', [castleMainSet, forestMainSet]);
-    this.groundLayer = this.map.createLayer('Ground', [castleMainSet, forestMainSet, caveMainSet]);
-    this.wallLayer = this.map.createLayer('Wall', [castleMainSet, forestMainSet, caveMainSet]);
-    this.decorativesLayer = this.map.createLayer('Decoratives', [castleDecorativeSet,forestMainSet, caveMainSet]);
-    this.damageLayer = this.map.createLayer('Damage', [castleMainSet, castleDecorativeSet,forestMainSet, caveMainSet]);
-    this.platformLayer = this.map.createLayer('Platform', [castleMainSet, forestMainSet, caveMainSet]);
+    this.backWallLayer = this.map.createLayer('BackWall', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
+    this.groundLayer = this.map.createLayer('Ground', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
+    this.wallLayer = this.map.createLayer('Wall', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
+    this.decorativesBackLayer = this.map.createLayer('DecorativesBack', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
+    this.decorativesFrontLayer = this.map.createLayer('DecorativesFront', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
+    this.damageLayer = this.map.createLayer('Damage', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
+    this.platformLayer = this.map.createLayer('Platform', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
     this.enemies = this.add.group();
     this.enemiesPlatformCol = this.add.group();
     this.batGroup = this.add.group();
