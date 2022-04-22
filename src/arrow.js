@@ -9,7 +9,7 @@ export default class Arrow extends Projectile {
 
     constructor(scene, x, y,direction) {
 
-        super(scene, x, y, 60, 10, direction, true, 44, 25, 2, 800, 2,'arrow');
+        super(scene, x, y, 60, 10, direction, true, 44, 25, 2, 800, 2, 2000, 'arrow');
         this.scene.physics.add.collider(this, this.scene.player,(object, player) => {
             let isRight = false;
             if(this.x > player.x)

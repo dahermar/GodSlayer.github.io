@@ -1,6 +1,6 @@
 export default class Projectile extends Phaser.GameObjects.Container {
 
-    constructor(scene, x, y, sizeX, sizeY, direction, isLeft, distance_x, distance_y, scale, speed, damage, spriteName) {
+    constructor(scene, x, y, sizeX, sizeY, direction, isLeft, distance_x, distance_y, scale, speed, damage, destroyTime, spriteName) {
 
         super(scene, x, y + distance_y);
         this.setSize(sizeX, sizeY);
@@ -20,6 +20,7 @@ export default class Projectile extends Phaser.GameObjects.Container {
         this.add(this.sprite);
         this.scene.physics.add.collider(this, this.scene.groundLayer, this.worldCollision);
         this.scene.physics.add.collider(this, this.scene.wallLayer, this.worldCollision);
+        this.scene.time.delayedCall(destroyTime, () => {this.destroy();}, [], this);
     }
 
 

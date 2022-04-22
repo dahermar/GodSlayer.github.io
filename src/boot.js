@@ -24,12 +24,14 @@ export default class Boot extends Phaser.Scene {
     this.load.image('castleDecorative', 'PlatformerSet1/other_and_decorative_rescaled.png');
     this.load.image('forestMain', 'Forest/SET1_Mainlev_build_rescaled.png');
     this.load.image('forestSecundary', 'Forest/SET1_Main_bckgrdlev_build_rescaled.png');
+    this.load.image('forestBackObjects', 'Forest/SET1_background_obj_rescaled.png');
+    this.load.image('forestProps_rescaled', 'Forest_Segundo/TX_Village_Props_rescaled.png');
+    this.load.image('forestProps_medium', 'Forest_Segundo/TX_Village_Props_medium.png');
+    
     this.load.image('caveMain', 'Caves/caves_mainlev_build_rescaled.png');
     this.load.image('caveProps1', 'Caves/caves_props1_rescaled.png');
     this.load.image('caveProps2', 'Caves/caves_props2_rescaled.png');
-    this.load.image('forestProps', 'Forest_Segundo/TX_Village_Props.png');
-    this.load.image('forestProps_rescaled', 'Forest_Segundo/TX_Village_Props_rescaled.png');
-    this.load.image('forestProps_medium', 'Forest_Segundo/TX_Village_Props_medium.png');
+    
     this.load.image('01_background', 'Background/01 background_rescaled.png');
     this.load.image('02_background', 'Background/02 background_rescaled.png');
     this.load.image('03_background_A', 'Background/03 background A_rescaled.png');
@@ -100,7 +102,7 @@ export default class Boot extends Phaser.Scene {
     this.anims.create({key: 'dash_player', frames: this.anims.generateFrameNumbers('player', { start: 69, end: 72 }),frameRate: 20, repeat: -1 });
     this.anims.create({key: 'attack2_player', frames: this.anims.generateFrameNumbers('player', { start: 76, end: 85 }),frameRate: 10, repeat: 0 });
    
-    this.anims.create({key: 'attack_skeleton', frames: this.anims.generateFrameNumbers('skeletonAttack', { start: 0, end: 17 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'attack_skeleton', frames: this.anims.generateFrameNumbers('skeletonAttack', { start: 0, end: 17 }),frameRate: 15, repeat: 0 });
     this.anims.create({key: 'dead_skeleton', frames: this.anims.generateFrameNumbers('skeletonDead', { start: 0, end: 14 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'hit_skeleton', frames: this.anims.generateFrameNumbers('skeletonHit', { start: 0, end: 7 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'idle_skeleton', frames: this.anims.generateFrameNumbers('skeletonIdle', { start: 0, end: 7 }),frameRate: 10, repeat: -1 });

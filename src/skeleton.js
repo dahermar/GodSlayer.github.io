@@ -7,7 +7,7 @@ import Enemy from "./enemy.js";
 
     constructor(scene, x, y) {
 
-      super(scene, x + 25, y - 108, 3, 200, -700, 0, 400, 150, 2500, 48, 44, 4, 1)
+      super(scene, x + 25, y - 108, 2, 200, -700, 0, 400, 150, 2500, 48, 44, 4, 1)
 
       this.oldX = 48;
     
@@ -169,7 +169,7 @@ import Enemy from "./enemy.js";
         }
         if(this.canAttack === true && this.lives > 0){
           this.canAttack = false;
-          this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)this.dealWeaponDamage();}, [], this);
+          this.scene.time.delayedCall(500, () => {if(!this.hasBeenHurt)this.dealWeaponDamage();}, [], this);
           this.canAnimate = false;
           this.isOnAction = true;
           this.sprite.play('attack_skeleton',true).on('animationcomplete-attack_skeleton', () => {if(this.lives > 0){this.canAnimate = true;}});
