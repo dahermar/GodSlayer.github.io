@@ -71,6 +71,7 @@ export default class Level extends Phaser.Scene {
     this.wallLayer = this.map.createLayer('Wall', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
     this.decorativesBackLayer = this.map.createLayer('DecorativesBack', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
     this.decorativesFrontLayer = this.map.createLayer('DecorativesFront', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
+    this.GrassLayer = this.map.createLayer('DecorativesFront', [forestPropsSet]);
     this.damageLayer = this.map.createLayer('Damage', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
     this.platformLayer = this.map.createLayer('Platform', [castleDecorativeSet,forestMainSet, caveMainSet, forestPropsSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet]);
     this.enemies = this.add.group();
