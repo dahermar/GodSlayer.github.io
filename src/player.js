@@ -124,7 +124,7 @@ export default class Player extends Phaser.GameObjects.Container {
   checkWallCollision(){
     
     if(this.scene.wallLayer.hasTileAtWorldXY(this.x - 1, this.y + 51) || this.scene.wallLayer.hasTileAtWorldXY(this.x + 66, this.y + 51)){
-      this.body.setMaxVelocityY(200);
+      //this.body.setMaxVelocityY(200);
       this.touchingWall = true;
     }
     else{
@@ -160,7 +160,6 @@ export default class Player extends Phaser.GameObjects.Container {
   }
 
   move(){
-    console.log(this.numJumps);
     if (Phaser.Input.Keyboard.JustDown(this.w)) { 
       this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
       if(this.body.onFloor()){

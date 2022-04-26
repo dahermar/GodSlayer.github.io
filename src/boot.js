@@ -37,6 +37,12 @@ export default class Boot extends Phaser.Scene {
     this.load.image('03_background_A', 'Background/03 background A_rescaled.png');
     this.load.image('04_background', 'Background/04 background_rescaled.png');
     this.load.image('05_background', 'Background/05 background_rescaled.png');
+
+    this.load.image('forest_background_night_1', 'Background/SET1_bakcground_day1_rescaled.png');
+    this.load.image('forest_background_night_2', 'Background/SET1_bakcground_day2_rescaled.png');
+    this.load.image('forest_background_night_3', 'Background/SET1_bakcground_day3_rescaled.png');
+    this.load.image('forest_background_night_4', 'Background/SET1_bakcground_night4_rescaled.png');
+
     this.load.image('enemy', 'skeleton.png');
     this.load.image('knife','knife.png');
     this.load.image('arrow','./Archer/projectile.png');

@@ -16,10 +16,7 @@ import Enemy from "./enemy.js";
       this.scene.physics.add.existing(this.weaponHitbox);
       this.weaponHitbox.body.setAllowGravity(false);
 
-
-      this.add(this.weaponHitbox);
-      
-      
+      this.add(this.weaponHitbox); 
     }
 
    /**

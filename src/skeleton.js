@@ -5,9 +5,9 @@ import Enemy from "./enemy.js";
  */
  export default class Skeleton extends Enemy {
 
-    constructor(scene, x, y) {
+    constructor(scene, x, y, livesConst) {
 
-      super(scene, x + 25, y - 108, 2, 200, -700, 0, 400, 150, 2500, 48, 44, 4, 1)
+      super(scene, x + 25, y - 108, livesConst, 200, -700, 0, 400, 150, 2500, 48, 44, 4, 1)
 
       this.oldX = 48;
     

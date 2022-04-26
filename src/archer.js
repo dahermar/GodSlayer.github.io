@@ -9,7 +9,7 @@ import Arrow from "./arrow.js";
 
     constructor(scene, x, y) {
 
-      super(scene, x + 5, y - 98, 1, 200, -700, 0, 1000, 700, 2500, 48, 44, 3.3, 2)
+      super(scene, x + 5, y - 98, 1, 200, -700, 0, 1200, 700, 2500, 48, 44, 3.3, 2)
 
       this.body.setSize(80,98);
       this.direction = -1;

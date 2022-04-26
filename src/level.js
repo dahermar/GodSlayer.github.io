@@ -63,6 +63,26 @@ export default class Level extends Phaser.Scene {
     this.Castlebg5.setScrollFactor(0,0);
     this.Castlebg5.setOrigin(0,0);
 
+    this.forestNightbg1 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'forest_background_night_1');
+    this.forestNightbg1.setScrollFactor(0,0);
+    this.forestNightbg1.setOrigin(0,0);
+    this.forestNightbg2 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'forest_background_night_2');
+    this.forestNightbg2.setScrollFactor(0,0);
+    this.forestNightbg2.setOrigin(0,0);
+    this.forestNightbg3 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'forest_background_night_3');
+    this.forestNightbg3.setScrollFactor(0,0);
+    this.forestNightbg3.setOrigin(0,0);
+    this.forestNightbg4 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'forest_background_night_4');
+    this.forestNightbg4.setScrollFactor(0,0);
+    this.forestNightbg4.setOrigin(0,0);
+    
+
+    this.Castlebg1.removeFromDisplayList();
+    this.Castlebg2.removeFromDisplayList();
+    this.Castlebg3.removeFromDisplayList();
+    this.Castlebg4.removeFromDisplayList();
+    this.Castlebg5.removeFromDisplayList();
+
     
     
     this.backWallLayer = this.map.createLayer('BackWall', [castleMainSet, castleDecorativeSet,forestMainSet, caveMainSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet, forestBackObjSet]);
@@ -92,9 +112,8 @@ export default class Level extends Phaser.Scene {
       if(charObj.type === "Main")
       this.player = new Player(this, charObj.x, charObj.y);
       else if(charObj.type === "Skeleton"){
-        enemyFromTiled = new Skeleton(this, charObj.x, charObj.y);
+        enemyFromTiled = new Skeleton(this, charObj.x, charObj.y, charObj.name);
         this.enemies.add(enemyFromTiled);
-        this.enemiesPlatformCol.add(enemyFromTiled);
       }
       else if(charObj.type === "Archer"){
         enemyFromTiled = new Archer(this, charObj.x, charObj.y);
@@ -214,6 +233,15 @@ export default class Level extends Phaser.Scene {
     this.Castlebg3.tilePositionX = this.playerCamera.scrollX * 0.2;
     this.Castlebg4.tilePositionX = this.playerCamera.scrollX * 0.6;
     this.Castlebg5.tilePositionX = this.playerCamera.scrollX * 0.7;
+
+    this.forestNightbg1.tilePositionX = this.playerCamera.scrollX * 0.1;
+    this.forestNightbg2.tilePositionX = this.playerCamera.scrollX * 0.3;
+    this.forestNightbg3.tilePositionX = this.playerCamera.scrollX * 0.4;
+    this.forestNightbg4.tilePositionX = this.playerCamera.scrollX * 0.6;
+
+    //this.Castlebg1 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'forest_background_night_1');
+    
+    
     //this.bg1.tilePositionY = this.playerCamera.scrollY * 0;
     //this.bg3.tilePositionY = this.playerCamera.scrollY * 0;
   }
