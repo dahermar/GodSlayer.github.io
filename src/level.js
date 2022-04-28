@@ -154,7 +154,12 @@ export default class Level extends Phaser.Scene {
     this.enemies.add(enemyFromTiled);
     this.enemiesPlatformCol.add(enemyFromTiled);
 
+    const collectiblesLayer = this.map.getObjectLayer('Collectibles');
+    charactersLayer.objects.forEach(collecObj => {
+      if(charObj.type === "Symbad"){
 
+      } 
+    });
 
     //Phaser.Display.Align.In.Center(this.bg1, this.player);
     //this.enemies.add(new Skeleton(this, 560 , 556));
