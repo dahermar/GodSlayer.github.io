@@ -48,6 +48,17 @@ export default class Boot extends Phaser.Scene {
     this.load.image('arrow','./Archer/projectile.png');
     this.load.image('potion','potion.png');
     this.load.image('fullscreen', 'fullscreen_white.png');
+    this.load.image('pause', 'pause.png');
+    this.load.image('cross', 'cross.png');
+    this.load.image('back_arrow', 'back_arrow.png');
+
+    this.load.image('simbadCollectible','simbad.png');
+
+    this.load.image('menu_panel', './Menu/menu_panel.png');
+    this.load.image('menu_collectibles_panel', './Menu/menu_collectibles_panel.png');
+    this.load.image('mainmenu', 'MainMenu.png');
+
+
     this.load.image('muerte', 'muerte.png');
     this.load.image('emptybar', 'emptybar.png');
     this.load.image('bar', 'bar.png');
@@ -102,7 +113,7 @@ export default class Boot extends Phaser.Scene {
    */
   
   create() {
-    this.scene.start('level');
+    this.scene.start('main_menu');
     this.anims.create({key: 'standing_player', frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),frameRate: 6, repeat: -1 });
     this.anims.create({key: 'running_player', frames: this.anims.generateFrameNumbers('player', { start: 6, end: 13 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'attack1_player', frames: this.anims.generateFrameNumbers('player', { start: 14, end: 25 }),frameRate: 10, repeat: 0 });

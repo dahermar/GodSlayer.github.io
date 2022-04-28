@@ -167,6 +167,10 @@ export default class Level extends Phaser.Scene {
     this.fullscreenButton.setScale(0.05);
     this.fullscreenButton.setScrollFactor(0,0);
 
+    this.pauseButton = this.add.image(1100, 10, 'pause', 0).setOrigin(1, 0).setInteractive();
+    this.pauseButton.setScale(0.1);
+    this.pauseButton.setScrollFactor(0,0);
+
     this.groundLayer.setCollisionByProperty({collides:true});
     this.wallLayer.setCollisionByProperty({collides:true});
     this.platformLayer.setCollisionByProperty({collides:true});
@@ -228,7 +232,16 @@ export default class Level extends Phaser.Scene {
                 this.scale.startFullscreen();
             }
 
-        }, this);
+    }, this);
+
+    this.pauseButton.on('pointerup', function () {
+
+      console.log("Pausa");
+      this.scene.launch('menu')
+
+      this.scene.pause();
+
+    }, this);
 
   }
 
