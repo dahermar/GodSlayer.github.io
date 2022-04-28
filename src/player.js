@@ -21,6 +21,8 @@ export default class Player extends Phaser.GameObjects.Container {
     this.direction=1;
     this.throwing_object=10;
     this.lives = MAX_VIDAS;
+    this.spawnX = this.x;
+    this.spawnY = this.y;
     this.maxJumps = 1;
     this.canMove = true;
     this.isOnAction = false;
@@ -74,6 +76,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.a = this.scene.input.keyboard.addKey('A');
     this.s = this.scene.input.keyboard.addKey('S');
     this.d = this.scene.input.keyboard.addKey('D');
+    this.e = this.scene.input.keyboard.addKey('E');
     this.shift = this.scene.input.keyboard.addKey('SHIFT');
     this.f = this.scene.input.keyboard.addKey('F');
     this.l = this.scene.input.keyboard.addKey('L');
@@ -81,6 +84,12 @@ export default class Player extends Phaser.GameObjects.Container {
     
     this.platformCollider = this.scene.physics.add.collider(this, this.scene.platformLayer, this.platformCollision);
     //this.wallCollider = this.scene.physics.add.collider(this, this.scene.WallLayer, this.wallCollision);
+    this.scene.physics.add.overlap(this, this.scene.checkPointGroup,(pl, checkp) => {
+      if(Phaser.Input.Keyboard.JustDown(this.e)){
+        this.spawnX = checkp.x + 80;
+        this.spawnY = checkp.y -20;
+      }
+    });
 
     //Fijar la interfaz grafica
     this.healthbar.setScrollFactor(0,0);
@@ -377,6 +386,28 @@ export default class Player extends Phaser.GameObjects.Container {
         this.scene.time.delayedCall(this.attackSpeed, () => {this.canAttack = true;}, [], this);
       }
     }
+  }
+
+  respawn(){
+    this.x = this.spawnX;
+    this.y = this.spawnY;
+    this.direction=1;
+    this.throwing_object=10;
+    this.lives = MAX_VIDAS;
+    this.canMove = true;
+    this.isOnAction = false;
+    this.isInvulnerable = false;
+    this.canAnimate = true;
+    this.canThrow = true;
+    this.canAttack = true;
+    this.touchingWall = false;
+    this.wasTouchingWall = false;
+    this.canDash = true;
+    this.numJumps = 1;
+    this.lastVelocityY = -100;
+    this.enableKeys(true);
+    this.scene.damageLayerCollider.active = true;
+    this.updateUI();
   }
 
 

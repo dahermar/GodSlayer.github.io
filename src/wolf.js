@@ -141,7 +141,7 @@ import Enemy from "./enemy.js";
      * @override
      */
     attack(){
-      if((this.x - this.rangeAttack < this.scene.player.x)  && (this.scene.player.x < this.x + this.rangeAttack) && ( this.y - this.rangeAttack < this.scene.player.y)  && (this.scene.player.y < this.y + this.rangeAttack) && this.lives > 0){
+      if(this.scene.player.lives > 0 && (this.x - this.rangeAttack < this.scene.player.x)  && (this.scene.player.x < this.x + this.rangeAttack) && ( this.y - this.rangeAttack < this.scene.player.y)  && (this.scene.player.y < this.y + this.rangeAttack) && this.lives > 0){
         this.body.setVelocityX(0);
         if (this.scene.player.x<this.x) {
           this.weaponHitbox.setX(-15);

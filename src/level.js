@@ -6,7 +6,8 @@ import Bat from './bat.js';
 import Worm from './worm.js';
 import Wolf from './wolf.js';
 import Necromancer from './necromancer.js';
-import PruebaArbol from './PruebaArbol.js';
+import SproutBoss from './sproutBoss.js';
+import CheckPoint from './checkPoint.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -98,6 +99,7 @@ export default class Level extends Phaser.Scene {
     this.enemiesPlatformCol = this.add.group();
     this.batGroup = this.add.group();
     this.potions = this.add.group();
+    this.checkPointGroup = this.add.group();
     //this.backGround4Layer.scrollFactorX = 0.3;
     //this.backGround3Layer.scrollFactorX = 0.2;
     //this.backGround2Layer.scrollFactorX = 0.1;
@@ -105,61 +107,37 @@ export default class Level extends Phaser.Scene {
     
     //this.enemies.add(new Archer(this, 900, 610));
     //this.enemies.add(new Skeleton(this, 700, 610));
-    let necromancerPosition;
-    let enemyFromTiled;
-    const necromancerSkeletons = [];
-    const charactersLayer = this.map.getObjectLayer('Characters');
-    charactersLayer.objects.forEach(charObj => {
-      if(charObj.type === "Main")
-      this.player = new Player(this, charObj.x, charObj.y);
-      else if(charObj.type === "Skeleton"){
-        enemyFromTiled = new Skeleton(this, charObj.x, charObj.y, charObj.name);
-        this.enemies.add(enemyFromTiled);
-      }
-      else if(charObj.type === "Archer"){
-        enemyFromTiled = new Archer(this, charObj.x, charObj.y);
-        this.enemies.add(enemyFromTiled);
-        this.enemiesPlatformCol.add(enemyFromTiled);
-      }
-      else if(charObj.type === "Necromancer")
-        necromancerPosition = [charObj.x, charObj.y];
-      else if(charObj.type === "NecromancerSkeleton")
-         necromancerSkeletons.push([charObj.x, charObj.y, false]);
-      else if(charObj.type === "Bat"){
-        enemyFromTiled = new Bat(this, charObj.x, charObj.y)
-        this.enemies.add(enemyFromTiled);
-        this.batGroup.add(enemyFromTiled);
-      }
-      else if(charObj.type === "Wolf"){
-        enemyFromTiled = new Wolf(this, charObj.x, charObj.y);
-        this.enemies.add(enemyFromTiled);
-        this.enemiesPlatformCol.add(enemyFromTiled);
-      }
-      else if(charObj.type === "Worm"){
-        enemyFromTiled = new Worm(this, charObj.x, charObj.y);
-        this.enemies.add(enemyFromTiled);
-        this.enemiesPlatformCol.add(enemyFromTiled);
-      }
-      else if(charObj.type === "Potion"){
-        this.potions.add(new Potion(this, charObj.x, charObj.y));
-      }
 
-      else if(charObj.type === "Arbol"){
-        new PruebaArbol(this, charObj.x, charObj.y);
-      }
-        
-    });
-    //this.potions.add(new Potion(this, 7940, 1259));
-    enemyFromTiled = new Necromancer(this, necromancerPosition[0], necromancerPosition[1], necromancerSkeletons);
-    this.enemies.add(enemyFromTiled);
-    this.enemiesPlatformCol.add(enemyFromTiled);
+    
+    this.playerLayer = this.map.getObjectLayer('Player');
+    const playObj = this.playerLayer.objects[0];
+    this.player = new Player(this, playObj.x, playObj.y);
+   
+    
+    this.charactersLayer = this.map.getObjectLayer('Characters');
+    this.createEnemies();
+
+    /*
+    const checkPointsLayer = this.map.getObjectLayer('CheckPoints');
+    checkPointsLayer.objects.forEach(checkObj => {
+      this.checkPointGroup.add(new CheckPoint(this, checkObj.x, checkObj.y));
+    });*/
 
     const collectiblesLayer = this.map.getObjectLayer('Collectibles');
-    charactersLayer.objects.forEach(collecObj => {
-      if(charObj.type === "Symbad"){
-
+    collectiblesLayer.objects.forEach(collecObj => {
+      if(collecObj.type === "Symbad"){
+      
       } 
     });
+
+  
+    this.decorativesFrontLayer.forEachTile(tile =>{
+      if(tile.properties.checkPoint){
+        this.checkPointGroup.add(new CheckPoint(this, tile.x*32, tile.y*32));
+      }
+      
+    });
+  
 
     //Phaser.Display.Align.In.Center(this.bg1, this.player);
     //this.enemies.add(new Skeleton(this, 560 , 556));
@@ -175,6 +153,9 @@ export default class Level extends Phaser.Scene {
     this.pauseButton = this.add.image(1100, 10, 'pause', 0).setOrigin(1, 0).setInteractive();
     this.pauseButton.setScale(0.1);
     this.pauseButton.setScrollFactor(0,0);
+
+    this.deadImage = this.add.image(640,360,'muerte').setScale(0.75).setScrollFactor(0,0);
+    this.deadImage.setVisible(false);
 
     this.groundLayer.setCollisionByProperty({collides:true});
     this.wallLayer.setCollisionByProperty({collides:true});
@@ -219,6 +200,8 @@ export default class Level extends Phaser.Scene {
         
     });
 
+    
+
 
     //this.platformLayerCollider = this.physics.add.collider(this.player, this.platformLayer);
 
@@ -248,6 +231,54 @@ export default class Level extends Phaser.Scene {
 
     }, this);
 
+  }
+
+  createEnemies(){
+    let necromancerPosition;
+    let enemyFromTiled;
+    const necromancerSkeletons = [];
+    this.charactersLayer.objects.forEach(charObj => {
+      if (charObj.type === "Skeleton"){
+        enemyFromTiled = new Skeleton(this, charObj.x, charObj.y, charObj.name);
+        this.enemies.add(enemyFromTiled);
+      }
+      else if(charObj.type === "Archer"){
+        enemyFromTiled = new Archer(this, charObj.x, charObj.y);
+        this.enemies.add(enemyFromTiled);
+        this.enemiesPlatformCol.add(enemyFromTiled);
+      }
+      else if(charObj.type === "Necromancer")
+        necromancerPosition = [charObj.x, charObj.y];
+      else if(charObj.type === "NecromancerSkeleton")
+         necromancerSkeletons.push([charObj.x, charObj.y, false]);
+      else if(charObj.type === "Bat"){
+        enemyFromTiled = new Bat(this, charObj.x, charObj.y)
+        this.enemies.add(enemyFromTiled);
+        this.batGroup.add(enemyFromTiled);
+      }
+      else if(charObj.type === "Wolf"){
+        enemyFromTiled = new Wolf(this, charObj.x, charObj.y);
+        this.enemies.add(enemyFromTiled);
+        this.enemiesPlatformCol.add(enemyFromTiled);
+      }
+      else if(charObj.type === "Worm"){
+        enemyFromTiled = new Worm(this, charObj.x, charObj.y);
+        this.enemies.add(enemyFromTiled);
+        this.enemiesPlatformCol.add(enemyFromTiled);
+      }
+      else if(charObj.type === "Potion"){
+        this.potions.add(new Potion(this, charObj.x, charObj.y));
+      }
+
+      else if(charObj.type === "Arbol"){
+        new SproutBoss(this, charObj.x, charObj.y);
+      }
+        
+    });
+    //this.potions.add(new Potion(this, 7940, 1259));
+    enemyFromTiled = new Necromancer(this, necromancerPosition[0], necromancerPosition[1], necromancerSkeletons);
+    this.enemies.add(enemyFromTiled);
+    this.enemiesPlatformCol.add(enemyFromTiled);
   }
 
   update(){
@@ -284,13 +315,27 @@ export default class Level extends Phaser.Scene {
  
 
   playerDeath() {
-    this.add.image(640,360,'muerte').setScale(0.75).setScrollFactor(0,0);;
+    this.deadImage.setVisible(true);
     this.time.delayedCall(4000, () => {
-      this.scene.start('level');
+      this.restartLevel();
     }
     ,
   [], this);
     //this.time.delayedCall(2000, () => {this.scene.start('end')}, [], this);
+  }
+  
+  restartLevel(){
+    this.deadImage.setVisible(false);
+    this.destroyEnemies();
+    this.player.respawn();
+  }
+
+  destroyEnemies(){
+    const len = this.enemies.getLength();
+    for(let i = 0; i < len; i++) {
+      this.enemies.getChildren()[0].destroy();
+   }
+    this.createEnemies();
   }
 
   enemyKilled() {

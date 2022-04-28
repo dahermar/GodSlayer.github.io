@@ -52,7 +52,7 @@ export default class Boot extends Phaser.Scene {
     this.load.image('cross', 'cross.png');
     this.load.image('back_arrow', 'back_arrow.png');
 
-    this.load.image('simbadCollectible','simbad.png');
+    this.load.image('simbadCollectible','Collectibles/simbad.png');
 
     this.load.image('menu_panel', './Menu/menu_panel.png');
     this.load.image('menu_collectibles_panel', './Menu/menu_collectibles_panel.png');
@@ -98,11 +98,11 @@ export default class Boot extends Phaser.Scene {
 
     this.load.image('fireball', './FireWorm/MoveSprite.png');
 
-    this.load.spritesheet('sproutAttack', './Sprout/Attack/Sprout_attack.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.spritesheet('sproutDead', './Sprout/Death/Sprout_death.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.spritesheet('sproutHit', './Sprout/Damage/Sprout_damage.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.spritesheet('sproutIdle', './Sprout/Idle/Sprout_idle.png', { frameWidth: 64, frameHeight: 64 });
-    this.load.spritesheet('sproutWalk', './Sprout/Move/Sprout_move.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('sproutAttack', './Sprout/Attack/Sprout_attack.png', { frameWidth: 96, frameHeight: 96 });
+    this.load.spritesheet('sproutDead', './Sprout/Death/Sprout_death.png', { frameWidth: 96, frameHeight: 96 });
+    this.load.spritesheet('sproutHit', './Sprout/Damage/Sprout_damage.png', { frameWidth: 96, frameHeight: 96 });
+    this.load.spritesheet('sproutIdle', './Sprout/Idle/Sprout_idle.png', { frameWidth: 96, frameHeight: 96 });
+    this.load.spritesheet('sproutWalk', './Sprout/Move/Sprout_move.png', { frameWidth: 96, frameHeight: 96 });
 
   }
   
@@ -113,7 +113,7 @@ export default class Boot extends Phaser.Scene {
    */
   
   create() {
-    this.scene.start('main_menu');
+    this.scene.start('level');
     this.anims.create({key: 'standing_player', frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),frameRate: 6, repeat: -1 });
     this.anims.create({key: 'running_player', frames: this.anims.generateFrameNumbers('player', { start: 6, end: 13 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'attack1_player', frames: this.anims.generateFrameNumbers('player', { start: 14, end: 25 }),frameRate: 10, repeat: 0 });
@@ -162,6 +162,7 @@ export default class Boot extends Phaser.Scene {
     this.anims.create({key: 'idle_wolf', frames: this.anims.generateFrameNumbers('wolfIdle', { start: 0, end: 11 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'run_wolf', frames: this.anims.generateFrameNumbers('wolfRun', { start: 0, end: 7 }),frameRate: 5, repeat: -1 });
 
-    this.anims.create({key: 'run_sprout', frames: this.anims.generateFrameNumbers('sproutWalk', { start: 0, end: 5 }),frameRate: 10, repeat: -1 });
+    this.anims.create({key: 'run_sprout', frames: this.anims.generateFrameNumbers('sproutWalk', { start: 0, end: 4 }),frameRate: 8, repeat: -1 });
+    this.anims.create({key: 'idle_sprout', frames: this.anims.generateFrameNumbers('sproutIdle', { start: 0, end: 3 }),frameRate: 4, repeat: -1 });
   }
 }

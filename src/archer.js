@@ -128,7 +128,7 @@ import Arrow from "./arrow.js";
     }
 
     attack(){
-      if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView ) && this.lives > 0){
+      if(this.scene.player.lives > 0 && (this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView ) && this.lives > 0){
         this.body.setVelocityX(0);
         if (this.scene.player.x<this.x) {
           
