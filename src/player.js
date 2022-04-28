@@ -88,6 +88,7 @@ export default class Player extends Phaser.GameObjects.Container {
       if(Phaser.Input.Keyboard.JustDown(this.e)){
         this.spawnX = checkp.x + 80;
         this.spawnY = checkp.y -20;
+        checkp.playAnimation();
       }
     });
 
