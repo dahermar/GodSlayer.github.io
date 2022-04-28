@@ -87,6 +87,12 @@ export default class Boot extends Phaser.Scene {
 
     this.load.image('fireball', './FireWorm/MoveSprite.png');
 
+    this.load.spritesheet('sproutAttack', './Sprout/Attack/Sprout_attack.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('sproutDead', './Sprout/Death/Sprout_death.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('sproutHit', './Sprout/Damage/Sprout_damage.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('sproutIdle', './Sprout/Idle/Sprout_idle.png', { frameWidth: 64, frameHeight: 64 });
+    this.load.spritesheet('sproutWalk', './Sprout/Move/Sprout_move.png', { frameWidth: 64, frameHeight: 64 });
+
   }
   
 
@@ -144,5 +150,7 @@ export default class Boot extends Phaser.Scene {
     this.anims.create({key: 'dead_wolf', frames: this.anims.generateFrameNumbers('wolfDead', { start: 0, end: 17 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'idle_wolf', frames: this.anims.generateFrameNumbers('wolfIdle', { start: 0, end: 11 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'run_wolf', frames: this.anims.generateFrameNumbers('wolfRun', { start: 0, end: 7 }),frameRate: 5, repeat: -1 });
+
+    this.anims.create({key: 'run_sprout', frames: this.anims.generateFrameNumbers('sproutWalk', { start: 0, end: 5 }),frameRate: 10, repeat: -1 });
   }
 }

@@ -6,6 +6,7 @@ import Bat from './bat.js';
 import Worm from './worm.js';
 import Wolf from './wolf.js';
 import Necromancer from './necromancer.js';
+import PruebaArbol from './PruebaArbol.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -142,6 +143,10 @@ export default class Level extends Phaser.Scene {
       else if(charObj.type === "Potion"){
         this.potions.add(new Potion(this, charObj.x, charObj.y));
       }
+
+      else if(charObj.type === "Arbol"){
+        new PruebaArbol(this, charObj.x, charObj.y);
+      }
         
     });
     //this.potions.add(new Potion(this, 7940, 1259));
@@ -157,7 +162,7 @@ export default class Level extends Phaser.Scene {
 
     //this.cameras.main.setBounds(0,0, 500, 1000);
     this.playerCamera = this.cameras.main.startFollow(this.player, false, 1, 1, 0, 75);
-    //this.cameras.main.setZoom(0.8);
+    //this.cameras.main.setZoom(0.5);
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);
     this.fullscreenButton.setScrollFactor(0,0);
