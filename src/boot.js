@@ -52,7 +52,8 @@ export default class Boot extends Phaser.Scene {
     this.load.image('cross', 'cross.png');
     this.load.image('back_arrow', 'back_arrow.png');
 
-    this.load.image('simbadCollectible','Collectibles/simbad.png');
+    this.load.image('Simbad','./Collectibles/Simbad.png');
+    this.load.image('Question_Mark','./Collectibles/Question_Mark.png');
 
     this.load.image('menu_panel', './Menu/menu_panel.png');
     this.load.image('menu_collectibles_panel', './Menu/menu_collectibles_panel.png');
@@ -113,7 +114,7 @@ export default class Boot extends Phaser.Scene {
    */
   
   create() {
-    this.scene.start('level');
+    this.scene.start('main_menu');
     this.anims.create({key: 'standing_player', frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),frameRate: 6, repeat: -1 });
     this.anims.create({key: 'running_player', frames: this.anims.generateFrameNumbers('player', { start: 6, end: 13 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'attack1_player', frames: this.anims.generateFrameNumbers('player', { start: 14, end: 25 }),frameRate: 10, repeat: 0 });
@@ -164,5 +165,7 @@ export default class Boot extends Phaser.Scene {
 
     this.anims.create({key: 'run_sprout', frames: this.anims.generateFrameNumbers('sproutWalk', { start: 0, end: 4 }),frameRate: 8, repeat: -1 });
     this.anims.create({key: 'idle_sprout', frames: this.anims.generateFrameNumbers('sproutIdle', { start: 0, end: 3 }),frameRate: 4, repeat: -1 });
+
+    this.anims.create({key: 'checkPoint_anim', frames: this.anims.generateFrameNumbers('fireBallAnim', { start: 0, end: 5 }),frameRate: 10, repeat: 0 });
   }
 }

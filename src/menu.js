@@ -6,11 +6,15 @@
  * El juego termina cuando el jugador ha recogido 10 estrellas.
  * @extends Phaser.Scene
  */
-export default class menu extends Phaser.Scene {
+ export default class menu extends Phaser.Scene {
 
 
     constructor() {
         super({ key: 'menu' });
+    }
+
+    init(data){
+        this.collectible_list= data.collectible_list;
     }
 
     create() {
@@ -18,12 +22,17 @@ export default class menu extends Phaser.Scene {
         
         this.menuCollectiblesPanel = this.add.image(640,380,'menu_collectibles_panel');
         this.menuPanel = this.add.image(640,380,'menu_panel');
-        this.simbadCollectible = this.add.image(500,500,'simbadCollectible');
-        this.collectible_clicked = false;
+        this.backarrowButton = this.add.image(370,330,'back_arrow').setInteractive();
+
+        this.backarrowButton.setScale(3);
+        this.backarrowButton.depth = 3;
+       
+        this.menuCollectiblesPanel.setScale(1.6);
+        this.menuCollectiblesPanel.depth = 2;
 
         this.menuCollectiblesPanel.setVisible(false);
-        this.simbadCollectible.setVisible(false);
         this.menuPanel.setVisible(true);
+        this.backarrowButton.setVisible(false);
 
         // this.add.image(640,380,'menu_panel');
         this.button_x = 540;
@@ -46,10 +55,26 @@ export default class menu extends Phaser.Scene {
             this.scene.stop();
         }, this);
 
+        
+
+        this.backarrowButton.on('pointerup', function () {
+            this.menuPanel.setVisible(true);
+            this.menuCollectiblesPanel.setVisible(false);
+            this.continueButton.setVisible(true);
+            this.VolumeButton.setVisible(true);
+            this.collectible.setVisible(true);
+            this.restart.setVisible(true);
+            this.exitButton.setVisible(true);
+            this.backarrowButton.setVisible(false);
+
+        }, this);
+
+
+
         this.collectible.on('pointerup', function () {
             this.menuPanel.setVisible(false);
             this.menuCollectiblesPanel.setVisible(true);
-            this.menuCollectiblesPanel.depth = 2;
+            
 
             this.continueButton.setVisible(false);
             this.VolumeButton.setVisible(false);
@@ -57,29 +82,44 @@ export default class menu extends Phaser.Scene {
             this.restart.setVisible(false);
             this.exitButton.setVisible(false);
 
+            this.collectible_list.forEach((collectible) => {
+                let button;
 
-            this.simbadCollectible.setVisible(true);
-            this.simbadCollectible.setScale(0.13);
-            this.simbadCollectible.depth =2 ;
-            this.simbadCollectible.x = 450
-            this.simbadCollectible.y = 380
-            this.simbadCollectible.setInteractive().on('pointerup', function () { 
-                if(this.collectible_clicked){
-                    this.simbadCollectible.setScale(0.13);
-                    this.simbadCollectible.x = 450
-                    this.menuCollectiblesPanel.setScale(1);
+                if(collectible.owned){
+                    button = this.add.image(500,500,collectible.name);
+                    button.setScale(0.13);
+                    
                 }
                 else{
-                    this.simbadCollectible.setScale(0.5);
-                    this.simbadCollectible.x= 500;
-                    this.menuCollectiblesPanel.setScale(1.6);
-                    this.backarrowButton = this.add.image(640,380,'cross');
-                    this.backarrowButton.depth = 2;
-
+                    button = this.add.image(500,500,'Question_Mark');
+                    this.add.existing(collectible);
+                    //button.setScale(1);
                 }
-                this.collectible_clicked=!this.collectible_clicked;
+                collectible.depth=2;
 
-            },this);
+                /*
+                button.depth =2 ;
+                button.x = 450
+                button.y = 380
+                */
+
+                button.setInteractive().on('pointerup', function () { 
+                    
+                        if(collectible.owned){
+                            button.setScale(0.5);
+                        }
+                        else{
+                            button.setScale(2.3);
+                        }
+
+                        button.x= 500;
+                        this.backarrowButton.setVisible(true);
+                        
+                },this);
+
+            });
+
+
             
 
             

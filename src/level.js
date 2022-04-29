@@ -98,7 +98,7 @@ export default class Level extends Phaser.Scene {
     this.enemies = this.add.group();
     this.enemiesPlatformCol = this.add.group();
     this.batGroup = this.add.group();
-    this.potions = this.add.group();
+    this.interactible = this.add.group();
     this.checkPointGroup = this.add.group();
     //this.backGround4Layer.scrollFactorX = 0.3;
     //this.backGround3Layer.scrollFactorX = 0.2;
@@ -123,11 +123,14 @@ export default class Level extends Phaser.Scene {
       this.checkPointGroup.add(new CheckPoint(this, checkObj.x, checkObj.y));
     });*/
 
+    const Collectible_list = [];
+
     const collectiblesLayer = this.map.getObjectLayer('Collectibles');
+
     collectiblesLayer.objects.forEach(collecObj => {
-      if(collecObj.type === "Symbad"){
-      
-      } 
+       
+        Collectible_list[collecObj.type]=  new Collectible(this, collecObj.x, collecObj.y, collecObj.name, collecObj.name, collecObj.properties[collecObj.type].value, false );
+        this.interactible.add(Collectible_list[collecObj.type]);
     });
 
   
@@ -163,9 +166,9 @@ export default class Level extends Phaser.Scene {
     this.damageLayer.setCollisionByProperty({collides:true});
     this.physics.add.collider(this.player, this.groundLayer);
     this.physics.add.collider(this.enemies, this.groundLayer);
-    this.physics.add.collider(this.potions, this.groundLayer);
+    this.physics.add.collider(this.interactible, this.groundLayer);
     this.physics.add.collider(this.enemies, this.platformLayer);
-    this.physics.add.collider(this.potions, this.platformLayer);
+    this.physics.add.collider(this.interactible, this.platformLayer);
     //this.physics.add.collider(this.player, this.wallLayer, (player, wall) => {player.touchingWall = true; player.lastWallX = wall.x});
     this.physics.add.collider(this.player, this.wallLayer);
     this.physics.add.collider(this.enemies, this.wallLayer);
@@ -267,7 +270,7 @@ export default class Level extends Phaser.Scene {
         this.enemiesPlatformCol.add(enemyFromTiled);
       }
       else if(charObj.type === "Potion"){
-        this.potions.add(new Potion(this, charObj.x, charObj.y));
+        this.interactible.add(new Potion(this, charObj.x, charObj.y));
       }
 
       else if(charObj.type === "Arbol"){
@@ -275,7 +278,6 @@ export default class Level extends Phaser.Scene {
       }
         
     });
-    //this.potions.add(new Potion(this, 7940, 1259));
     enemyFromTiled = new Necromancer(this, necromancerPosition[0], necromancerPosition[1], necromancerSkeletons);
     this.enemies.add(enemyFromTiled);
     this.enemiesPlatformCol.add(enemyFromTiled);
