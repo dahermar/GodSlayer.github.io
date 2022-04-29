@@ -6,6 +6,7 @@ import Bat from './bat.js';
 import Worm from './worm.js';
 import Wolf from './wolf.js';
 import Necromancer from './necromancer.js';
+import Collectible from './collectible.js';
 import SproutBoss from './sproutBoss.js';
 import CheckPoint from './checkPoint.js';
 
@@ -228,7 +229,7 @@ export default class Level extends Phaser.Scene {
     this.pauseButton.on('pointerup', function () {
 
       console.log("Pausa");
-      this.scene.launch('menu')
+      this.scene.launch('menu',{collectible_list: Collectible_list});
 
       this.scene.pause();
 

@@ -35,8 +35,12 @@ export default class Player extends Phaser.GameObjects.Container {
     this.lastWallX = -1000;
     this.lastWallY = -1000;
     this.scene.add.existing(this);
-    this.healthlabel = this.scene.add.sprite(80, 80, 'emptybar');
-    this.healthbar = this.scene.add.sprite(86, 80, 'bar');
+    this.healthlabel = this.scene.add.sprite(180, 110, 'emptybar');
+    this.healthbar = this.scene.add.sprite(180, 110, 'bar');
+
+    this.healthlabel.setScale(0.84);
+    this.healthbar.setScale(0.84);
+
     this.scene.physics.add.existing(this);
     this.sprite = this.scene.add.sprite(55, 36, 'player');
     
@@ -71,7 +75,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.attackSpeed = 1000;
     this.lastVelocityY = -100;
     // Esta label es la UI en la que pondremos la puntuación del jugador
-    this.label = this.scene.add.text(10, 10, "");
+    //this.label = this.scene.add.text(10, 10, "");
     this.w = this.scene.input.keyboard.addKey('W');
     this.a = this.scene.input.keyboard.addKey('A');
     this.s = this.scene.input.keyboard.addKey('S');
@@ -95,7 +99,7 @@ export default class Player extends Phaser.GameObjects.Container {
     //Fijar la interfaz grafica
     this.healthbar.setScrollFactor(0,0);
     this.healthlabel.setScrollFactor(0,0);
-    this.label.setScrollFactor(0,0);
+    //this.label.setScrollFactor(0,0);
     
    
 
@@ -330,9 +334,9 @@ export default class Player extends Phaser.GameObjects.Container {
    * Actualiza la UI con la puntuación actual
    */
   updateUI() {
-    this.label.text = 'Throwable: '+ this.throwing_object;
+    //this.label.text = 'Throwable: '+ this.throwing_object;
     // this.healthbar.setCrop(0,0,this.healthbar.totalx*((this.lives/ MAX_VIDAS)), 50);
-    this.healthbar.setCrop(0,0,this.healthbar.width*((this.lives/ MAX_VIDAS)), 50);
+    this.healthbar.setCrop(0,0,this.healthbar.width*((this.lives/ MAX_VIDAS)), 300);
   }
   
   
