@@ -174,6 +174,8 @@ export default class Boot extends Phaser.Scene {
 
     this.anims.create({key: 'run_sprout', frames: this.anims.generateFrameNumbers('sproutWalk', { start: 0, end: 4 }),frameRate: 8, repeat: -1 });
     this.anims.create({key: 'idle_sprout', frames: this.anims.generateFrameNumbers('sproutIdle', { start: 0, end: 3 }),frameRate: 4, repeat: -1 });
+    this.anims.create({key: 'dead_sprout', frames: this.anims.generateFrameNumbers('sproutDead', { start: 0, end: 7 }),frameRate: 8, repeat: 0 });
+    
 
     this.anims.create({key: 'checkPoint_anim', frames: this.anims.generateFrameNumbers('fireBallAnim', { start: 0, end: 5 }),frameRate: 10, repeat: 0 });
   }

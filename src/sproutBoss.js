@@ -8,22 +8,54 @@ export default class SproutBoss extends Phaser.GameObjects.Container {
         this.sprite = this.scene.add.sprite(0, 0);
         this.sprite.setScale(9);
         this.add(this.sprite);
-        //this.scene.physics.add.existing(this);
         this.hasFalled = false;
         this.canAnimate = true;
+        this.hasFinished = false;
+        this.hasDied = false;
+        this.stopAnimation = false;
         this.speed = 450;
         this.setSize(430,550);
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
         this.groundCollision = this.scene.physics.add.collider(this.scene.groundLayer, this);
-        this.playerCollision = this.scene.physics.add.overlap(this.scene.player, this, (player, tree) => {
-            player.getDamage(100);this.playerCollision.active = false; 
-            this.canAnimate = false;this.body.setVelocityX(0);
+        this.scene.physics.add.overlap(this.scene.player, this, (player, tree) => {
+            player.getDamage(100);
+            this.canAnimate = false;
+            this.body.setVelocityX(0);
             this.scene.cameras.main.stopFollow();
             this.scene.cameras.main.startFollow(this.scene.player, false, 1, 1, 0, 75);
 
         });
-        this.scene.time.delayedCall(200, () => {this.timePassed = true;}, [], this);
+        this.scene.physics.add.overlap(this, this.scene.sproutFinish, () => {
+            if(!this.hasFinished){
+                this.hasFinished = true;
+                //this.groundCollision.active = true;
+                this.body.setAllowGravity(true);
+                this.scene.player.enableKeys(false);
+                this.body.setVelocityX(this.body.velocity.x / 5);
+                //this.canAnimate = false;
+                this.scene.time.delayedCall(4000, () => {
+                    this.scene.cameras.main.stopFollow();
+                    this.scene.cameras.main.startFollow(this.scene.player, false, 1, 1, 0, 75);
+                    this.scene.player.enableKeys(true);
+                    this.scene.isBossAlive[0] = false;
+                    this.destroy();
+                }, [], this);
+                
+            }
+        });
+
+        this.scene.physics.add.overlap(this, this.scene.sproutDeath, () => {
+            if(!this.hasDied){
+                this.hasDied = true;
+                //this.groundCollision.active = true;
+                this.body.setAllowGravity(false);
+                this.body.setVelocityX(0);
+                this.body.setVelocityY(0);
+                //this.canAnimate = false;
+                
+            }
+        });
 
       } 
 
@@ -33,18 +65,7 @@ export default class SproutBoss extends Phaser.GameObjects.Container {
       }
 
       move(){
-          /*if(this.timePassed && !this.onAir && !this.body.onFloor()){
-            this.onAir = true;
-        }
-        if(this.timePassed &&this.onAir && this.body.onFloor()){
-            console.log("Toco suelo");
-            this.body.setAllowGravity(false);
-            this.groundCollision.active = false;
-        }
-        if(this.scene.player.x > this.x + 400  && this.scene.player.x < this.x + 1000 && this.scene.player.y > this.y && this.scene.player.y < this.y + 1500){
-            this.body.setVelocityX(500);
-            this.sprite.play('run_sprout',true);
-        }*/
+          
         if(this.scene.player.x > this.x  && !this.hasFalled && this.scene.player.x < this.x + 1000 && this.scene.player.y > this.y && this.scene.player.y < this.y + 1500){
             this.body.setAllowGravity(true);
             
@@ -65,7 +86,13 @@ export default class SproutBoss extends Phaser.GameObjects.Container {
       }
 
       animations(){
-        if(this.canAnimate)
+        if(this.hasDied){
+            if(!this.stopAnimation){
+                this.sprite.play('dead_sprout',true);
+                this.stopAnimation = true;
+            }
+        }     
+        else if(this.canAnimate)
             this.sprite.play('run_sprout',true);
         else
             this.sprite.play('idle_sprout',true);

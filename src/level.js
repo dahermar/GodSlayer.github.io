@@ -114,13 +114,31 @@ export default class Level extends Phaser.Scene {
     //this.enemies.add(new Archer(this, 900, 610));
     //this.enemies.add(new Skeleton(this, 700, 610));
 
-    
+    const levelChangesLayer = this.map.getObjectLayer('LevelChanges');
+    levelChangesLayer.objects.forEach(levelObj => {
+      if(levelObj.type === "SproutFinish"){
+        this.sproutFinish = this.add.zone(levelObj.x, levelObj.y, 200, 200);
+        this.physics.add.existing(this.sproutFinish);
+        this.sproutFinish.body.setAllowGravity(false); 
+      }
+
+      if(levelObj.type === "SproutDeath"){
+        this.sproutDeath = this.add.zone(levelObj.x, levelObj.y, 2000, 200);
+        this.physics.add.existing(this.sproutDeath);
+        this.sproutDeath.body.setAllowGravity(false); 
+      }
+    });
+
+
     this.playerLayer = this.map.getObjectLayer('Player');
     const playObj = this.playerLayer.objects[0];
     this.player = new Player(this, playObj.x, playObj.y);
    
     
     this.charactersLayer = this.map.getObjectLayer('Characters');
+
+    
+
     this.createEnemies();
 
     /*
@@ -148,10 +166,12 @@ export default class Level extends Phaser.Scene {
     });
 
     const messagesLayer = this.map.getObjectLayer('Messages');
-
     messagesLayer.objects.forEach(messaObj => {
+      
       console.log(messaObj.properties[0].value);
     });
+
+    
   
 
     //Phaser.Display.Align.In.Center(this.bg1, this.player);
