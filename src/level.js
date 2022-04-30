@@ -37,11 +37,15 @@ export default class Level extends Phaser.Scene {
       tileWidth: 32, 
       tileHeight: 32 
     });
+
+    this.isBossAlive = new Array(true, true, true);
+
     const fondo = this.add.image(0,0,'background').setOrigin(0);
     fondo.setScale(1.2);
     const castleMainSet = this.map.addTilesetImage('main_lev_build_rescaled', 'castleMain');
     const castleDecorativeSet = this.map.addTilesetImage('other_and_decorative_rescaled', 'castleDecorative');
     const forestMainSet = this.map.addTilesetImage('SET1_Mainlev_build_rescaled', 'forestMain');
+    //const forestMainFixedSet = this.map.addTilesetImage('SET1_Mainlev_build_rescaled_fixed', 'forestMain_fixed');
     const forestSecundarySet = this.map.addTilesetImage('SET1_Main_bckgrdlev_build_rescaled', 'forestSecundary');
     const caveMainSet = this.map.addTilesetImage('caves_mainlev_build_rescaled', 'caveMain');
     const caveProps1Set = this.map.addTilesetImage('caves_props1_rescaled', 'caveProps1');
@@ -149,7 +153,8 @@ export default class Level extends Phaser.Scene {
 
     //this.cameras.main.setBounds(0,0, 500, 1000);
     this.playerCamera = this.cameras.main.startFollow(this.player, false, 1, 1, 0, 75);
-    //this.cameras.main.setZoom(0.5);
+    //this.cameras.main.setZoom(0.75);
+    
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);
     this.fullscreenButton.setScrollFactor(0,0);
@@ -274,8 +279,8 @@ export default class Level extends Phaser.Scene {
         this.interactible.add(new Potion(this, charObj.x, charObj.y));
       }
 
-      else if(charObj.type === "Arbol"){
-        new SproutBoss(this, charObj.x, charObj.y);
+      else if(charObj.type === "Sprout" && this.isBossAlive[0]){
+        this.bossSprout = new SproutBoss(this, charObj.x, charObj.y);
       }
         
     });
@@ -338,6 +343,7 @@ export default class Level extends Phaser.Scene {
     for(let i = 0; i < len; i++) {
       this.enemies.getChildren()[0].destroy();
    }
+    this.bossSprout.destroy();
     this.createEnemies();
   }
 

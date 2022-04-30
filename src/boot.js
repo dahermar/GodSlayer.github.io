@@ -23,6 +23,7 @@ export default class Boot extends Phaser.Scene {
     this.load.image('castleMain', 'PlatformerSet1/main_lev_build_rescaled.png');
     this.load.image('castleDecorative', 'PlatformerSet1/other_and_decorative_rescaled.png');
     this.load.image('forestMain', 'Forest/SET1_Mainlev_build_rescaled.png');
+    //this.load.image('forestMain_fixed', 'Forest/SET1_Mainlev_build_rescaled_fixed.png');
     this.load.image('forestSecundary', 'Forest/SET1_Main_bckgrdlev_build_rescaled.png');
     this.load.image('forestBackObjects', 'Forest/SET1_background_obj_rescaled.png');
     this.load.image('forestProps_rescaled', 'Forest_Segundo/TX_Village_Props_rescaled.png');
@@ -122,7 +123,7 @@ export default class Boot extends Phaser.Scene {
    */
   
   create() {
-    this.scene.start('main_menu');
+    this.scene.start('level');
     this.anims.create({key: 'standing_player', frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),frameRate: 6, repeat: -1 });
     this.anims.create({key: 'running_player', frames: this.anims.generateFrameNumbers('player', { start: 6, end: 13 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'attack1_player', frames: this.anims.generateFrameNumbers('player', { start: 14, end: 25 }),frameRate: 10, repeat: 0 });
