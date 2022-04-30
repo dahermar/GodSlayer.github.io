@@ -83,6 +83,7 @@ export default class Level extends Phaser.Scene {
     this.forestNightbg4.setScrollFactor(0,0);
     this.forestNightbg4.setOrigin(0,0);
     
+    this.forestNightbg1.setDisplayOrigin
 
     this.Castlebg1.removeFromDisplayList();
     this.Castlebg2.removeFromDisplayList();
@@ -144,6 +145,12 @@ export default class Level extends Phaser.Scene {
         this.checkPointGroup.add(new CheckPoint(this, tile.x*32, tile.y*32));
       }
       
+    });
+
+    const messagesLayer = this.map.getObjectLayer('Messages');
+
+    messagesLayer.objects.forEach(messaObj => {
+      console.log(messaObj.properties[0].value);
     });
   
 
