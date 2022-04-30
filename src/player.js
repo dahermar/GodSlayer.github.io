@@ -84,6 +84,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.shift = this.scene.input.keyboard.addKey('SHIFT');
     this.f = this.scene.input.keyboard.addKey('F');
     this.l = this.scene.input.keyboard.addKey('L');
+    this.p = this.scene.input.keyboard.addKey('P');
     //this.j = this.scene.input.keyboard.addKey('J');
     
     this.platformCollider = this.scene.physics.add.collider(this, this.scene.platformLayer, this.platformCollision);

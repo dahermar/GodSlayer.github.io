@@ -27,19 +27,24 @@
           this.sound_main_menu = this.sound.add("init_scene", config);
 
         this.add.image(640,300, 'mainmenu');
-        this.startButton = this.add.text(450,580,'---Press Start---').setInteractive();
+        this.Enter = this.input.keyboard.addKey('ENTER');
+        this.startButton = this.add.text(450,580,'---Press Enter---');
         this.startButton.setFontSize(40);
-        this.startButton.on('pointerup', function () {
-            this.scene.start('level');
-            this.scene.remove();
-            this.sound_main_menu.stop();
-
-        }, this);
         this.sound_main_menu.play();
+        
 
     }
 
     update(){
+        if(Phaser.Input.Keyboard.JustDown(this.Enter)){
+            this.startGame();
+        }
+    }
+
+    startGame(){
+        this.scene.start('level');
+        this.scene.remove();
+        this.sound_main_menu.stop();
     }
 
 }
