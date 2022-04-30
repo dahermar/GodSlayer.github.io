@@ -42,7 +42,7 @@ export default class menu extends Phaser.Scene {
 
         this.button_x = 540;
         this.button_offset = 60;
-        this.image_offset = 60;
+        this.image_offset = 120;
         this.first_image_x = 450;
         this.first_image_y = 380;
         const img_list = [];
@@ -83,7 +83,7 @@ export default class menu extends Phaser.Scene {
                 
                     if(collectible.owned){
                         img_list.push(this.add.image(500,500,collectible.name));
-                        img_list[img_list.length-1].setScale(0.13);
+                        img_list[img_list.length-1].setScale(0.2);
                         
                     }
                     else{
@@ -96,7 +96,9 @@ export default class menu extends Phaser.Scene {
 
                     
                     img_list[img_list.length-1].x = (index % 5) * this.image_offset + this.first_image_x;
-                    img_list[img_list.length-1].y = (index % 5) * this.image_offset + this.first_image_y;
+                    img_list[img_list.length-1].y = Math.floor(index / 5) * this.image_offset + this.first_image_y;
+
+                    console.log();
 
                     img_list[img_list.length-1].setInteractive().on('pointerup', function () { 
 
@@ -171,7 +173,7 @@ export default class menu extends Phaser.Scene {
                     collectible_img.setScale(1);
                 }
                 collectible_img.x = (index % 5) * this.image_offset + this.first_image_x;
-                collectible_img.y = (index % 5) * this.image_offset + this.first_image_y;
+                collectible_img.y = Math.floor(index / 5) * this.image_offset + this.first_image_y;
             });
             this.current_text.visible = false;
             this.cross.setVisible(true);

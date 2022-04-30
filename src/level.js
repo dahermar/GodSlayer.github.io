@@ -129,8 +129,8 @@ export default class Level extends Phaser.Scene {
     const collectiblesLayer = this.map.getObjectLayer('Collectibles');
 
     collectiblesLayer.objects.forEach(collecObj => {
-       
-        Collectible_list[collecObj.type]=  new Collectible(this, collecObj.x, collecObj.y, collecObj.name, collecObj.name, collecObj.properties[collecObj.type].value, false );
+       //console.log(collecObj.properties[collecObj.type]);
+        Collectible_list[collecObj.type]=  new Collectible(this, collecObj.x, collecObj.y, collecObj.name, collecObj.name, collecObj.properties[0].value, false );
         this.interactible.add(Collectible_list[collecObj.type]);
     });
 
