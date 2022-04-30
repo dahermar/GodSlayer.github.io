@@ -9,6 +9,7 @@ import Necromancer from './necromancer.js';
 import Collectible from './collectible.js';
 import SproutBoss from './sproutBoss.js';
 import CheckPoint from './checkPoint.js';
+import TextBox from './textbox.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -167,8 +168,7 @@ export default class Level extends Phaser.Scene {
 
     const messagesLayer = this.map.getObjectLayer('Messages');
     messagesLayer.objects.forEach(messaObj => {
-      
-      console.log(messaObj.properties[0].value);
+      new TextBox(this, messaObj.x, messaObj.y, messaObj.properties[0].value);
     });
 
     

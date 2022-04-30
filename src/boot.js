@@ -58,6 +58,7 @@ export default class Boot extends Phaser.Scene {
 
     this.load.image('menu_panel', './Menu/menu_panel2.png');
     this.load.image('menu_collectibles_panel', './Menu/menu_collectibles_panel2.png');
+    this.load.image('text_box', './Menu/text_box.png');
     this.load.image('mainmenu', 'MainMenu.png');
 
 
