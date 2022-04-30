@@ -101,7 +101,22 @@ export default class Player extends Phaser.GameObjects.Container {
     this.healthlabel.setScrollFactor(0,0);
     //this.label.setScrollFactor(0,0);
     
-   
+    const config = {
+      mute: false,
+      volume: 0.1,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: false,
+      delay: 0,
+    }; // config es opcional
+
+    
+   //this.soud_ = this.scene.sound.add("", config);
+    this.sound_damage_adventurer = this.scene.sound.add("damage_adventurer", config);
+    this.sound_death_adventurer = this.scene.sound.add("death_adventurer", config);
+    this.sound_doubleJump_dash_adventurer = this.scene.sound.add("doubleJump_dash_adventurer", config);
+
 
     this.updateUI();
   }
@@ -203,7 +218,8 @@ export default class Player extends Phaser.GameObjects.Container {
             this.isOnAction = true;
             this.canAnimate = false;
             this.sprite.play('dash_player',true);//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
-    
+            this.sound_doubleJump_dash_adventurer.play();
+
             this.scene.time.delayedCall(this.dashTime, () => {
               if(this.sprite.anims.currentAnim.key === 'dash_player'){
                 this.sprite.stop();
@@ -230,7 +246,8 @@ export default class Player extends Phaser.GameObjects.Container {
             this.isOnAction = true;
             this.canAnimate = false;
             this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
-    
+            this.sound_doubleJump_dash_adventurer.play();
+
             this.scene.time.delayedCall(this.dashTime, () => {
               if(this.sprite.anims.currentAnim.key === 'dash_player'){
                 this.sprite.stop();
@@ -292,6 +309,7 @@ export default class Player extends Phaser.GameObjects.Container {
       else{
         this.scene.time.delayedCall(400, () => {this.isInvulnerable = false;}, [], this);
         this.canAnimate = false;
+        this.sound_damage_adventurer.play();
         this.sprite.play('hurt_player',true).on('animationcomplete-hurt_player', () => {this.canAnimate = true; this.isOnAction = false;});
       }
       
@@ -300,6 +318,7 @@ export default class Player extends Phaser.GameObjects.Container {
   }
   death(){
     this.sprite.play('death_player',true);
+    this.sound_death_adventurer.play();
     this.canAnimate = false;
     this.enableKeys(false);
     this.scene.damageLayerCollider.active = false;

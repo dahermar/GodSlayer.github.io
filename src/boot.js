@@ -105,6 +105,12 @@ export default class Boot extends Phaser.Scene {
     this.load.spritesheet('sproutIdle', './Sprout/Idle/Sprout_idle.png', { frameWidth: 96, frameHeight: 96 });
     this.load.spritesheet('sproutWalk', './Sprout/Move/Sprout_move.png', { frameWidth: 96, frameHeight: 96 });
 
+    this.load.audio("attack_adventurer", "./audio/attack_adventurer.wav");
+    this.load.audio("damage_adventurer", "./audio/damage_adventurer.wav");
+    this.load.audio("death_adventurer", "./audio/death_adventurer.wav");
+    this.load.audio("doubleJump_dash_adventurer", "./audio/doubleJump_dash_adventurer.wav");
+    this.load.audio("init_scene", "./audio/pantallaInicial.wav");
+
   }
   
 

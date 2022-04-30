@@ -11,17 +11,32 @@
 
     constructor() {
         super({ key: 'main_menu' });
+
     }
 
     create() {
+        const config = {
+            mute: false,
+            volume: 0.15,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0,
+          }; // config es opcional
+          this.sound_main_menu = this.sound.add("init_scene", config);
+
         this.add.image(640,300, 'mainmenu');
         this.startButton = this.add.text(450,580,'---Press Start---').setInteractive();
         this.startButton.setFontSize(40);
-
         this.startButton.on('pointerup', function () {
             this.scene.start('level');
             this.scene.remove();
+            this.sound_main_menu.stop();
+
         }, this);
+        this.sound_main_menu.play();
+
     }
 
     update(){
