@@ -26,7 +26,7 @@ export default class menu extends Phaser.Scene {
 
 
         this.backarrowButton = this.add.image(550,200,'back_arrow').setInteractive();
-        this.cross = this.add.image(780, 130, 'cross').setInteractive();
+        this.cross = this.add.image(535, 165, 'cross').setInteractive();
         this.image_clicked = false;
         this.cross_clicked = false;
         
@@ -34,7 +34,7 @@ export default class menu extends Phaser.Scene {
         this.backarrowButton.setScale(1.5);
         this.backarrowButton.depth = 3;
         this.cross.depth = 3;
-        this.cross.setScale(0.5);
+        this.cross.setScale(1);
        
         this.menuCollectiblesPanel.setScale(1.2);
         this.menuCollectiblesPanel.depth = 2;
@@ -49,15 +49,15 @@ export default class menu extends Phaser.Scene {
         this.button_offset = 60;
         this.image_offset = 120;
         this.first_image_x = 580;
-        this.first_image_y = 200;
+        this.first_image_y = 210;
         const img_list = [];
         
 
         this.continueButton = this.add.text(this.button_x, this.button_y,"Continue",{fontFamily: 'Definety '}).setInteractive();
-        this.VolumeButton = this.add.text(this.button_x, this.continueButton.y + this.button_offset,"Volume",{fontFamily: 'Andale Mono'}).setInteractive();
-        this.collectible = this.add.text(this.button_x, this.VolumeButton.y + this.button_offset,"Collectible",{fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setInteractive();
-        this.restart = this.add.text(this.button_x, this.collectible.y + this.button_offset,"Restart",{fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setInteractive();
-        this.exitButton = this.add.text(this.button_x, this.restart.y + this.button_offset,"Exit",{fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setInteractive();
+        this.VolumeButton = this.add.text(this.button_x, this.continueButton.y + this.button_offset,"Volume",{fontFamily: 'Definety '}).setInteractive();
+        this.collectible = this.add.text(this.button_x, this.VolumeButton.y + this.button_offset,"Collectible",{fontFamily: 'Definety '}).setInteractive();
+        this.restart = this.add.text(this.button_x, this.collectible.y + this.button_offset,"Restart",{fontFamily: 'Definety '}).setInteractive();
+        this.exitButton = this.add.text(this.button_x, this.restart.y + this.button_offset,"Exit",{fontFamily: 'Definety '}).setInteractive();
 
         this.continueButton.setFontSize(40);
         this.VolumeButton.setFontSize(40);

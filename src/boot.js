@@ -49,7 +49,7 @@ export default class Boot extends Phaser.Scene {
     this.load.image('potion','potion.png');
     this.load.image('fullscreen', 'fullscreen_white.png');
     this.load.image('pause', 'pause.png');
-    this.load.image('cross', 'cross.png');
+    this.load.image('cross', 'back_arrow.png');
     this.load.image('back_arrow', 'back_arrow.png');
 
     this.load.image('Simbad','./Collectibles/Simbad.png');
