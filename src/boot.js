@@ -112,6 +112,8 @@ export default class Boot extends Phaser.Scene {
     this.load.audio("doubleJump_dash_adventurer", "./audio/doubleJump_dash_adventurer.wav");
     this.load.audio("init_scene", "./audio/pantallaInicial.wav");
     this.load.audio("pause", "./audio/pause.wav");
+    this.load.audio("jump", "./audio/jump.wav");
+    this.load.audio("enemy_death", "./audio/enemy_death.wav");
 
 
   }

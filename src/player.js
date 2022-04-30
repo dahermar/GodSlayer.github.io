@@ -116,6 +116,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.sound_damage_adventurer = this.scene.sound.add("damage_adventurer", config);
     this.sound_death_adventurer = this.scene.sound.add("death_adventurer", config);
     this.sound_doubleJump_dash_adventurer = this.scene.sound.add("doubleJump_dash_adventurer", config);
+    this.sound_jump = this.scene.sound.add("jump", config);
 
 
     this.updateUI();
@@ -166,6 +167,8 @@ export default class Player extends Phaser.GameObjects.Container {
 
   performJump(){
     this.body.setVelocityY(this.jumpSpeed);
+    this.sound_jump.play();
+
     if(this.touchingWall){
       //this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
       this.canMove = false;
