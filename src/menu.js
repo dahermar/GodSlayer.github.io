@@ -19,6 +19,18 @@ export default class menu extends Phaser.Scene {
 
     create() {
 
+        const config = {
+            mute: false,
+            volume: 0.5,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0,
+          }; // config es opcional
+          this.sound_menu = this.sound.add("pause", config);
+
+
         
         this.menuCollectiblesPanel = this.add.image(640, 430,'menu_collectibles_panel');
         this.menuPanel = this.add.image(640,380,'menu_panel');
@@ -186,6 +198,9 @@ export default class menu extends Phaser.Scene {
             this.backarrowButton.visible = false;
 
         }, this);
+
+        this.sound_menu.play();
+
     }
 
     update(){
