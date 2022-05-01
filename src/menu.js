@@ -36,7 +36,6 @@ export default class menu extends Phaser.Scene {
         this.menuPanel = this.add.image(640,380,'menu_panel');
         this.menuPanel.setScale(1.3);
 
-
         this.backarrowButton = this.add.image(550,200,'back_arrow').setInteractive();
         this.cross = this.add.image(535, 165, 'cross').setInteractive();
         this.image_clicked = false;
@@ -65,11 +64,11 @@ export default class menu extends Phaser.Scene {
         const img_list = [];
         
 
-        this.continueButton = this.add.text(this.button_x, this.button_y,"Continue",{fontFamily: 'Definety '}).setInteractive();
-        this.VolumeButton = this.add.text(this.button_x, this.continueButton.y + this.button_offset,"Volume",{fontFamily: 'Definety '}).setInteractive();
-        this.collectible = this.add.text(this.button_x, this.VolumeButton.y + this.button_offset,"Collectible",{fontFamily: 'Definety '}).setInteractive();
-        this.restart = this.add.text(this.button_x, this.collectible.y + this.button_offset,"Restart",{fontFamily: 'Definety '}).setInteractive();
-        this.exitButton = this.add.text(this.button_x, this.restart.y + this.button_offset,"Exit",{fontFamily: 'Definety '}).setInteractive();
+        this.continueButton = this.add.text(this.button_x, this.button_y,"Continue",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.VolumeButton = this.add.text(this.button_x, this.continueButton.y + this.button_offset,"Volume",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.collectible = this.add.text(this.button_x, this.VolumeButton.y + this.button_offset,"Collectible",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.restart = this.add.text(this.button_x, this.collectible.y + this.button_offset,"Restart",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.exitButton = this.add.text(this.button_x, this.restart.y + this.button_offset,"Exit",{fontFamily: 'GeneralFont '}).setInteractive();
 
         this.continueButton.setFontSize(40);
         this.VolumeButton.setFontSize(40);
@@ -100,23 +99,23 @@ export default class menu extends Phaser.Scene {
                 
                     if(collectible.owned){
                         img_list.push(this.add.image(500,500,collectible.name));
-                        img_list[img_list.length-1].setScale(0.2);
+                        img_list[index].setScale(0.2);
                         
                     }
                     else{
                         img_list.push(this.add.image(500,500,'Question_Mark'));
-                        img_list[img_list.length-1].setScale(1);
+                        img_list[index].setScale(1);
                     }
 
-                    img_list[img_list.length-1].depth=3;
+                    img_list[index].depth=3;
                     this.cross.setVisible(true);
 
                     
-                    img_list[img_list.length-1].x = (index % 2) * this.image_offset + this.first_image_x;
-                    img_list[img_list.length-1].y = Math.floor(index / 2) * this.image_offset + this.first_image_y;
+                    img_list[index].x = (index % 2) * this.image_offset + this.first_image_x;
+                    img_list[index].y = Math.floor(index / 2) * this.image_offset + this.first_image_y;
 
 
-                    img_list[img_list.length-1].setInteractive().on('pointerup', function () { 
+                    img_list[index].setInteractive().on('pointerup', function () { 
 
                         if(!this.image_clicked){
 
@@ -125,17 +124,19 @@ export default class menu extends Phaser.Scene {
                             });
                             
                             if(collectible.owned){
-                                img_list[img_list.length-1].setScale(0.3);
-                                this.current_text = this.add.text(500, 500, collectible.desc, {fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'});
+                                console.log(collectible.owned);
+                                img_list[index].setScale(0.3);
+                                this.current_text = this.add.text(500, 500, collectible.desc, {fontFamily: 'GeneralFont '});
                             }
                             else{
-                                img_list[img_list.length-1].setScale(2.3);
-                                this.current_text = this.add.text(500, 500, "Coleccionable no encontrado", {fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'});
+                                console.log(collectible.owned);
+                                img_list[index].setScale(2.3);
+                                this.current_text = this.add.text(500, 500, "Coleccionable no encontrado", {fontFamily: 'GeneralFont '});
                             }
                             this.current_text.depth = 3 ;
-                            img_list[img_list.length-1].x= 640;
-                            img_list[img_list.length-1].y= 300;
-                            img_list[img_list.length-1].setVisible(true);
+                            img_list[index].x= 640;
+                            img_list[index].y= 300;
+                            img_list[index].setVisible(true);
                             this.cross.setVisible(false);
                             this.image_clicked=!this.image_clicked;
 
@@ -181,8 +182,7 @@ export default class menu extends Phaser.Scene {
             
             img_list.forEach((collectible_img, index) => {
                 collectible_img.setVisible(true);
-                console.log(img_list);
-                console.log(this.collectible_list);
+                
                 if(this.collectible_list[index].owned){
                     collectible_img.setScale(0.2);
                 }

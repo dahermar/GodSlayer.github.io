@@ -37,12 +37,14 @@ export default class Player extends Phaser.GameObjects.Container {
     this.scene.add.existing(this);
     this.healthlabel = this.scene.add.sprite(180, 110, 'emptybar');
     this.healthbar = this.scene.add.sprite(180, 110, 'bar');
+    this.healthbar_width =  this.healthbar.width;
 
     this.healthlabel.setScale(0.84);
     this.healthbar.setScale(0.84);
 
     this.scene.physics.add.existing(this);
     this.sprite = this.scene.add.sprite(55, 36, 'player');
+
     
     
     
@@ -359,7 +361,11 @@ export default class Player extends Phaser.GameObjects.Container {
   updateUI() {
     //this.label.text = 'Throwable: '+ this.throwing_object;
     // this.healthbar.setCrop(0,0,this.healthbar.totalx*((this.lives/ MAX_VIDAS)), 50);
-    this.healthbar.setCrop(0,0,this.healthbar.width*((this.lives/ MAX_VIDAS)), 300);
+    
+    this.healthbar.setCrop(0,0,this.healthbar_width*((this.lives/ MAX_VIDAS)), 317);
+    this.healthbar.isCropped = true;
+    
+
   }
   
   
