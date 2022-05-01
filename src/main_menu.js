@@ -27,8 +27,7 @@
 
         this.add.image(640,300, 'mainmenu');
         this.Enter = this.input.keyboard.addKey('ENTER');
-        this.startButton = this.add.text(450,580,'---Press Enter---',{ fontFamily: 'MainMenuFont' }).setFontSize(40);
-        this.startButton = this.add.text(300,300,'---Press Enter Sin fuente---').setFontSize(40);
+        this.startButton = this.add.text(450,580,'Press Enter',{fontFamily: 'GeneralFont '}).setFontSize(40);
         this.startButton.setFontSize(40);
         this.sound_main_menu.play();
         

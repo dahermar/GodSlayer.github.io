@@ -1,8 +1,4 @@
 @font-face {
-    font-family: MainMenuFont;
-    src: url('../fonts/C&C\ Red\ Alert\ [INET].ttf');
-}
-@font-face {
-  font-family: CommonFont;
+  font-family: GeneralFont;
   src: url('../fonts/LanaPixel.ttf');
 }
