@@ -65,11 +65,11 @@ export default class menu extends Phaser.Scene {
         const img_list = [];
         
 
-        this.continueButton = this.add.text(this.button_x, this.button_y,"Continue",{fontFamily: 'Definety '}).setInteractive();
-        this.VolumeButton = this.add.text(this.button_x, this.continueButton.y + this.button_offset,"Volume",{fontFamily: 'Definety '}).setInteractive();
-        this.collectible = this.add.text(this.button_x, this.VolumeButton.y + this.button_offset,"Collectible",{fontFamily: 'Definety '}).setInteractive();
-        this.restart = this.add.text(this.button_x, this.collectible.y + this.button_offset,"Restart",{fontFamily: 'Definety '}).setInteractive();
-        this.exitButton = this.add.text(this.button_x, this.restart.y + this.button_offset,"Exit",{fontFamily: 'Definety '}).setInteractive();
+        this.continueButton = this.add.text(this.button_x, this.button_y,"Continue",{fontFamily: 'CommonFont '}).setInteractive();
+        this.VolumeButton = this.add.text(this.button_x, this.continueButton.y + this.button_offset,"Volume",{fontFamily: 'CommonFont '}).setInteractive();
+        this.collectible = this.add.text(this.button_x, this.VolumeButton.y + this.button_offset,"Collectible",{fontFamily: 'CommonFont '}).setInteractive();
+        this.restart = this.add.text(this.button_x, this.collectible.y + this.button_offset,"Restart",{fontFamily: 'CommonFont '}).setInteractive();
+        this.exitButton = this.add.text(this.button_x, this.restart.y + this.button_offset,"Exit",{fontFamily: 'CommonFont '}).setInteractive();
 
         this.continueButton.setFontSize(40);
         this.VolumeButton.setFontSize(40);

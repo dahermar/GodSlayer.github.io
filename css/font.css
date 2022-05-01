@@ -1,4 +1,8 @@
 @font-face {
-    font-family: myFirstFont;
-    src: url('../fonts/VerminVibesV-Zlg3.ttf');
+    font-family: MainMenuFont;
+    src: url('../fonts/C&C\ Red\ Alert\ [INET].ttf');
+}
+@font-face {
+  font-family: CommonFont;
+  src: url('../fonts/LanaPixel.ttf');
 }

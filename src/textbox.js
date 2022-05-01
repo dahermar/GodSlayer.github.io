@@ -9,7 +9,7 @@ export default class TextBox extends Phaser.GameObjects.Container {
         this.text_box = this.scene.add.image(x+50, y-70, 'text_box');
         this.text_box.setScale(0.5);
 
-        this.text = this.scene.add.text(x-38, y-52, text);
+        this.text = this.scene.add.text(x-38, y-52, text,{fontFamily: 'CommonFont '});
 
         this.text_box.setVisible(false);
         this.text.setVisible(false);
