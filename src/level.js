@@ -10,6 +10,7 @@ import Collectible from './collectible.js';
 import SproutBoss from './sproutBoss.js';
 import CheckPoint from './checkPoint.js';
 import TextBox from './textbox.js';
+import PowerEarned from './powerEarned.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -71,6 +72,14 @@ export default class Level extends Phaser.Scene {
     this.Castlebg5.setScrollFactor(0,0);
     this.Castlebg5.setOrigin(0,0);
 
+    this.Castlebg1.setDepth(-5);
+    this.Castlebg2.setDepth(-5);
+    this.Castlebg3.setDepth(-5);
+    this.Castlebg4.setDepth(-5);
+    this.Castlebg5.setDepth(-5);
+
+
+
     this.forestNightbg1 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'forest_background_night_1');
     this.forestNightbg1.setScrollFactor(0,0);
     this.forestNightbg1.setOrigin(0,0);
@@ -83,14 +92,20 @@ export default class Level extends Phaser.Scene {
     this.forestNightbg4 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'forest_background_night_4');
     this.forestNightbg4.setScrollFactor(0,0);
     this.forestNightbg4.setOrigin(0,0);
-    
-    this.forestNightbg1.setDisplayOrigin
 
-    this.Castlebg1.removeFromDisplayList();
-    this.Castlebg2.removeFromDisplayList();
-    this.Castlebg3.removeFromDisplayList();
-    this.Castlebg4.removeFromDisplayList();
-    this.Castlebg5.removeFromDisplayList();
+    this.forestNightbg1.setDepth(-5);
+    this.forestNightbg2.setDepth(-5);
+    this.forestNightbg3.setDepth(-5);
+    this.forestNightbg4.setDepth(-5);
+    
+    this.currentBackGround = "";
+    this.removeCastleBackGround();
+    this.removeForestBackGround();
+
+    this.addForestBackGround();
+    
+  
+    
 
     
     
@@ -107,6 +122,8 @@ export default class Level extends Phaser.Scene {
     this.batGroup = this.add.group();
     this.interactible = this.add.group();
     this.checkPointGroup = this.add.group();
+    this.toCastleGroup = this.add.group();
+    this.toForestGroup = this.add.group();
     //this.backGround4Layer.scrollFactorX = 0.3;
     //this.backGround3Layer.scrollFactorX = 0.2;
     //this.backGround2Layer.scrollFactorX = 0.1;
@@ -128,8 +145,27 @@ export default class Level extends Phaser.Scene {
         this.physics.add.existing(this.sproutDeath);
         this.sproutDeath.body.setAllowGravity(false); 
       }
+
+      if(levelObj.type === "Dash"){
+        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash");
+      }
+
+      if(levelObj.type === "ToCastle"){
+        const toCas = this.add.zone(levelObj.x, levelObj.y, 300, 700);
+        this.toCastleGroup.add(toCas);
+        this.physics.add.existing(toCas);
+        toCas.body.setAllowGravity(false); 
+      }
+
+      if(levelObj.type === "ToForest"){
+        const toFor = this.add.zone(levelObj.x, levelObj.y, 300, 700);
+        this.toForestGroup.add(toFor);
+        this.physics.add.existing(toFor);
+        toFor.body.setAllowGravity(false); 
+      }
     });
 
+    console.log(this.toCastleGroup.getLength());
 
     this.playerLayer = this.map.getObjectLayer('Player');
     const playObj = this.playerLayer.objects[0];
@@ -378,4 +414,52 @@ export default class Level extends Phaser.Scene {
     this.time.delayedCall(3000, () => {this.enemies.add(this.add.existing(new Skeleton(this, 700, 610)));
     }, [], this);
   }
+
+  removeForestBackGround(){
+    this.forestNightbg1.removeFromDisplayList();
+    this.forestNightbg2.removeFromDisplayList();
+    this.forestNightbg3.removeFromDisplayList();
+    this.forestNightbg4.removeFromDisplayList();
+  }
+
+  removeCastleBackGround(){
+    this.Castlebg1.removeFromDisplayList();
+    this.Castlebg2.removeFromDisplayList();
+    this.Castlebg3.removeFromDisplayList();
+    this.Castlebg4.removeFromDisplayList();
+    this.Castlebg5.removeFromDisplayList();
+  }
+
+  addForestBackGround(){
+    if(this.currentBackGround != "forest"){
+      if(this.currentBackGround === "castle")
+        this.removeCastleBackGround();
+      this.currentBackGround = "forest";
+      this.forestNightbg1.addToDisplayList();
+      this.forestNightbg2.addToDisplayList();
+      this.forestNightbg3.addToDisplayList();
+      this.forestNightbg4.addToDisplayList();
+    }
+    
+  }
+
+  addCastleBackGround(){
+    if(this.currentBackGround != "castle"){
+      if(this.currentBackGround === "forest")
+        this.removeForestBackGround();
+      this.currentBackGround = "castle";
+      this.Castlebg1.addToDisplayList();
+      this.Castlebg2.addToDisplayList();
+      this.Castlebg3.addToDisplayList();
+      this.Castlebg4.addToDisplayList();
+      this.Castlebg5.addToDisplayList();
+    }
+  }
+    
+
 }
+
+
+    
+
+    

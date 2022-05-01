@@ -23,7 +23,6 @@ export default class Player extends Phaser.GameObjects.Container {
     this.lives = MAX_VIDAS;
     this.spawnX = this.x;
     this.spawnY = this.y;
-    this.maxJumps = 1;
     this.canMove = true;
     this.isOnAction = false;
     this.isInvulnerable = false;
@@ -65,6 +64,11 @@ export default class Player extends Phaser.GameObjects.Container {
 
     //this.body.bounce.setTo(1, 1);
     //this.body.setMaxSpeed(500);
+
+    //POWERS
+    this.dashEnabled = true;
+    this.maxJumps = 2;
+
     this.speed = 500;
     this.jumpSpeed = -600;
     this.dashSpeed = 1500;
@@ -96,8 +100,21 @@ export default class Player extends Phaser.GameObjects.Container {
         this.spawnX = checkp.x + 80;
         this.spawnY = checkp.y -20;
         checkp.playAnimation();
+        
+        if(this.scene.physics.overlap(this, this.scene.dashEarned))
+          this.scene.dashEarned.interact();
       }
     });
+    //Para cambiar el fondo
+    this.scene.physics.add.overlap(this, this.scene.toCastleGroup,() => {
+      this.scene.addCastleBackGround();
+    });
+
+    this.scene.physics.add.overlap(this, this.scene.toForestGroup,() => {
+      this.scene.addForestBackGround();
+    });
+
+    
 
     //Fijar la interfaz grafica
     this.healthbar.setScrollFactor(0,0);
@@ -142,7 +159,8 @@ export default class Player extends Phaser.GameObjects.Container {
    * @override
    */
     preUpdate(t,dt) {
-      this.checkWallCollision(); 
+     
+      this.checkWallCollision();
       if(this.canMove && !this.isOnAction){
         this.move();
         this.attack();
@@ -164,9 +182,18 @@ export default class Player extends Phaser.GameObjects.Container {
       this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
       this.touchingWall = false;
     }
-    
-    
   }
+
+  /*checkPowerOverlap(){
+    if(this.scene.physics.overlap(this, this.scene.dashEnabled)){
+      this.text_box.setVisible(true);
+      this.text.setVisible(true);
+  }
+  else{
+      this.text_box.setVisible(false);
+      this.text.setVisible(false);
+  }  
+  }*/
 
   performJump(){
     this.body.setVelocityY(this.jumpSpeed);
@@ -217,7 +244,7 @@ export default class Player extends Phaser.GameObjects.Container {
         this.direction = -1;
         this.sprite.flipX = true;
         this.sprite.x = 10;
-        if(Phaser.Input.Keyboard.JustDown(this.shift)){
+        if(Phaser.Input.Keyboard.JustDown(this.shift) && this.dashEnabled){
           if(this.canDash){
             this.canDash = false;
             this.body.setVelocityX(-this.dashSpeed);
@@ -245,7 +272,7 @@ export default class Player extends Phaser.GameObjects.Container {
         this.weaponHitbox.setX(110);
         this.sprite.flipX = false;
         this.sprite.x = 55;
-        if(Phaser.Input.Keyboard.JustDown(this.shift)){
+        if(Phaser.Input.Keyboard.JustDown(this.shift) && this.dashEnabled){
           if(this.canDash){
             this.canDash = false;
             this.body.setVelocityX(this.dashSpeed);
