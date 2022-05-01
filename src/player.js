@@ -168,7 +168,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
   performJump(){
     this.body.setVelocityY(this.jumpSpeed);
-    this.sound_jump.play();
+    //this.sound_jump.play();
 
     if(this.touchingWall){
       //this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
