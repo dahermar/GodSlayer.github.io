@@ -1,3 +1,27 @@
 h1 {
   text-align: center;
 }
+
+div#contenedor {
+/* Take full size */
+height: 100%;
+width: 100%;
+min-height: 1200px;
+/* Stick to the top */
+position: relative;
+background-image: url(./principal.png);
+background-repeat: no-repeat;
+background-position: center;
+background-size:cover;
+top: 0;
+}
+
+/*
+background: url(./principal.png) no-repeat center center fixed;
+background-size: cover;
+*/
+div#contenido {
+  /* Stick to the top */
+  position:sticky;
+  margin-top: 200px;
+}
