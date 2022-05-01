@@ -17,7 +17,5 @@ export default class Collectible extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.overlap(this.scene.player, this,(player, object) => {
             object.owned = true;
         });
-
     }
-
 }
