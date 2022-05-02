@@ -9,9 +9,9 @@ export default class LevelChangeZone extends Phaser.GameObjects.Zone {
   
     constructor(scene, x, y, width, height) {
         super(scene, x, y, width, height);
-        this.scene.physics.add.existing(this);
+        this.scene
         this.weaponHitbox = this.scene.add.zone(110, 40, 90, 80);
-    
+    this.scene.physics.add.existing(this.weaponHitbox);
     this.weaponHitbox.body.setAllowGravity(false);
 
     }
