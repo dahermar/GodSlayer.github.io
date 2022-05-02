@@ -69,8 +69,6 @@ import NecromancerSpell from "./necromancerSpell.js";
      */
     preUpdate(t,dt) { 
       if(!this.isOnAction){
-        console.log("Entra")
-
         this.spawnSkeleton();
         this.move();
         if(this.canAnimate && this.canAttack){

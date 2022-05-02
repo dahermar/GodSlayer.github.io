@@ -65,7 +65,7 @@ export default class menu extends Phaser.Scene {
         
 
         this.continueButton = this.add.text(this.button_x, this.button_y,"Continue",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.VolumeButton = this.add.text(this.button_x, this.continueButton.y + this.button_offset,"Volume",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.VolumeButton = this.add.text(this.button_x, this.continueButton.y + this.button_offset,"Volume    On",{fontFamily: 'GeneralFont '}).setInteractive();
         this.collectible = this.add.text(this.button_x, this.VolumeButton.y + this.button_offset,"Collectible",{fontFamily: 'GeneralFont '}).setInteractive();
         this.restart = this.add.text(this.button_x, this.collectible.y + this.button_offset,"Restart",{fontFamily: 'GeneralFont '}).setInteractive();
         this.exitButton = this.add.text(this.button_x, this.restart.y + this.button_offset,"Exit",{fontFamily: 'GeneralFont '}).setInteractive();
@@ -153,6 +153,17 @@ export default class menu extends Phaser.Scene {
                 }
             });
         }, this);
+        
+
+        this.VolumeButton.on('pointerup', function () {
+            
+            this.sound.mute = !this.sound.mute;
+            if(this.sound.mute)
+                this.VolumeButton.text = "Volume    On";
+            else
+                this.VolumeButton.text = "Volume    Off";
+        }, this);
+
 
 
 

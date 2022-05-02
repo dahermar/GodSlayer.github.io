@@ -147,7 +147,7 @@ export default class Level extends Phaser.Scene {
       }
 
       if(levelObj.type === "Dash"){
-        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash", "La Madre te otorga el Poder del Viento por derrotar al Gran Árbol");
+        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash", "La Madre te otorga el Poder del Gran");
       }
 
       if(levelObj.type === "ToCastle"){
