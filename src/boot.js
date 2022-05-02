@@ -54,7 +54,7 @@ export default class Boot extends Phaser.Scene {
     this.load.image('cross', 'back_arrow.png');
     this.load.image('back_arrow', 'back_arrow.png');
 
-    this.load.image('Simbad','./Collectibles/Simbad.png');
+    this.load.image('Simbad','Collectibles/Simbad.png');
     this.load.image('Question_Mark','./Collectibles/Question_Mark.png');
 
     this.load.image('menu_panel', './Menu/menu_panel2.png');
