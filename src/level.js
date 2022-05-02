@@ -147,7 +147,7 @@ export default class Level extends Phaser.Scene {
       }
 
       if(levelObj.type === "Dash"){
-        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash", "La Madre te otorga el Poder del Gran");
+        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash", "La Madre te otorga el poder del viento por derrotar al Gran Árbol");
       }
 
       if(levelObj.type === "ToCastle"){
@@ -315,28 +315,28 @@ export default class Level extends Phaser.Scene {
         this.enemies.add(enemyFromTiled);
       }
       else if(charObj.type === "Archer"){
-        enemyFromTiled = new Archer(this, charObj.x, charObj.y);
+        enemyFromTiled = new Archer(this, charObj.x, charObj.y, parseInt(charObj.name));
         this.enemies.add(enemyFromTiled);
         this.enemiesPlatformCol.add(enemyFromTiled);
       }
-      else if(charObj.type === "Necromancer"){
+      else if(charObj.type === "Necromancer"&& this.isBossAlive[2]){
         if(charObj.name == "Necromancer1"){
           necromancerPositions[0] = [charObj.x, charObj.y];
         }
-        else if(charObj.name == "Necromancer2"){
+        else if(charObj.name == "Necromancer2"&& this.isBossAlive[2]){
           necromancerPositions[1] = [charObj.x, charObj.y];
 
         }
-        else if(charObj.name == "Necromancer3"){
+        else if(charObj.name == "Necromancer3"&& this.isBossAlive[2]){
           necromancerPositions[2] = [charObj.x, charObj.y];
 
         }
-        else if(charObj.name == "Necromancer4"){
+        else if(charObj.name == "Necromancer4"&& this.isBossAlive[2]){
           necromancerPositions[3] = [charObj.x, charObj.y];
 
         }
       }
-      else if(charObj.type === "NecromancerSkeleton")
+      else if(charObj.type === "NecromancerSkeleton" && this.isBossAlive[2])
          necromancerSkeletons.push([charObj.x, charObj.y, false]);
       else if(charObj.type === "Bat"){
         enemyFromTiled = new Bat(this, charObj.x, charObj.y)
@@ -362,9 +362,11 @@ export default class Level extends Phaser.Scene {
       }
         
     });
-    enemyFromTiled = new Necromancer(this, necromancerPositions, necromancerSkeletons);
-    this.enemies.add(enemyFromTiled);
-    this.enemiesPlatformCol.add(enemyFromTiled);
+    if(this.isBossAlive[2]){
+      enemyFromTiled = new Necromancer(this, necromancerPositions, necromancerSkeletons);
+      this.enemies.add(enemyFromTiled);
+      this.enemiesPlatformCol.add(enemyFromTiled);
+    }
   }
 
   update(){

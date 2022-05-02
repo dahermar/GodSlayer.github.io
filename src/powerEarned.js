@@ -1,6 +1,6 @@
 export default class PowerEarned extends Phaser.GameObjects.Container { 
 
-    constructor(scene, x, y, powerString) {
+    constructor(scene, x, y, powerString, text) {
         super(scene, x + 38, y - 85);
         this.power = powerString;
         this.setSize(300, 160);
@@ -11,7 +11,7 @@ export default class PowerEarned extends Phaser.GameObjects.Container {
         this.text_box = this.scene.add.image(x+50, y-270, 'text_box');
         this.text_box.setScale(0.5);
 
-        this.text = this.scene.add.text(x-38, y-252, "La Madre te otorga el poder del viento por derrotar al Gran Árbol");
+        this.text = this.scene.add.text(x-38, y-252, text);
 
         this.text_box.setVisible(false);
         this.text.setVisible(false);

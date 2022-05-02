@@ -9,7 +9,7 @@ export default class necromancerSkeleton extends Skeleton {
 
     constructor(scene, x, y, position, necro) {
         
-        super(scene, x, y);
+        super(scene, x, y, 1);
         this.necromancer = necro;
         this.pos = position;
     }
@@ -20,7 +20,6 @@ export default class necromancerSkeleton extends Skeleton {
      death(){
         this.sprite.play('dead_skeleton',true);
         this.canAnimate = false;
-        //new Potion(this.scene,this.x,this.y);
         this.scene.time.delayedCall(5000, () => {this.destroy(); this.necromancer.canRespawn(this.pos)}, [], this);
         
     }

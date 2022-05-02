@@ -7,9 +7,9 @@ import Arrow from "./arrow.js";
  */
  export default class Archer extends Enemy {
 
-    constructor(scene, x, y) {
+    constructor(scene, x, y, range) {
 
-      super(scene, x + 5, y - 98, 1, 200, -700, 0, 1200, 700, 2500, 48, 44, 3.3, 2)
+      super(scene, x + 5, y - 98, 1, 200, -700, 0, range, 700, 2500, 48, 44, 3.3, 2)
 
       this.body.setSize(80,98);
       this.direction = -1;

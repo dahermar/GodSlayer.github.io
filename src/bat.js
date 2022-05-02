@@ -8,7 +8,7 @@ import Enemy from "./enemy.js";
     constructor(scene, x, y) {
         //(scene, x, y, lives, speed, jumpSpeed, numJumps, fieldOfView, rangeAttack, attackSpeed, sprite_x, sprite_y , scale, damage) 
 
-      super(scene, x + 50, y - 108, 1, 200, -700, 0, 600, 40, 500, 48, 44, 3, 2);
+      super(scene, x + 50, y - 108, 1, 200, -700, 0, 500, 40, 500, 48, 44, 3, 2);
 
       this.oldX = 50;
       this.deadAnimationCompleted = false;
