@@ -7,10 +7,10 @@ import Skeleton from './skeleton.js';
 
 export default class necromancerSkeleton extends Skeleton {
 
-    constructor(scene, x, y, position, knekro) {
+    constructor(scene, x, y, position, necro) {
         
         super(scene, x, y);
-        this.necromancer = knekro;
+        this.necromancer = necro;
         this.pos = position;
     }
     

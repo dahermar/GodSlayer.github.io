@@ -78,6 +78,8 @@ export default class Boot extends Phaser.Scene {
     this.load.spritesheet('skeletonWalk', './Skeleton/SkeletonWalk.png', { frameWidth: 22, frameHeight: 33 });
 
     this.load.spritesheet('necromancer', './Necromancer/Necromancer_creativekind-Sheet.png', { frameWidth: 160, frameHeight: 128 });
+    this.load.spritesheet('necromancer_spell', './Necromancer/Necromancer_spell.png', { frameWidth: 140, frameHeight: 93 });
+
 
     this.load.spritesheet('batAttack', './Bat/noBKG_BatAttack_strip.png', { frameWidth: 64, frameHeight: 64 });
     this.load.spritesheet('batDead', './Bat/noBKG_BatDeath_strip.png', { frameWidth: 64, frameHeight: 64 });
@@ -152,11 +154,16 @@ export default class Boot extends Phaser.Scene {
     this.anims.create({key: 'roll_archer', frames: this.anims.generateFrameNumbers('archer', { start: 16, end: 14 }),frameRate: 10, repeat: 0 });
     
     this.anims.create({key: 'idle_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 0, end: 7 }),frameRate: 8, repeat: -1 });
-    this.anims.create({key: 'spawn_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 34, end: 46 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'attack_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 34, end: 46 }),frameRate: 10, repeat: 0 });//
     this.anims.create({key: 'dead_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 102, end: 111 }),frameRate: 10, repeat: 0 });
     this.anims.create({key: 'walk_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 17, end: 24 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'hit_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 85, end: 89 }),frameRate: 10, repeat: 0 });
-    
+
+    this.anims.create({key: 'spawn_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 68, end: 84 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'attack2_necromancer', frames: this.anims.generateFrameNumbers('necromancer', { start: 51, end: 63 }),frameRate: 10, repeat: 0 });
+    this.anims.create({key: 'spell_necromancer', frames: this.anims.generateFrameNumbers('necromancer_spell', { start: 0, end: 15 }),frameRate: 20, repeat: 0 });
+
+
     this.anims.create({key: 'idle_bat', frames: this.anims.generateFrameNumbers('batIdle', { start: 0, end: 7 }),frameRate: 8, repeat: -1 });
     this.anims.create({key: 'attack_bat', frames: this.anims.generateFrameNumbers('batAttack', { start: 0, end: 9 }),frameRate: 20, repeat: 0 });
     this.anims.create({key: 'dead_bat_start', frames: this.anims.generateFrameNumbers('batDead', { start: 0, end: 2 }),frameRate: 10, repeat: 0 });

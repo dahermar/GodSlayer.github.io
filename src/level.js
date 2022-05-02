@@ -147,7 +147,7 @@ export default class Level extends Phaser.Scene {
       }
 
       if(levelObj.type === "Dash"){
-        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash");
+        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash", "La Madre te otorga el Poder del Viento por derrotar al Gran Árbol");
       }
 
       if(levelObj.type === "ToCastle"){
@@ -306,7 +306,7 @@ export default class Level extends Phaser.Scene {
   }
 
   createEnemies(){
-    let necromancerPosition;
+    let necromancerPositions = [];
     let enemyFromTiled;
     const necromancerSkeletons = [];
     this.charactersLayer.objects.forEach(charObj => {
@@ -319,8 +319,23 @@ export default class Level extends Phaser.Scene {
         this.enemies.add(enemyFromTiled);
         this.enemiesPlatformCol.add(enemyFromTiled);
       }
-      else if(charObj.type === "Necromancer")
-        necromancerPosition = [charObj.x, charObj.y];
+      else if(charObj.type === "Necromancer"){
+        if(charObj.name == "Necromancer1"){
+          necromancerPositions[0] = [charObj.x, charObj.y];
+        }
+        else if(charObj.name == "Necromancer2"){
+          necromancerPositions[1] = [charObj.x, charObj.y];
+
+        }
+        else if(charObj.name == "Necromancer3"){
+          necromancerPositions[2] = [charObj.x, charObj.y];
+
+        }
+        else if(charObj.name == "Necromancer4"){
+          necromancerPositions[3] = [charObj.x, charObj.y];
+
+        }
+      }
       else if(charObj.type === "NecromancerSkeleton")
          necromancerSkeletons.push([charObj.x, charObj.y, false]);
       else if(charObj.type === "Bat"){
@@ -347,7 +362,7 @@ export default class Level extends Phaser.Scene {
       }
         
     });
-    enemyFromTiled = new Necromancer(this, necromancerPosition[0], necromancerPosition[1], necromancerSkeletons);
+    enemyFromTiled = new Necromancer(this, necromancerPositions, necromancerSkeletons);
     this.enemies.add(enemyFromTiled);
     this.enemiesPlatformCol.add(enemyFromTiled);
   }

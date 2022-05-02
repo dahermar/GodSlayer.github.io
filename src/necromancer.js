@@ -1,27 +1,33 @@
 import Enemy from "./enemy.js";
 import necromancerSkeleton from "./necromancerSkeleton.js";
-
+import NecromancerSpell from "./necromancerSpell.js";
 
 /**
  * Clase que representa a un enemigo basico del juego.
  */
  export default class Necromancer extends Enemy {
 
-    constructor(scene, x, y, skeletonList) {
-        super(scene, x + 5, y - 140, 3, 200, -700, 0, 1000, 700, 2500, 44, -5, 2.7, 2)
+    constructor(scene, necromancerPositions, skeletonList) {
+        super(scene, necromancerPositions[0][0] + 5, necromancerPositions[0][1] - 140, 3, 200, -700, 0, 2000, 700, 2500, 44, -5, 2.7, 2)
+        this.necromancerPositions = necromancerPositions;
         this.skeletons = skeletonList;
         this.body.setSize(90,138);
         this.direction = -1;
+        this.canAttackStrong=true;
+        this.canGetDamage = true;
+        this.i=0;
     }
 
    /**
      * @override
      */
     getDamage(numDamage) {
-      if(this.lives > 0){
+      if(this.lives > 0 && this.canGetDamage){
+        this.canGetDamage=false;
         this.lives -= numDamage;
         this.body.setVelocityX(0);
         this.hasBeenHurt = true;
+        this.i++;
   
         if(this.lives <= 0){
           this.death();
@@ -30,7 +36,11 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
 
           this.scene.time.delayedCall(1000, () => {this.hasBeenHurt = false;}, [], this);
           this.canAnimate = false;
-          this.sprite.play('hit_necromancer',true).on('animationcomplete-hit_necromancer', () => {this.canAnimate = true;});
+          this.sprite.play('hit_necromancer',true);
+          this.scene.time.delayedCall(1000, () => {this.canAnimate = true;
+            this.setX(this.necromancerPositions[this.i][0] + 5);
+            this.setY(this.necromancerPositions[this.i][1] - 140);
+            this.canGetDamage = true;}, [], this);
         }
       }
 
@@ -59,8 +69,13 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
      */
     preUpdate(t,dt) { 
       if(!this.isOnAction){
+        console.log("Entra")
+
         this.spawnSkeleton();
         this.move();
+        if(this.canAnimate && this.canAttack){
+          this.attack();
+        }
       } 
 
       this.animations();
@@ -100,9 +115,8 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
       
     }
 
-    /*attack(){
-      if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView ) && this.lives > 0){
-        this.body.setVelocityX(0);
+    attack(){
+      if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView ) && this.lives > 0 && this.scene.player.lives >0){
         if (this.scene.player.x<this.x) {
           
           this.sprite.flipX = true;
@@ -110,31 +124,53 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
           
         }
         else if (this.scene.player.x>this.x) {
-        
           this.sprite.flipX = false;
           this.direction = 1;
         }
         if(this.canAttack === true && this.lives > 0){
+          
+          if((this.x - (this.fieldOfView/2) < this.scene.player.x)  && (this.scene.player.x < this.x + (this.fieldOfView/2)) && (this.y - (this.fieldOfView/2)< this.scene.player.y)  && (this.scene.player.y < this.y + (this.fieldOfView/2) ) && this.lives > 0 && this.canAttackStrong){
+            this.canAttack = false;
+            this.canAttackStrong = false;
+            this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)this.dealWeaponDamageStrong();}, [], this);
+            this.canAnimate = false;
+            this.isOnAction = true;
+            this.sprite.play('attack_necromancer',true);
+            
+            this.scene.time.delayedCall(1000, () => {
+              this.isOnAction = false;
+              if(this.lives > 0)
+                this.canAnimate = true;
+              
+            }, [], this);
+
+            this.scene.time.delayedCall(this.attackSpeed, () => {this.canAttack = true;}, [], this);
+            this.scene.time.delayedCall(10000, () => {this.canAttackStrong = true;}, [], this);
+
+            return true;
+          }
+          if(this.canAttack){
           this.canAttack = false;
-          this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)this.spawnSkeleton();}, [], this);
+          this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)this.dealWeaponDamage();}, [], this);
           this.canAnimate = false;
           this.isOnAction = true;
-          this.sprite.play('spawn_necromancer',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
-        
-
-          this.scene.time.delayedCall(1800, () => {
+          this.sprite.play('attack2_necromancer',true);
+          
+          this.scene.time.delayedCall(1000, () => {
             this.isOnAction = false;
             if(this.lives > 0)
               this.canAnimate = true;
             
           }, [], this);
+
           this.scene.time.delayedCall(this.attackSpeed, () => {this.canAttack = true;}, [], this);
           return true;
+          }
         }
         
       }
       return false;
-    }*/
+    }
 
     /**
      * @override
@@ -156,14 +192,20 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
 
     
     spawnSkeleton(){
-        if(this.lives>0){
+        if(this.lives>0 && this.scene.player.lives>0){
             let cont= 0;
             this.skeletons.forEach(charObj => {
             if(!charObj[2] && this.scene.player.x>charObj[0]-225 && this.scene.player.x<charObj[0]+275 && this.scene.player.y>charObj[1]-250 && this.scene.player.y<charObj[1]+250){
               this.canAnimate = false; 
               this.isOnAction = true;         
-              this.sprite.play('spawn_necromancer',true).on('animationcomplete-spawn_necromancer', () => {this.canAnimate = true; this.isOnAction = false; 
-                });;
+              this.sprite.play('spawn_necromancer',true);
+              this.scene.time.delayedCall(1000, () => {
+                this.isOnAction = false;
+                if(this.lives > 0)
+                  this.canAnimate = true;
+                
+              }, [], this);
+
               this.contAux = cont;
               this.scene.time.delayedCall(1000, () => {
                          
@@ -182,6 +224,23 @@ import necromancerSkeleton from "./necromancerSkeleton.js";
         }        
     }
     
+    dealWeaponDamage(){
+      if(this.lives > 0 && this.scene.player.lives >0)
+        new NecromancerSpell(this.scene,this.scene.player.x,this.scene.player.y);
+
+    }
+
+    dealWeaponDamageStrong(){
+      if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView ) && this.lives > 0 && this.scene.player.lives >0){
+        let playerX = this.scene.player.x;
+        let playerY = this.scene.player.y;
+        let playerDirection = this.scene.player.direction;
+
+        new NecromancerSpell(this.scene,playerX-(100*playerDirection),playerY);
+        this.scene.time.delayedCall(250, () => {new NecromancerSpell(this.scene,playerX,playerY);}, [], this);
+        this.scene.time.delayedCall(500, () => {new NecromancerSpell(this.scene,playerX+(100*playerDirection),playerY);}, [], this);
+      }
+    }
 
     canRespawn(position){
         this.skeletons[position][2]=false;
