@@ -19,7 +19,7 @@ export default class Boot extends Phaser.Scene {
   preload() {
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     this.load.tilemapTiledJSON('tilemap', 'assets/map/finalMap.json')
-    this.load.setPath('./assets/sprites/');
+    this.load.setPath('assets/sprites/');
     this.load.image('castleMain', 'PlatformerSet1/main_lev_build_rescaled.png');
     this.load.image('castleDecorative', 'PlatformerSet1/other_and_decorative_rescaled.png');
     this.load.image('forestMain', 'Forest/SET1_Mainlev_build_rescaled.png');
@@ -53,7 +53,7 @@ export default class Boot extends Phaser.Scene {
     this.load.image('cross', 'back_arrow.png');
     this.load.image('back_arrow', 'back_arrow.png');
 
-    this.load.image('Simbad','./Collectibles/Simbad.png');
+    this.load.image('Simbad','Collectibles/Simbad.png');
     this.load.image('Question_Mark','./Collectibles/Question_Mark.png');
 
     this.load.image('menu_panel', './Menu/menu_panel2.png');
