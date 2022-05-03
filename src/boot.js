@@ -66,6 +66,7 @@ export default class Boot extends Phaser.Scene {
     this.load.image('muerte', 'muerte.png');
     this.load.image('emptybar', 'emptybar.png');
     this.load.image('bar', 'bar.png');
+    this.load.image('heart', 'heart.png');
     
     this.load.spritesheet('player', './Warrior/SpriteSheet/Warrior_Sheet-Effect.png', { frameWidth: 69, frameHeight: 44 });
     
@@ -119,6 +120,13 @@ export default class Boot extends Phaser.Scene {
     this.load.audio("jump", "./audio/jump.wav");
     this.load.audio("enemy_death", "./audio/enemy_death.wav");
 
+    this.load.audio("castle_soundtrack", "./audio/Castillo.wav");
+    this.load.audio("forest_soundtrack", "./audio/ZonaPrincipal.wav");
+    this.load.audio("cave_soundtrack", "./audio/Cueva.wav");
+    this.load.audio("finalBoss_soundtrack", "./audio/CombatSong.wav");
+    this.load.audio("credits_scene", "./audio/creditos.wav");
+
+    this.load.audio("violin", "./audio/Violin.wav");
 
   }
   

@@ -8,7 +8,7 @@ import NecromancerSpell from "./necromancerSpell.js";
  export default class Necromancer extends Enemy {
 
     constructor(scene, necromancerPositions, skeletonList) {
-        super(scene, necromancerPositions[0][0] + 5, necromancerPositions[0][1] - 140, 4, 200, -700, 0, 1000, 700, 2500, 44, -5, 2.7, 2)
+        super(scene, necromancerPositions[0][0] + 5, necromancerPositions[0][1] - 140, 4, 200, -700, 0, 1000, 700, 2000, 44, -5, 2.8, 2)
         this.necromancerPositions = necromancerPositions;
         this.skeletons = skeletonList;
         this.body.setSize(90,138);
@@ -152,7 +152,13 @@ import NecromancerSpell from "./necromancerSpell.js";
           }
           if(this.canAttack){
           this.canAttack = false;
-          this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)this.dealWeaponDamage();}, [], this);
+          if(this.lives>(2)){
+            this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)this.dealWeaponDamage();}, [], this);
+
+          }else{
+            this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)this.dealWeaponDamageStrong2();}, [], this);
+
+          }
           this.canAnimate = false;
           this.isOnAction = true;
           this.sprite.play('attack2_necromancer',true);
@@ -240,6 +246,14 @@ import NecromancerSpell from "./necromancerSpell.js";
         new NecromancerSpell(this.scene,playerX-(100*playerDirection),playerY);
         this.scene.time.delayedCall(250, () => {new NecromancerSpell(this.scene,playerX,playerY);}, [], this);
         this.scene.time.delayedCall(500, () => {new NecromancerSpell(this.scene,playerX+(100*playerDirection),playerY);}, [], this);
+      }
+    }
+
+    dealWeaponDamageStrong2(){
+      if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView ) && this.lives > 0 && this.scene.player.lives >0){
+        new NecromancerSpell(this.scene,this.scene.player.x-(100*this.scene.player.direction),this.scene.player.y);
+        this.scene.time.delayedCall(250, () => {new NecromancerSpell(this.scene,this.scene.player.x,this.scene.player.y);}, [], this);
+        this.scene.time.delayedCall(500, () => {new NecromancerSpell(this.scene,this.scene.player.x+(100*this.scene.player.direction),this.scene.player.y);}, [], this);
       }
     }
 

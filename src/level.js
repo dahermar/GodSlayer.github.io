@@ -33,7 +33,6 @@ export default class Level extends Phaser.Scene {
    */
   create() {
     
-
     this.map = this.make.tilemap({ 
       key: 'tilemap', 
       tileWidth: 32, 
@@ -98,6 +97,24 @@ export default class Level extends Phaser.Scene {
     this.forestNightbg2.setDepth(-5);
     this.forestNightbg3.setDepth(-5);
     this.forestNightbg4.setDepth(-5);
+
+    const config = {
+      mute: false,
+      volume: 0.15,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: true,
+      delay: 0,
+    }; // config es opcional
+
+    
+   //this.soud_ = this.scene.sound.add("", config);
+    this.sound_castle = this.sound.add("castle_soundtrack", config);
+    this.sound_forest = this.sound.add("forest_soundtrack", config);
+    //this.sound_cave = this.sound.add("cave_soundtrack", config);
+    this.sound_finalBoss = this.sound.add("finalBoss_soundtrack", config);
+
     
     this.currentBackGround = "";
     this.removeCastleBackGround();
@@ -181,8 +198,6 @@ export default class Level extends Phaser.Scene {
    
     
     this.charactersLayer = this.map.getObjectLayer('Characters');
-
-    
 
     this.createEnemies();
 
@@ -474,27 +489,35 @@ export default class Level extends Phaser.Scene {
 
   addForestBackGround(){
     if(this.currentBackGround != "forest"){
-      if(this.currentBackGround === "castle")
+      if(this.currentBackGround === "castle"){
         this.removeCastleBackGround();
+        this.sound_castle.stop();
+        this.sound_finalBoss.stop();
+      }
       this.currentBackGround = "forest";
       this.forestNightbg1.addToDisplayList();
       this.forestNightbg2.addToDisplayList();
       this.forestNightbg3.addToDisplayList();
       this.forestNightbg4.addToDisplayList();
+      this.sound_forest.play();
     }
     
   }
 
   addCastleBackGround(){
     if(this.currentBackGround != "castle"){
-      if(this.currentBackGround === "forest")
+      if(this.currentBackGround === "forest"){
         this.removeForestBackGround();
+        this.sound_forest.stop();
+      }
       this.currentBackGround = "castle";
       this.Castlebg1.addToDisplayList();
       this.Castlebg2.addToDisplayList();
       this.Castlebg3.addToDisplayList();
       this.Castlebg4.addToDisplayList();
       this.Castlebg5.addToDisplayList();
+      this.sound_castle.play();
+
     }
   }
   
@@ -506,7 +529,11 @@ export default class Level extends Phaser.Scene {
   showCredits(){
     this.creditsShown = true;
     new TextBox(this, this.afterCreditMessage[0], this.afterCreditMessage[1], this.afterCreditMessage[2]);
-    console.log("Se muestran los creditos");
+
+    this.scene.launch('credits');
+
+    this.scene.pause();
+
   }
 
 }

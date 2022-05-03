@@ -13,7 +13,7 @@ export default class NecromancerSpell extends Phaser.GameObjects.Container {
         this.damage = 2;
         this.add(this.sprite);
         this.canDamage = false;
-        this.scene.time.delayedCall(500, () => {this.canDamage=true;}, [], this);
+        this.scene.time.delayedCall(350, () => {this.canDamage=true;}, [], this);
         this.scene.time.delayedCall(800, () => {this.canDamage=false;}, [], this);
         this.scene.time.delayedCall(1000, () => {this.destroy();}, [], this);
         

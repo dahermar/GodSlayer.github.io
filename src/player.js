@@ -1,7 +1,7 @@
 import Enemy from './enemy.js';
 import Knife from './knife.js';
 
-const MAX_VIDAS = 5;
+const MAX_VIDAS = 4;
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
@@ -34,12 +34,18 @@ export default class Player extends Phaser.GameObjects.Container {
     this.lastWallX = -1000;
     this.lastWallY = -1000;
     this.scene.add.existing(this);
-    this.healthlabel = this.scene.add.sprite(180, 110, 'emptybar');
-    this.healthbar = this.scene.add.sprite(180, 110, 'bar');
-    this.healthbar_width =  this.healthbar.width;
 
+    this.healthlabel = this.scene.add.sprite(180, 60, 'emptybar');
+    this.healthbar = this.scene.add.sprite(205, 62, 'bar');
+    this.heart = this.scene.add.sprite(49, 57, 'heart');
+
+    this.heart.setScale(0.84);
     this.healthlabel.setScale(0.84);
     this.healthbar.setScale(0.84);
+
+    this.heart.setDepth(6);
+    this.healthlabel.setDepth(6);
+    this.healthbar.setDepth(6);
 
     this.scene.physics.add.existing(this);
     this.sprite = this.scene.add.sprite(55, 36, 'player');
@@ -131,6 +137,8 @@ export default class Player extends Phaser.GameObjects.Container {
     //Fijar la interfaz grafica
     this.healthbar.setScrollFactor(0,0);
     this.healthlabel.setScrollFactor(0,0);
+    this.heart.setScrollFactor(0,0);
+
     //this.label.setScrollFactor(0,0);
     
     const config = {
@@ -412,10 +420,10 @@ export default class Player extends Phaser.GameObjects.Container {
    * Actualiza la UI con la puntuación actual
    */
   updateUI() {
-    //this.label.text = 'Throwable: '+ this.throwing_object;
-    // this.healthbar.setCrop(0,0,this.healthbar.totalx*((this.lives/ MAX_VIDAS)), 50);
     
-    this.healthbar.setCrop(0,0,this.healthbar_width*((this.lives/ MAX_VIDAS)), 317);
+
+    console.log(this.healthbar.width);
+    this.healthbar.setCrop(0,0,this.healthbar.width*((this.lives/ MAX_VIDAS)), 317);
     this.healthbar.isCropped = true;
     
   }
