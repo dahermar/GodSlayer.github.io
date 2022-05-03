@@ -323,6 +323,7 @@ export default class Level extends Phaser.Scene {
 
   }
 
+
   createEnemies(){
     let necromancerPositions = [];
     let enemyFromTiled;
@@ -404,6 +405,12 @@ export default class Level extends Phaser.Scene {
     
     //this.bg1.tilePositionY = this.playerCamera.scrollY * 0;
     //this.bg3.tilePositionY = this.playerCamera.scrollY * 0;
+  }
+
+  
+  pause_function(){
+    this.scene.launch('menu',{collectible_list: Collectible_list});
+    this.scene.pause();
   }
 
   /**

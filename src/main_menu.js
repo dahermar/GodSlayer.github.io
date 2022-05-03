@@ -23,11 +23,12 @@
             loop: true,
             delay: 0,
           }; // config es opcional
-          this.sound_main_menu = this.sound.add("init_scene", config);
+          
+        this.sound_main_menu = this.sound.add("init_scene", config);
 
         this.add.image(640,300, 'mainmenu');
         this.Enter = this.input.keyboard.addKey('ENTER');
-        this.startButton = this.add.text(450,580,'Press Enter',{fontFamily: 'GeneralFont '}).setFontSize(40);
+        this.startButton = this.add.text(540,580,'Press Enter',{fontFamily: 'GeneralFont '}).setFontSize(40);
         this.startButton.setFontSize(40);
         this.sound_main_menu.play();
         

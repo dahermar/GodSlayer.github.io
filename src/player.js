@@ -177,10 +177,20 @@ export default class Player extends Phaser.GameObjects.Container {
         this.move();
         this.attack();
         this.throw();
+        this.make_pause();
       }
       this.animations();
       
     }
+  
+  make_pause(){
+    if (Phaser.Input.Keyboard.JustDown(this.p)) { 
+
+     // this.scene.pause_function();
+        
+    }
+
+  }
 
   
 
@@ -392,6 +402,10 @@ export default class Player extends Phaser.GameObjects.Container {
     this.f.enabled = enable;
     this.l.reset();
     this.l.enabled = enable;
+    this.e.reset();
+    this.e.enabled = enable;
+    this.p.reset();
+    this.p.enabled = enable;
   }
   
   /**
@@ -404,7 +418,6 @@ export default class Player extends Phaser.GameObjects.Container {
     this.healthbar.setCrop(0,0,this.healthbar_width*((this.lives/ MAX_VIDAS)), 317);
     this.healthbar.isCropped = true;
     
-
   }
   
   

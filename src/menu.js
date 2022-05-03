@@ -64,11 +64,11 @@ export default class menu extends Phaser.Scene {
         const img_list = [];
         
 
-        this.continueButton = this.add.text(this.button_x, this.button_y,"Continue",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.VolumeButton = this.add.text(this.button_x, this.continueButton.y + this.button_offset,"Volume    On",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.collectible = this.add.text(this.button_x, this.VolumeButton.y + this.button_offset,"Collectible",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.restart = this.add.text(this.button_x, this.collectible.y + this.button_offset,"Restart",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.exitButton = this.add.text(this.button_x, this.restart.y + this.button_offset,"Exit",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.continueButton = this.add.text(this.button_x+33, this.button_y,"Continue",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.VolumeButton = this.add.text(this.button_x+18, this.continueButton.y + this.button_offset,"Volume On",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.collectible = this.add.text(this.button_x+23, this.VolumeButton.y + this.button_offset,"Collectible",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.restart = this.add.text(this.button_x+40, this.collectible.y + this.button_offset,"Restart",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.exitButton = this.add.text(this.button_x+73, this.restart.y + this.button_offset,"Exit",{fontFamily: 'GeneralFont '}).setInteractive();
 
         this.continueButton.setFontSize(40);
         this.VolumeButton.setFontSize(40);
@@ -79,6 +79,14 @@ export default class menu extends Phaser.Scene {
         this.continueButton.on('pointerup', function () {
             this.scene.resume('level');
             this.scene.stop();
+        }, this);
+
+        this.restart.on('pointerup', function () {
+            this.scene.resume('level');
+            var level_scene = this.scene.get('level');
+            level_scene.restartLevel();
+            this.scene.stop();
+
         }, this);
 
         this.collectible.on('pointerup', function () {
@@ -166,7 +174,7 @@ export default class menu extends Phaser.Scene {
 
 
         this.exitButton.on('pointerup', function () {
-            
+
             this.scene.stop('level');
             this.scene.start('main_menu');
 
