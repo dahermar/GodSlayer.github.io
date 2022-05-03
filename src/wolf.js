@@ -86,18 +86,21 @@ import Enemy from "./enemy.js";
             if((this.x - 10 < this.scene.player.x)  && (this.scene.player.x < this.x + 10)){
                 this.body.setVelocityX(0);
            }
-           else if (this.scene.player.x<this.x) {
+           else if (this.scene.player.x<this.x && (this.scene.groundLayer.hasTileAtWorldXY(this.x, this.y + 110) || this.scene.platformLayer.hasTileAtWorldXY(this.x, this.y + 110)) && !this.scene.wallLayer.hasTileAtWorldXY(this.x -35, this.y + 50) && !this.scene.groundLayer.hasTileAtWorldXY(this.x -35, this.y + 50)) {
             this.weaponHitbox.setX(-15);
             this.sprite.flipX = true;
             this.sprite.x = this.oldX = 70;  
             this.body.setVelocityX(-this.speed);
             
           }
-          else if (this.scene.player.x>this.x) {
+          else if (this.scene.player.x>this.x&& (this.scene.groundLayer.hasTileAtWorldXY(this.x + 135, this.y + 110) || this.scene.platformLayer.hasTileAtWorldXY(this.x + 135, this.y + 110)) && !this.scene.wallLayer.hasTileAtWorldXY(this.x + 175, this.y + 50) && !this.scene.groundLayer.hasTileAtWorldXY(this.x + 175, this.y + 50)) {
             this.weaponHitbox.setX(150);
             this.sprite.flipX = false;
             this.sprite.x = this.oldX = 70;
             this.body.setVelocityX(this.speed);
+          }
+          else{
+            this.body.setVelocityX(0);
           }
 
         }
