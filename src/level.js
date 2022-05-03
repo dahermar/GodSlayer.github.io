@@ -41,6 +41,7 @@ export default class Level extends Phaser.Scene {
     });
 
     this.isBossAlive = new Array(true, true, true);
+    this.creditsShown = false;
 
     const fondo = this.add.image(0,0,'background').setOrigin(0);
     fondo.setScale(1.2);
@@ -112,6 +113,7 @@ export default class Level extends Phaser.Scene {
     this.backWallLayer = this.map.createLayer('BackWall', [castleMainSet, castleDecorativeSet,forestMainSet, caveMainSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet, forestBackObjSet]);
     this.groundLayer = this.map.createLayer('Ground', [castleMainSet, castleDecorativeSet,forestMainSet, caveMainSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet,forestBackObjSet]);
     this.wallLayer = this.map.createLayer('Wall', [castleMainSet, castleDecorativeSet,forestMainSet, caveMainSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet, forestBackObjSet]);
+    this.finalWallLayer = this.map.createLayer('FinalWall', [castleMainSet]);
     this.decorativesBackLayer = this.map.createLayer('DecorativesBack', [castleMainSet, castleDecorativeSet,forestMainSet, caveMainSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet, forestBackObjSet]);
     this.decorativesFrontLayer = this.map.createLayer('DecorativesFront', [castleMainSet, castleDecorativeSet,forestMainSet, caveMainSet, forestPropsRescaledSet, forestPropsMediumSet, forestSecundarySet, forestBackObjSet]);
     this.GrassLayer = this.map.createLayer('Grass', [forestMainSet]);
@@ -163,6 +165,12 @@ export default class Level extends Phaser.Scene {
         this.physics.add.existing(toFor);
         toFor.body.setAllowGravity(false); 
       }
+
+      if(levelObj.type === "Credits"){
+        this.creditZone = this.add.zone(levelObj.x, levelObj.y - 100, 300, 700);
+        this.physics.add.existing(this.creditZone);
+        this.creditZone.body.setAllowGravity(false); 
+      }
     });
 
     console.log(this.toCastleGroup.getLength());
@@ -203,8 +211,16 @@ export default class Level extends Phaser.Scene {
     });
 
     const messagesLayer = this.map.getObjectLayer('Messages');
+    
+    
     messagesLayer.objects.forEach(messaObj => {
-      new TextBox(this, messaObj.x, messaObj.y, messaObj.properties[0].value);
+      if(messaObj.type != "Credits"){
+        new TextBox(this, messaObj.x, messaObj.y, messaObj.properties[0].value);
+      }
+      else{
+        this.afterCreditMessage = new Array(messaObj.x, messaObj.y, messaObj.properties[0].value);
+      }
+      
     });
 
     
@@ -231,6 +247,7 @@ export default class Level extends Phaser.Scene {
 
     this.groundLayer.setCollisionByProperty({collides:true});
     this.wallLayer.setCollisionByProperty({collides:true});
+    this.finalWallLayer.setCollisionByProperty({collides:true});
     this.platformLayer.setCollisionByProperty({collides:true});
     this.damageLayer.setCollisionByProperty({collides:true});
     this.physics.add.collider(this.player, this.groundLayer);
@@ -241,6 +258,7 @@ export default class Level extends Phaser.Scene {
     //this.physics.add.collider(this.player, this.wallLayer, (player, wall) => {player.touchingWall = true; player.lastWallX = wall.x});
     this.physics.add.collider(this.player, this.wallLayer);
     this.physics.add.collider(this.enemies, this.wallLayer);
+    this.finalWallCollider = this.physics.add.collider(this.player, this.finalWallLayer);
     this.damageLayerCollider = this.physics.add.collider(this.player, this.damageLayer, (player, dmgLayer) => {player.getDamage(100);});
     
     
@@ -472,7 +490,17 @@ export default class Level extends Phaser.Scene {
       this.Castlebg5.addToDisplayList();
     }
   }
-    
+  
+  removeFinalWall(){
+    this.finalWallLayer.setVisible(false);
+    this.finalWallCollider.active = false;
+  }
+
+  showCredits(){
+    this.creditsShown = true;
+    new TextBox(this, this.afterCreditMessage[0], this.afterCreditMessage[1], this.afterCreditMessage[2]);
+    console.log("Se muestran los creditos");
+  }
 
 }
 

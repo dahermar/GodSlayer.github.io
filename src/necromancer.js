@@ -8,7 +8,7 @@ import NecromancerSpell from "./necromancerSpell.js";
  export default class Necromancer extends Enemy {
 
     constructor(scene, necromancerPositions, skeletonList) {
-        super(scene, necromancerPositions[0][0] + 5, necromancerPositions[0][1] - 140, 4, 200, -700, 0, 2000, 700, 2500, 44, -5, 2.7, 2)
+        super(scene, necromancerPositions[0][0] + 5, necromancerPositions[0][1] - 140, 4, 200, -700, 0, 1000, 700, 2500, 44, -5, 2.7, 2)
         this.necromancerPositions = necromancerPositions;
         this.skeletons = skeletonList;
         this.body.setSize(90,138);
@@ -57,6 +57,7 @@ import NecromancerSpell from "./necromancerSpell.js";
       //new Potion(this.scene,this.x,this.y);
       this.isOnAction = true;
       this.scene.isBossAlive[2] = false;
+      this.scene.removeFinalWall();
       this.scene.time.delayedCall(5000, () => {this.destroy();}, [], this);
       this.skeletons.forEach(charObj => {
         if(charObj[2]){
@@ -116,7 +117,7 @@ import NecromancerSpell from "./necromancerSpell.js";
     }
 
     attack(){
-      if((this.x - this.fieldOfViewX < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfViewX) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView ) && this.lives > 0 && this.scene.player.lives >0){
+      if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView ) && this.lives > 0 && this.scene.player.lives >0){
         if (this.scene.player.x<this.x) {
           
           this.sprite.flipX = true;
@@ -129,7 +130,7 @@ import NecromancerSpell from "./necromancerSpell.js";
         }
         if(this.canAttack === true && this.lives > 0){
           
-          if((this.x - (this.fieldOfViewX/2) < this.scene.player.x)  && (this.scene.player.x < this.x + (this.fieldOfViewX/2)) && (this.y - (this.fieldOfView/2)< this.scene.player.y)  && (this.scene.player.y < this.y + (this.fieldOfView/2) ) && this.lives > 0 && this.canAttackStrong){
+          if((this.x - (this.fieldOfView) < this.scene.player.x)  && (this.scene.player.x < this.x + (this.fieldOfView)) && (this.y - (this.fieldOfView)< this.scene.player.y)  && (this.scene.player.y < this.y + (this.fieldOfView) ) && this.lives > 0 && this.canAttackStrong){
             this.canAttack = false;
             this.canAttackStrong = false;
             this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)this.dealWeaponDamageStrong();}, [], this);

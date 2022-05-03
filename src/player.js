@@ -103,6 +103,18 @@ export default class Player extends Phaser.GameObjects.Container {
         
         if(this.scene.physics.overlap(this, this.scene.dashEarned))
           this.scene.dashEarned.interact();
+        
+        if(this.scene.physics.overlap(this, this.scene.creditZone)){
+          if(!this.scene.creditsShown)
+            this.scene.showCredits();
+          else{
+            this.x = 38191;
+            this.y = 8420;
+            this.spawnX = 38191;
+            this.spawnY = 8420;
+          }
+        }
+          
       }
     });
     //Para cambiar el fondo
