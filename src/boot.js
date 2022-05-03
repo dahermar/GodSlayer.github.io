@@ -120,6 +120,13 @@ export default class Boot extends Phaser.Scene {
     this.load.audio("jump", "./audio/jump.wav");
     this.load.audio("enemy_death", "./audio/enemy_death.wav");
 
+    this.load.audio("castle_soundtrack", "./audio/Castillo.wav");
+    this.load.audio("forest_soundtrack", "./audio/ZonaPrincipal.wav");
+    this.load.audio("cave_soundtrack", "./audio/Cueva.wav");
+    this.load.audio("finalBoss_soundtrack", "./audio/CombatSong.wav");
+    this.load.audio("credits_scene", "./audio/creditos.wav");
+
+    this.load.audio("violin", "./audio/Violin.wav");
 
   }
   

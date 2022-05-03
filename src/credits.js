@@ -24,7 +24,7 @@
             delay: 0,
           }; // config es opcional
           
-        this.sound_credits = this.sound.add("init_scene", config);
+        this.sound_credits = this.sound.add("credits_scene", config);
 
           this.creds = [];
           //this.add.image(0,0, 'blackScreen')
