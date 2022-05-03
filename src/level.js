@@ -368,7 +368,7 @@ export default class Level extends Phaser.Scene {
         this.enemiesPlatformCol.add(enemyFromTiled);
       }
       else if(charObj.type === "Worm"){
-        enemyFromTiled = new Worm(this, charObj.x, charObj.y);
+        enemyFromTiled = new Worm(this, charObj.x, charObj.y,parseInt(charObj.name));
         this.enemies.add(enemyFromTiled);
         this.enemiesPlatformCol.add(enemyFromTiled);
       }

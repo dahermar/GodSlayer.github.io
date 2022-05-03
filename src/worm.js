@@ -5,9 +5,9 @@ import Fireball from "./fireball.js";
  */
  export default class Worm extends Enemy {
 
-    constructor(scene, x, y) {
+    constructor(scene, x, y,range) {
 
-      super(scene, x + 25, y - 108, 3, 50, -700, 0, 1000, 500, 2500, 48, 44, 4, 1)
+      super(scene, x + 25, y - 108, 1, 50, -700, 0, range, 2000, 2500, 48, 44, 4, 1)
       this.oldX = 100;
       this.body.setSize(200,100);
       this.direction = -1;
@@ -54,9 +54,10 @@ import Fireball from "./fireball.js";
     preUpdate(t,dt) { 
       //this.checkCollision();
       if(!this.isOnAction ){
-        if(!this.attack()){
-          this.move();
-        }
+        //if(!this.attack()){
+          //this.move();
+        //}
+        this.attack();
       }
       this.animations();
     }
