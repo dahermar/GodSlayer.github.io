@@ -1,15 +1,25 @@
 
 
 
+
 export default class TextBox extends Phaser.GameObjects.Container { 
 
     constructor(scene, x, y, text) {
         super(scene, x- 250, y -150 );
 
-        this.text_box = this.scene.add.image(x+50, y-70, 'text_box');
-        this.text_box.setScale(0.5);
+        this.map = this.countRepeatedWords(text);
 
-        this.text = this.scene.add.text(x-38, y-52, text,{fontFamily: 'GeneralFont '});
+        this.text_box = this.scene.add.image(x+50, y-70, 'text_box');
+        this.text_box.setScale(0.4);
+
+        this.text = this.scene.add.text(x-26, y-58, text,{fontFamily: 'GeneralFont '});
+
+        if(this.map["\n"] > 0){
+            this.text.setY(y- (52 +(this.map["\n"]*(10))));
+            this.text_box.setScale(0.52);
+            this.text.setX(x-60);
+        }
+        
 
         this.text_box.setVisible(false);
         this.text.setVisible(false);
@@ -18,6 +28,18 @@ export default class TextBox extends Phaser.GameObjects.Container {
         this.body.setAllowGravity(false);
         this.setVisible = false;
         this.scene.add.existing(this);
+    }
+
+    countRepeatedWords(sentence) {
+        let words = sentence.split(" ");
+        let wordMap = {};
+      
+        for (let i = 0; i < words.length; i++) {
+          let currentWordCount = wordMap[words[i]];
+          let count = currentWordCount ? currentWordCount : 0;
+          wordMap[words[i]] = count + 1;
+        }
+        return wordMap;
     }
 
 

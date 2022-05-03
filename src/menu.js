@@ -159,9 +159,17 @@ export default class menu extends Phaser.Scene {
             
             this.sound.mute = !this.sound.mute;
             if(this.sound.mute)
-                this.VolumeButton.text = "Volume    On";
+                this.VolumeButton.text = "Volume On";
             else
-                this.VolumeButton.text = "Volume    Off";
+                this.VolumeButton.text = "Volume Off";
+        }, this);
+
+
+        this.exitButton.on('pointerup', function () {
+            
+            this.scene.stop('level');
+            this.scene.start('main_menu');
+
         }, this);
 
 

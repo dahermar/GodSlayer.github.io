@@ -42,7 +42,6 @@
 
     startGame(){
         this.scene.start('level');
-        this.scene.remove();
         this.sound_main_menu.stop();
     }
 
