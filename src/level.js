@@ -506,7 +506,11 @@ export default class Level extends Phaser.Scene {
   showCredits(){
     this.creditsShown = true;
     new TextBox(this, this.afterCreditMessage[0], this.afterCreditMessage[1], this.afterCreditMessage[2]);
-    console.log("Se muestran los creditos");
+
+    this.scene.launch('credits');
+
+    this.scene.pause();
+
   }
 
 }
