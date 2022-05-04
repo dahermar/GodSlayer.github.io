@@ -232,6 +232,7 @@ export default class Level extends Phaser.Scene {
     });*/
 
     const Collectible_list = [];
+    this.collectible_list = Collectible_list;
 
     const collectiblesLayer = this.map.getObjectLayer('Collectibles');
 
@@ -277,10 +278,6 @@ export default class Level extends Phaser.Scene {
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);
     this.fullscreenButton.setScrollFactor(0,0);
-
-    this.pauseButton = this.add.image(1100, 10, 'pause', 0).setOrigin(1, 0).setInteractive();
-    this.pauseButton.setScale(0.1);
-    this.pauseButton.setScrollFactor(0,0);
 
     this.deadImage = this.add.image(640,360,'muerte').setScale(0.75).setScrollFactor(0,0);
     this.deadImage.setVisible(false);
@@ -349,15 +346,6 @@ export default class Level extends Phaser.Scene {
 
                 this.scale.startFullscreen();
             }
-
-    }, this);
-
-    this.pauseButton.on('pointerup', function () {
-
-      console.log("Pausa");
-      this.scene.launch('menu',{collectible_list: Collectible_list});
-
-      this.scene.pause();
 
     }, this);
 
@@ -454,7 +442,7 @@ export default class Level extends Phaser.Scene {
 
   
   pause_function(){
-    this.scene.launch('menu',{collectible_list: Collectible_list});
+    this.scene.launch('menu',{collectible_list: this.collectible_list});
     this.scene.pause();
   }
 

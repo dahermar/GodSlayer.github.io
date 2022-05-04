@@ -70,7 +70,6 @@ export default class Player extends Phaser.GameObjects.Container {
 
     //this.body.bounce.setTo(1, 1);
     //this.body.setMaxSpeed(500);
-
     //POWERS
     this.dashEnabled = false;
     this.maxJumps = 2;
@@ -201,11 +200,8 @@ export default class Player extends Phaser.GameObjects.Container {
   
   make_pause(){
     if (Phaser.Input.Keyboard.JustDown(this.p)) { 
-
-     // this.scene.pause_function();
-        
+     this.scene.pause_function();
     }
-
   }
 
   
