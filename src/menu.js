@@ -64,11 +64,11 @@ export default class menu extends Phaser.Scene {
         const img_list = [];
         
 
-        this.continueButton = this.add.text(this.button_x+33, this.button_y,"Continuar",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.VolumeButton = this.add.text(this.button_x+18, this.continueButton.y + this.button_offset,"Volumen On",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.collectible = this.add.text(this.button_x+23, this.VolumeButton.y + this.button_offset,"Coleccionables",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.restart = this.add.text(this.button_x+40, this.collectible.y + this.button_offset,"Reaparecer",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.exitButton = this.add.text(this.button_x+73, this.restart.y + this.button_offset,"Salir",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.continueButton = this.add.text(this.button_x+25, this.button_y,"Continuar",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.VolumeButton = this.add.text(this.button_x+13, this.continueButton.y + this.button_offset,"Volumen On",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.collectible = this.add.text(this.button_x-10, this.VolumeButton.y + this.button_offset,"Coleccionables",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.restart = this.add.text(this.button_x+10, this.collectible.y + this.button_offset,"Reaparecer",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.exitButton = this.add.text(this.button_x+65, this.restart.y + this.button_offset,"Salir",{fontFamily: 'GeneralFont '}).setInteractive();
 
         this.continueButton.setFontSize(40);
         this.VolumeButton.setFontSize(40);
@@ -174,6 +174,11 @@ export default class menu extends Phaser.Scene {
 
 
         this.exitButton.on('pointerup', function () {
+            
+            var level_scene = this.scene.get('level');
+            level_scene.sound_castle.stop();
+            level_scene.sound_forest.stop();
+            level_scene.sound_finalBoss.stop();
 
             this.scene.stop('level');
             this.scene.start('main_menu');

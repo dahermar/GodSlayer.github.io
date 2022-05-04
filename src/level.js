@@ -537,7 +537,7 @@ export default class Level extends Phaser.Scene {
     this.player.kniveEnabled = true;
     this.scene.launch('credits');
 
-    this.sound_castle.stop(); 
+    this.sound_castle.pause(); 
     this.scene.pause();
   }
 
