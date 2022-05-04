@@ -170,38 +170,13 @@ import Fireball from "./fireball.js";
       return false;
     }
 
-    extra(){
-      if(this.direction == 1){
-        new Fireball(this.scene,this.x+130,this.y-10,this.direction,1,'fireballBL');
-        new Fireball(this.scene,this.x+130,this.y-10,this.direction,3,'fireballBL');
-        new Fireball(this.scene,this.x+130,this.y-10,this.direction,4,'fireballBL');
-      }
-      else{
-        new Fireball(this.scene,this.x-30,this.y-10,this.direction,1,'fireballBL');
-        new Fireball(this.scene,this.x-30,this.y-10,this.direction,3,'fireballBL');
-        new Fireball(this.scene,this.x-30,this.y-10,this.direction,4,'fireballBL');
-      }
-    }
-    basic(){
-
-      if(this.direction == 1){
-        new Fireball(this.scene,this.x+130,this.y-10,this.direction,1,'fireball');
-        new Fireball(this.scene,this.x+130,this.y-10,this.direction,2,'fireball');
-        new Fireball(this.scene,this.x+130,this.y-10,this.direction,0,'fireball');
-      }
-      else{
-        new Fireball(this.scene,this.x-30,this.y-10,this.direction,0,'fireball');
-        new Fireball(this.scene,this.x-30,this.y-10,this.direction,1,'fireball');
-        new Fireball(this.scene,this.x-30,this.y-10,this.direction,2,'fireball');
-      }
-    }
-
+    
     normalAttack(){
       if(this.direction == 1){
-        new Fireball(this.scene,this.x+130,this.y-10,this.direction,1,'fireBall_anim');
+        new Fireball(this.scene,this.x+130,this.y-10,20,20,this.direction,1,'fireBall_anim',2);
       }
       else{
-        new Fireball(this.scene,this.x-30,this.y-10,this.direction,1,'fireBall_anim');
+        new Fireball(this.scene,this.x-30,this.y-10,20,20,this.direction,1,'fireBall_anim',2);
       }
     }
   }

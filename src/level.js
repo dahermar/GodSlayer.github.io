@@ -4,6 +4,7 @@ import Player from './player.js';
 import Potion from './potion.js';
 import Bat from './bat.js';
 import Worm from './worm.js';
+import WormBoss from './wormBoss.js';
 import Wolf from './wolf.js';
 import Necromancer from './necromancer.js';
 import Collectible from './collectible.js';
@@ -185,7 +186,11 @@ export default class Level extends Phaser.Scene {
       }
 
       else if(levelObj.type === "Dash"){
-        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash", "La Madre te otorga el poder del viento por derrotar al Gran Árbol");
+        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash", "Axelia te otorga el poder del viento por derrotar al Gran Árbol");
+      }
+
+      else if(levelObj.type === "Doble"){
+        this.dobleEarned = new PowerEarned(this, levelObj.x, levelObj.y, "doble", "Axelia te otorga el poder ");
       }
 
       else if(levelObj.type === "ToCastle"){
@@ -273,7 +278,7 @@ export default class Level extends Phaser.Scene {
 
     //this.cameras.main.setBounds(0,0, 500, 1000);
     this.playerCamera = this.cameras.main.startFollow(this.player, false, 1, 1, 0, 75);
-    //this.cameras.main.setZoom(0.75);
+    //this.cameras.main.setZoom(0.2);
     
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);
@@ -397,6 +402,11 @@ export default class Level extends Phaser.Scene {
       }
       else if(charObj.type === "Worm"){
         enemyFromTiled = new Worm(this, charObj.x, charObj.y,parseInt(charObj.name));
+        this.enemies.add(enemyFromTiled);
+        this.enemiesPlatformCol.add(enemyFromTiled);
+      }
+      else if(charObj.type === "WormBoss"){
+        enemyFromTiled = new WormBoss(this, charObj.x, charObj.y,parseInt(charObj.name));
         this.enemies.add(enemyFromTiled);
         this.enemiesPlatformCol.add(enemyFromTiled);
       }

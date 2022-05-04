@@ -6,11 +6,18 @@ import Projectile from './projectile.js';
 
 export default class Fireball extends Projectile {
 
-    constructor(scene, x, y,direction,mode,sprite) {
-        super(scene, x, y, 20, 20, direction, false, 44, 25, 2, 600, 2, 5000, sprite);
+    constructor(scene, x, y,tamX,tamY,direction,mode,sprite,scale) {
+        super(scene, x, y, tamX, tamY, direction, false, 44, 25, scale, 600, 2, 5000, sprite);
+        this.sprite.destroy();
+        this.sprite = this.scene.add.sprite(0,0);
+        if(direction == -1 ){
+            this.sprite.flipX = true;
+            this.x += 44;
+        }
+        this.sprite.setScale(scale);
+        this.add(this.sprite);
         this.speed = 100;
         this.mode=mode;
-        this.cambio=true;
         this.scene.physics.add.collider(this, this.scene.player,(object, player) => {
             let isRight = false;
             if(this.x > player.x)
@@ -20,37 +27,18 @@ export default class Fireball extends Projectile {
             object.destroy();
         });
         if(mode==0){
-            this.body.setVelocityY( this.speed);
+            this.body.setVelocityY( this.speed+100);
         }
         else if(mode==1){
             this.body.setVelocityY(0);
         }
         else if(mode==2){
-            this.body.setVelocityY(-this.speed);
+            this.body.setVelocityY(-this.speed-100);
         }
     }
     
     preUpdate(t,dt) {
         this.sprite.play('fireBall_anim',true);
-        if(this.mode==3){
-            this.body.setVelocityY(this.speed);
-            if(this.cambio==true){
-            this.cambio=false;
-            this.scene.time.delayedCall(2000, () => {this.cambioArriba();
-                                                    this.cambio=true;}, [], this);
-           }
-        }
-        if(this.mode==4){
-            this.body.setVelocityY(-this.speed);
-            if(this.cambio==true){
-             this.cambio=false;
-             this.scene.time.delayedCall(2000, () => {this.cambioArriba();
-                                                     this.cambio=true;}, [], this);
-            }
-         }
     }
 
-    cambioArriba(){
-        this.speed=this.speed*-1;
-    }
 } 

@@ -72,7 +72,7 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.body.setMaxSpeed(500);
     //POWERS
     this.dashEnabled = false;
-    this.maxJumps = 2;
+    this.maxJumps = 1;
     this.kniveEnabled = false;
 
     this.speed = 500;
@@ -110,6 +110,9 @@ export default class Player extends Phaser.GameObjects.Container {
         if(this.scene.physics.overlap(this, this.scene.dashEarned))
           this.scene.dashEarned.interact();
         
+          if(this.scene.physics.overlap(this, this.scene.dobleEarned))
+          this.scene.dobleEarned.interact();
+
         if(this.scene.physics.overlap(this, this.scene.creditZone)){
           if(!this.scene.creditsShown)
             this.scene.showCredits();
@@ -512,7 +515,6 @@ export default class Player extends Phaser.GameObjects.Container {
     this.scene.damageLayerCollider.active = true;
     this.updateUI();
   }
-
 
   /*checkWallCollisionWithJump(){
     
