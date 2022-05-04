@@ -43,7 +43,7 @@
         [], this);
         this.tweens.add({
             targets: this.creds,
-            y: -300,
+            y: -800,
             ease: 'Power1',
             duration: 7000,
             delay: 1500,
