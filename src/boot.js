@@ -18,9 +18,10 @@ export default class Boot extends Phaser.Scene {
    */
   preload() {
     // Con setPath podemos establecer el prefijo que se añadirá a todoslos  load que aparecen a continuación
-    
+    this.load.tilemapTiledJSON('tilemap', 'assets/map/FinalMap.json')
+
     this.load.setPath('assets/sprites/');
-    this.load.tilemapTiledJSON('tilemap', 'finalMap.json')
+    
     this.load.image('castleMain', 'PlatformerSet1/main_lev_build_rescaled.png');
     this.load.image('castleDecorative', 'PlatformerSet1/other_and_decorative_rescaled.png');
     this.load.image('forestMain', 'Forest/SET1_Mainlev_build_rescaled.png');
@@ -122,7 +123,7 @@ export default class Boot extends Phaser.Scene {
 
     this.load.audio("castle_soundtrack", "./audio/Castillo.wav");
     this.load.audio("forest_soundtrack", "./audio/ZonaPrincipal.wav");
-    this.load.audio("cave_soundtrack", "./audio/Cueva.wav");
+    this.load.audio("cave_soundtrack", "./audio/Castillo.wav");
     this.load.audio("finalBoss_soundtrack", "./audio/CombatSong.wav");
     this.load.audio("credits_scene", "./audio/creditos.wav");
 
@@ -137,7 +138,7 @@ export default class Boot extends Phaser.Scene {
    */
   
   create() {
-    this.scene.start('level');
+    this.scene.start('main_menu');
     this.anims.create({key: 'standing_player', frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),frameRate: 6, repeat: -1 });
     this.anims.create({key: 'running_player', frames: this.anims.generateFrameNumbers('player', { start: 6, end: 13 }),frameRate: 10, repeat: -1 });
     this.anims.create({key: 'attack1_player', frames: this.anims.generateFrameNumbers('player', { start: 14, end: 25 }),frameRate: 10, repeat: 0 });
