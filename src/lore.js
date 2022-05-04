@@ -24,7 +24,7 @@
             delay: 0,
           }; // config es opcional
           
-        this.sound_main_menu = this.sound.add("init_scene", config);
+        this.sound_main_menu = this.sound.add("violin", config);
 
         this.Enter = this.input.keyboard.addKey('ENTER');
 

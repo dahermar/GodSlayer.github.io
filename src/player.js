@@ -139,6 +139,13 @@ export default class Player extends Phaser.GameObjects.Container {
       this.scene.addCaveBackGround();
     });
 
+    this.scene.physics.add.overlap(this, this.scene.toBoss,() => {
+      this.scene.addBossSong();
+    });
+
+    this.scene.physics.add.overlap(this, this.scene.fromBoss,() => {
+      this.scene.removeBossSong();
+    });
     
 
     //Fijar la interfaz grafica
