@@ -29,7 +29,7 @@
           this.creds = [];
           //this.add.image(0,0, 'blackScreen')
           let txt = this.add.text(370, 400, 
-            "                      Creditos \n\n                      Daniel\n\n                      Juan\n\n                      Pablo\n\n                      Julian", { align: 'center' });
+            "                    Hecho por: \n\n                      Daniel\n\n                      Juan\n\n                      Pablo\n\n                      Julian", { align: 'center' });
         //this.generalTextShow.depth = 1;
         this.creds.push(this.add.image(640, 400, 'mainmenu'));
         this.creds.push(txt);
