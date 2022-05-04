@@ -68,6 +68,8 @@ export default class Boot extends Phaser.Scene {
     this.load.image('emptybar', 'emptybar.png');
     this.load.image('bar', 'bar.png');
     this.load.image('heart', 'heart.png');
+    this.load.image('black_screen', 'black_screen.png');
+
     
     this.load.spritesheet('player', './Warrior/SpriteSheet/Warrior_Sheet-Effect.png', { frameWidth: 69, frameHeight: 44 });
     

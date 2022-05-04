@@ -23,7 +23,8 @@
             loop: true,
             delay: 0,
           }; // config es opcional
-          
+          this.add.image(0,0, 'black_screen');
+
         this.sound_credits = this.sound.add("credits_scene", config);
 
           this.creds = [];
@@ -58,7 +59,8 @@
 
     startGame(){
         this.sound_credits.stop();
-        this.scene.resume('level');
+        this.other_scene = this.scene.resume('level');
+        this.other_scene.sound_castle.play()
         this.scene.stop()
     }
 
