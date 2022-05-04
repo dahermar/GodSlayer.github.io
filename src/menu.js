@@ -107,14 +107,12 @@ export default class menu extends Phaser.Scene {
                 
                     if(collectible.owned){
                         img_list.push(this.add.image(500,500,collectible.name));
-                        img_list[index].setScale(0.2);
                         
                     }
                     else{
                         img_list.push(this.add.image(500,500,'Question_Mark'));
-                        img_list[index].setScale(1);
                     }
-
+                    img_list[index].setScale(1);
                     img_list[index].depth=3;
                     this.cross.setVisible(true);
 
@@ -132,15 +130,12 @@ export default class menu extends Phaser.Scene {
                             });
                             
                             if(collectible.owned){
-                                console.log(collectible.owned);
-                                img_list[index].setScale(0.3);
                                 this.current_text = this.add.text(500, 500, collectible.desc, {fontFamily: 'GeneralFont '});
                             }
                             else{
-                                console.log(collectible.owned);
-                                img_list[index].setScale(2.3);
                                 this.current_text = this.add.text(500, 500, "Coleccionable no encontrado", {fontFamily: 'GeneralFont '});
                             }
+                            img_list[index].setScale(2.3);
                             this.current_text.depth = 3 ;
                             img_list[index].x= 640;
                             img_list[index].y= 300;
@@ -215,12 +210,8 @@ export default class menu extends Phaser.Scene {
             img_list.forEach((collectible_img, index) => {
                 collectible_img.setVisible(true);
                 
-                if(this.collectible_list[index].owned){
-                    collectible_img.setScale(0.2);
-                }
-                else{
+                
                     collectible_img.setScale(1);
-                }
                 collectible_img.x = (index % 2) * this.image_offset + this.first_image_x;
                 collectible_img.y = Math.floor(index / 2) * this.image_offset + this.first_image_y;
             });
