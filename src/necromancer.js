@@ -58,6 +58,8 @@ import NecromancerSpell from "./necromancerSpell.js";
       this.isOnAction = true;
       this.scene.isBossAlive[2] = false;
       this.scene.removeFinalWall();
+      this.scene.sound_castle.play();
+      this.scene.sound_finalBoss.stop();
       this.scene.time.delayedCall(5000, () => {this.destroy();}, [], this);
       this.skeletons.forEach(charObj => {
         if(charObj[2]){

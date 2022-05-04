@@ -216,6 +216,15 @@ export default class Level extends Phaser.Scene {
       }
     });
 
+    this.toBoss = this.add.zone(38363, 3263, 300, 700);
+        this.physics.add.existing(this.toBoss);
+        this.toBoss.body.setAllowGravity(false);
+
+    this.fromBoss = this.add.zone(37863, 3263, 300, 700);
+        this.physics.add.existing(this.fromBoss);
+        this.fromBoss.body.setAllowGravity(false);
+
+
     this.playerLayer = this.map.getObjectLayer('Player');
     const playObj = this.playerLayer.objects[0];
     this.player = new Player(this, playObj.x, playObj.y);
@@ -573,6 +582,19 @@ export default class Level extends Phaser.Scene {
       this.cavebg4.addToDisplayList();
       this.sound_cave.play();
 
+    }
+  }
+
+  addBossSong(){
+    if(this.finalWallCollider.active && !this.sound_finalBoss.isPlaying){
+      this.sound_castle.stop();
+      this.sound_finalBoss.play();
+    }
+  }
+  removeBossSong(){
+    if(this.finalWallCollider.active &&this.sound_finalBoss.isPlaying){
+      this.sound_castle.play();
+      this.sound_finalBoss.stop();
     }
   }
   
