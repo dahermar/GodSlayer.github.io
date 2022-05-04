@@ -37,7 +37,7 @@ export default class PowerEarned extends Phaser.GameObjects.Container {
 
         }
         else if(this.power === "doble"){
-            this.scene.player.maxJumps =2s;
+            this.scene.player.maxJumps =2;
             console.log(this.scene.player.maxJumps);
             this.text_box.setVisible(true);
             this.text.setVisible(true);
