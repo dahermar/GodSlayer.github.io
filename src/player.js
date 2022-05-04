@@ -157,6 +157,9 @@ export default class Player extends Phaser.GameObjects.Container {
     this.sound_death_adventurer = this.scene.sound.add("death_adventurer", config);
     this.sound_doubleJump_dash_adventurer = this.scene.sound.add("doubleJump_dash_adventurer", config);
     this.sound_jump = this.scene.sound.add("jump", config);
+    this.sound_attack_adventurer = this.scene.sound.add("attack_adventurer", config);
+    this.sound_enemy_death = this.scene.sound.add("enemy_death", config);
+
 
 
     this.updateUI();
@@ -459,6 +462,11 @@ export default class Player extends Phaser.GameObjects.Container {
   dealWeaponDamage(){
     this.scene.physics.overlap(this.weaponHitbox, this.scene.enemies,(hitbox, enemy) => {
       enemy.getDamage(1);
+      if(enemy.lives>0){
+        this.sound_attack_adventurer.play();
+      }else{
+        this.sound_enemy_death.play();
+      }
     });
   }
 
