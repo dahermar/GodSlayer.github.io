@@ -45,8 +45,8 @@
             targets: this.creds,
             y: -300,
             ease: 'Power1',
-            duration: 4000,
-            delay: 1000,
+            duration: 7000,
+            delay: 1500,
           });
     }
 
