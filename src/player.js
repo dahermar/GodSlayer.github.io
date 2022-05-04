@@ -72,8 +72,9 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.body.setMaxSpeed(500);
 
     //POWERS
-    this.dashEnabled = true;
+    this.dashEnabled = false;
     this.maxJumps = 2;
+    this.kniveEnabled = false;
 
     this.speed = 500;
     this.jumpSpeed = -600;
@@ -337,7 +338,7 @@ export default class Player extends Phaser.GameObjects.Container {
   
 
   throw(){
-    if(Phaser.Input.Keyboard.JustDown(this.l) && this.throwing_object >0 && this.canThrow){
+    if(Phaser.Input.Keyboard.JustDown(this.l) && this.kniveEnabled && this.throwing_object >0 && this.canThrow){
       new Knife(this.scene,this.x,this.y,this.direction);
       this.canThrow = false;
       this.scene.time.delayedCall(2000, () => {this.canThrow = true;}, [], this);
