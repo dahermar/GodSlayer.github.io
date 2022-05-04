@@ -42,8 +42,8 @@ export default class Level extends Phaser.Scene {
     this.isBossAlive = new Array(true, true, true);
     this.creditsShown = false;
 
-    const fondo = this.add.image(0,0,'background').setOrigin(0);
-    fondo.setScale(1.2);
+    //const fondo = this.add.image(0,0,'background').setOrigin(0);
+    //fondo.setScale(1.2);
     const castleMainSet = this.map.addTilesetImage('main_lev_build_rescaled', 'castleMain');
     const castleDecorativeSet = this.map.addTilesetImage('other_and_decorative_rescaled', 'castleDecorative');
     const forestMainSet = this.map.addTilesetImage('SET1_Mainlev_build_rescaled', 'forestMain');
@@ -98,6 +98,24 @@ export default class Level extends Phaser.Scene {
     this.forestNightbg3.setDepth(-5);
     this.forestNightbg4.setDepth(-5);
 
+    this.cavebg1 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'cave_background_1');
+    this.cavebg1.setScrollFactor(0,0);
+    this.cavebg1.setOrigin(0,0);
+    this.cavebg2 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'cave_background_2');
+    this.cavebg2.setScrollFactor(0,0);
+    this.cavebg2.setOrigin(0,0);
+    this.cavebg3 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'cave_background_3');
+    this.cavebg3.setScrollFactor(0,0);
+    this.cavebg3.setOrigin(0,0);
+    this.cavebg4 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'cave_background_4A');
+    this.cavebg4.setScrollFactor(0,0);
+    this.cavebg4.setOrigin(0,0);
+
+    this.cavebg1.setDepth(-5);
+    this.cavebg2.setDepth(-5);
+    this.cavebg3.setDepth(-5);
+    this.cavebg4.setDepth(-5);
+
     const config = {
       mute: false,
       volume: 0.15,
@@ -112,7 +130,7 @@ export default class Level extends Phaser.Scene {
    //this.soud_ = this.scene.sound.add("", config);
     this.sound_castle = this.sound.add("castle_soundtrack", config);
     this.sound_forest = this.sound.add("forest_soundtrack", config);
-    //this.sound_cave = this.sound.add("cave_soundtrack", config);
+    this.sound_cave = this.sound.add("cave_soundtrack", config);
     this.sound_finalBoss = this.sound.add("finalBoss_soundtrack", config);
 
     
@@ -143,6 +161,7 @@ export default class Level extends Phaser.Scene {
     this.checkPointGroup = this.add.group();
     this.toCastleGroup = this.add.group();
     this.toForestGroup = this.add.group();
+    this.toCaveGroup = this.add.group();
     //this.backGround4Layer.scrollFactorX = 0.3;
     //this.backGround3Layer.scrollFactorX = 0.2;
     //this.backGround2Layer.scrollFactorX = 0.1;
@@ -159,38 +178,43 @@ export default class Level extends Phaser.Scene {
         this.sproutFinish.body.setAllowGravity(false); 
       }
 
-      if(levelObj.type === "SproutDeath"){
+      else if(levelObj.type === "SproutDeath"){
         this.sproutDeath = this.add.zone(levelObj.x, levelObj.y, 2000, 200);
         this.physics.add.existing(this.sproutDeath);
         this.sproutDeath.body.setAllowGravity(false); 
       }
 
-      if(levelObj.type === "Dash"){
+      else if(levelObj.type === "Dash"){
         this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash", "La Madre te otorga el poder del viento por derrotar al Gran Árbol");
       }
 
-      if(levelObj.type === "ToCastle"){
+      else if(levelObj.type === "ToCastle"){
         const toCas = this.add.zone(levelObj.x, levelObj.y, 300, 700);
         this.toCastleGroup.add(toCas);
         this.physics.add.existing(toCas);
         toCas.body.setAllowGravity(false); 
       }
 
-      if(levelObj.type === "ToForest"){
+      else if(levelObj.type === "ToForest"){
         const toFor = this.add.zone(levelObj.x, levelObj.y, 300, 700);
         this.toForestGroup.add(toFor);
         this.physics.add.existing(toFor);
         toFor.body.setAllowGravity(false); 
       }
+      
+      else if(levelObj.type === "ToCave"){
+        const toCav = this.add.zone(levelObj.x, levelObj.y, 800, 700);
+        this.toCaveGroup.add(toCav);
+        this.physics.add.existing(toCav);
+        toCav.body.setAllowGravity(false); 
+      }
 
-      if(levelObj.type === "Credits"){
+      else if(levelObj.type === "Credits"){
         this.creditZone = this.add.zone(levelObj.x, levelObj.y - 100, 300, 700);
         this.physics.add.existing(this.creditZone);
         this.creditZone.body.setAllowGravity(false); 
       }
     });
-
-    console.log(this.toCastleGroup.getLength());
 
     this.playerLayer = this.map.getObjectLayer('Player');
     const playObj = this.playerLayer.objects[0];
@@ -208,6 +232,7 @@ export default class Level extends Phaser.Scene {
     });*/
 
     const Collectible_list = [];
+    this.collectible_list = Collectible_list;
 
     const collectiblesLayer = this.map.getObjectLayer('Collectibles');
 
@@ -253,10 +278,6 @@ export default class Level extends Phaser.Scene {
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);
     this.fullscreenButton.setScrollFactor(0,0);
-
-    this.pauseButton = this.add.image(1100, 10, 'pause', 0).setOrigin(1, 0).setInteractive();
-    this.pauseButton.setScale(0.1);
-    this.pauseButton.setScrollFactor(0,0);
 
     this.deadImage = this.add.image(640,360,'muerte').setScale(0.75).setScrollFactor(0,0);
     this.deadImage.setVisible(false);
@@ -325,15 +346,6 @@ export default class Level extends Phaser.Scene {
 
                 this.scale.startFullscreen();
             }
-
-    }, this);
-
-    this.pauseButton.on('pointerup', function () {
-
-      console.log("Pausa");
-      this.scene.launch('menu',{collectible_list: Collectible_list});
-
-      this.scene.pause();
 
     }, this);
 
@@ -416,6 +428,11 @@ export default class Level extends Phaser.Scene {
     this.forestNightbg3.tilePositionX = this.playerCamera.scrollX * 0.4;
     this.forestNightbg4.tilePositionX = this.playerCamera.scrollX * 0.6;
 
+    this.cavebg1.tilePositionX = this.playerCamera.scrollX * 0.1;
+    this.cavebg2.tilePositionX = this.playerCamera.scrollX * 0.3;
+    this.cavebg3.tilePositionX = this.playerCamera.scrollX * 0.4;
+    this.cavebg4.tilePositionX = this.playerCamera.scrollX * 0.6;
+
     //this.Castlebg1 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'forest_background_night_1');
     
     
@@ -425,7 +442,7 @@ export default class Level extends Phaser.Scene {
 
   
   pause_function(){
-    this.scene.launch('menu',{collectible_list: Collectible_list});
+    this.scene.launch('menu',{collectible_list: this.collectible_list});
     this.scene.pause();
   }
 
@@ -488,12 +505,23 @@ export default class Level extends Phaser.Scene {
     this.Castlebg5.removeFromDisplayList();
   }
 
+  removeCaveBackGround(){
+    this.cavebg1.removeFromDisplayList();
+    this.cavebg2.removeFromDisplayList();
+    this.cavebg3.removeFromDisplayList();
+    this.cavebg4.removeFromDisplayList();
+  }
+
   addForestBackGround(){
     if(this.currentBackGround != "forest"){
       if(this.currentBackGround === "castle"){
         this.removeCastleBackGround();
         this.sound_castle.stop();
         this.sound_finalBoss.stop();
+      }
+      else if(this.currentBackGround === "cave"){
+        this.removeCaveBackGround();
+        this.sound_cave.stop();
       }
       this.currentBackGround = "forest";
       this.forestNightbg1.addToDisplayList();
@@ -511,6 +539,10 @@ export default class Level extends Phaser.Scene {
         this.removeForestBackGround();
         this.sound_forest.stop();
       }
+      else if(this.currentBackGround === "cave"){
+        this.removeCaveBackGround();
+        this.sound_cave.stop();
+      }
       this.currentBackGround = "castle";
       this.Castlebg1.addToDisplayList();
       this.Castlebg2.addToDisplayList();
@@ -518,6 +550,28 @@ export default class Level extends Phaser.Scene {
       this.Castlebg4.addToDisplayList();
       this.Castlebg5.addToDisplayList();
       this.sound_castle.play();
+
+    }
+  }
+
+  addCaveBackGround(){
+    if(this.currentBackGround != "cave"){
+      if(this.currentBackGround === "forest"){
+        this.removeForestBackGround();
+        this.sound_forest.stop();
+      }
+      else if(this.currentBackGround === "castle"){
+        this.removeCastleBackGround();
+        this.sound_castle.stop();
+        this.sound_finalBoss.stop();
+      }
+      this.currentBackGround = "cave";
+      console.log(this.currentBackGround);
+      this.cavebg1.addToDisplayList();
+      this.cavebg2.addToDisplayList();
+      this.cavebg3.addToDisplayList();
+      this.cavebg4.addToDisplayList();
+      this.sound_cave.play();
 
     }
   }
