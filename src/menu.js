@@ -64,11 +64,11 @@ export default class menu extends Phaser.Scene {
         const img_list = [];
         
 
-        this.continueButton = this.add.text(this.button_x+33, this.button_y,"Continue",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.VolumeButton = this.add.text(this.button_x+18, this.continueButton.y + this.button_offset,"Volume On",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.collectible = this.add.text(this.button_x+23, this.VolumeButton.y + this.button_offset,"Collectible",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.restart = this.add.text(this.button_x+40, this.collectible.y + this.button_offset,"Restart",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.exitButton = this.add.text(this.button_x+73, this.restart.y + this.button_offset,"Exit",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.continueButton = this.add.text(this.button_x+33, this.button_y,"Continuar",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.VolumeButton = this.add.text(this.button_x+18, this.continueButton.y + this.button_offset,"Volumen On",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.collectible = this.add.text(this.button_x+23, this.VolumeButton.y + this.button_offset,"Coleccionables",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.restart = this.add.text(this.button_x+40, this.collectible.y + this.button_offset,"Reaparecer",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.exitButton = this.add.text(this.button_x+73, this.restart.y + this.button_offset,"Salir",{fontFamily: 'GeneralFont '}).setInteractive();
 
         this.continueButton.setFontSize(40);
         this.VolumeButton.setFontSize(40);
@@ -84,7 +84,7 @@ export default class menu extends Phaser.Scene {
         this.restart.on('pointerup', function () {
             this.scene.resume('level');
             var level_scene = this.scene.get('level');
-            level_scene.restartLevel();
+            level_scene.player.getDamage(100);
             this.scene.stop();
 
         }, this);
@@ -167,9 +167,9 @@ export default class menu extends Phaser.Scene {
             
             this.sound.mute = !this.sound.mute;
             if(this.sound.mute)
-                this.VolumeButton.text = "Volume On";
+                this.VolumeButton.text = "Volumen On";
             else
-                this.VolumeButton.text = "Volume Off";
+                this.VolumeButton.text = "Volumen Off";
         }, this);
 
 

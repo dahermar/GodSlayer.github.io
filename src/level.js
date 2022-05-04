@@ -228,14 +228,15 @@ export default class Level extends Phaser.Scene {
     const messagesLayer = this.map.getObjectLayer('Messages');
     
     
+    this.afterCreditMessages = [];
     messagesLayer.objects.forEach(messaObj => {
       if(messaObj.type != "Credits"){
         new TextBox(this, messaObj.x, messaObj.y, messaObj.properties[0].value);
       }
       else{
-        this.afterCreditMessage = new Array(messaObj.x, messaObj.y, messaObj.properties[0].value);
+        this.afterCreditMessages.push(new Array(messaObj.x, messaObj.y, messaObj.properties[0].value));
+        
       }
-      
     });
 
     
@@ -526,14 +527,18 @@ export default class Level extends Phaser.Scene {
     this.finalWallCollider.active = false;
   }
 
+  
   showCredits(){
     this.creditsShown = true;
-    new TextBox(this, this.afterCreditMessage[0], this.afterCreditMessage[1], this.afterCreditMessage[2]);
-    this.sound_castle.stop();
+    this.afterCreditMessages.forEach(mess => {
+      new TextBox(this, mess[0], mess[1], mess[2]);
+    });
+    
+    this.player.kniveEnabled = true;
     this.scene.launch('credits');
 
+    this.sound_castle.stop(); 
     this.scene.pause();
-
   }
 
 }

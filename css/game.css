@@ -25,3 +25,8 @@ div#contenido {
   position:sticky;
   margin-top: 200px;
 }
+
+@font-face {
+  font-family: GeneralFont;
+  src: url('fonts/LanaPixel.ttf');
+}
