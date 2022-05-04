@@ -73,7 +73,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
     //POWERS
     this.dashEnabled = true;
-    this.maxJumps = 1;
+    this.maxJumps = 2;
 
     this.speed = 500;
     this.jumpSpeed = -600;
