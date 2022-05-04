@@ -61,7 +61,7 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.body.setCollideWorldBounds();
 
     //Zone Arma
-    this.weaponHitbox = this.scene.add.zone(110, 40, 90, 80);
+    this.weaponHitbox = this.scene.add.zone(100, 40, 110, 80);
     this.scene.physics.add.existing(this.weaponHitbox);
     this.weaponHitbox.body.setAllowGravity(false);
 
@@ -131,6 +131,10 @@ export default class Player extends Phaser.GameObjects.Container {
 
     this.scene.physics.add.overlap(this, this.scene.toForestGroup,() => {
       this.scene.addForestBackGround();
+    });
+
+    this.scene.physics.add.overlap(this, this.scene.toCaveGroup,() => {
+      this.scene.addCaveBackGround();
     });
 
     
@@ -240,13 +244,13 @@ export default class Player extends Phaser.GameObjects.Container {
       this.body.setVelocityY(this.jumpSpeed);
       if(this.scene.wallLayer.hasTileAtWorldXY(this.x - 1, this.y + 51)){
         this.direction = 1;
-        this.weaponHitbox.setX(110);
+        this.weaponHitbox.setX(100);
         this.sprite.flipX = false;
         this.sprite.x = 55;
         this.body.setVelocityX(500);
       }
       else{
-        this.weaponHitbox.setX(-45);
+        this.weaponHitbox.setX(-35);
         this.direction = -1;
         this.sprite.flipX = true;
         this.sprite.x = 10;
@@ -274,7 +278,7 @@ export default class Player extends Phaser.GameObjects.Container {
     }
     if(this.canMove){
       if (this.a.isDown) {
-        this.weaponHitbox.setX(-45);
+        this.weaponHitbox.setX(-35);
         this.direction = -1;
         this.sprite.flipX = true;
         this.sprite.x = 10;
@@ -303,7 +307,7 @@ export default class Player extends Phaser.GameObjects.Container {
       }
       else if (this.d.isDown) {
         this.direction = 1;
-        this.weaponHitbox.setX(110);
+        this.weaponHitbox.setX(100);
         this.sprite.flipX = false;
         this.sprite.x = 55;
         if(Phaser.Input.Keyboard.JustDown(this.shift) && this.dashEnabled){
