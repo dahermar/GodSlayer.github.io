@@ -549,7 +549,7 @@ export default class Level extends Phaser.Scene {
       this.forestNightbg4.addToDisplayList();
       this.sound_forest.play();
     }
-    
+    this.sound_forest.setRate(1);
   }
 
   addCastleBackGround(){

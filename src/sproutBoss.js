@@ -29,7 +29,7 @@ export default class SproutBoss extends Phaser.GameObjects.Container {
         this.scene.physics.add.overlap(this, this.scene.sproutFinish, () => {
             if(!this.hasFinished){
                 this.hasFinished = true;
-                this.scene.sound.setRate(1);
+                this.scene.sound_forest.setRate(1);
                 //this.groundCollision.active = true;
                 this.body.setAllowGravity(true);
                 this.scene.player.enableKeys(false);
@@ -69,7 +69,7 @@ export default class SproutBoss extends Phaser.GameObjects.Container {
           
         if(this.scene.player.x > this.x  && !this.hasFalled && this.scene.player.x < this.x + 1000 && this.scene.player.y > this.y && this.scene.player.y < this.y + 1500){
             this.body.setAllowGravity(true);
-            this.scene.sound.setRate(1.3);
+            this.scene.sound_forest.setRate(1.3);
             
         }
         if(this.body.onFloor() && !this.hasFalled && this.canAnimate){
