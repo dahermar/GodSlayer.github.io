@@ -72,7 +72,7 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.body.setMaxSpeed(500);
     //POWERS
     this.dashEnabled = false;
-    this.maxJumps = 1;
+    this.maxJumps = 2;
     this.kniveEnabled = false;
 
     this.speed = 500;
@@ -94,8 +94,8 @@ export default class Player extends Phaser.GameObjects.Container {
     this.d = this.scene.input.keyboard.addKey('D');
     this.e = this.scene.input.keyboard.addKey('E');
     this.shift = this.scene.input.keyboard.addKey('SHIFT');
-    this.f = this.scene.input.keyboard.addKey('F');
-    this.l = this.scene.input.keyboard.addKey('L');
+    this.j = this.scene.input.keyboard.addKey('J');
+    this.k = this.scene.input.keyboard.addKey('K');
     this.p = this.scene.input.keyboard.addKey('P');
     //this.j = this.scene.input.keyboard.addKey('J');
     
@@ -175,6 +175,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.sound_enemy_death = this.scene.sound.add("enemy_death", config);
 
 
+    
 
     this.updateUI();
   }
@@ -348,7 +349,7 @@ export default class Player extends Phaser.GameObjects.Container {
   
 
   throw(){
-    if(Phaser.Input.Keyboard.JustDown(this.l) && this.kniveEnabled && this.throwing_object >0 && this.canThrow){
+    if(Phaser.Input.Keyboard.JustDown(this.k) && this.kniveEnabled && this.throwing_object >0 && this.canThrow){
       new Knife(this.scene,this.x,this.y,this.direction);
       this.canThrow = false;
       this.scene.time.delayedCall(2000, () => {this.canThrow = true;}, [], this);
@@ -420,10 +421,10 @@ export default class Player extends Phaser.GameObjects.Container {
     this.d.enabled = enable;
     this.shift.reset();
     this.shift.enabled = enable;
-    this.f.reset();
-    this.f.enabled = enable;
-    this.l.reset();
-    this.l.enabled = enable;
+    this.j.reset();
+    this.j.enabled = enable;
+    this.k.reset();
+    this.k.enabled = enable;
     this.e.reset();
     this.e.enabled = enable;
     this.p.reset();
@@ -482,7 +483,7 @@ export default class Player extends Phaser.GameObjects.Container {
   }
 
   attack(){
-    if(Phaser.Input.Keyboard.JustDown(this.f)){
+    if(Phaser.Input.Keyboard.JustDown(this.j)){
       if(this.canAttack === true){
         this.body.setVelocityX(0); //TODO mirar si cambiarlo
         this.canAttack = false;

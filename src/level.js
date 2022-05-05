@@ -414,7 +414,7 @@ export default class Level extends Phaser.Scene {
         this.enemies.add(enemyFromTiled);
         this.enemiesPlatformCol.add(enemyFromTiled);
       }
-      else if(charObj.type === "WormBoss"){
+      else if(charObj.type === "WormBoss" && this.isBossAlive[1]){
         enemyFromTiled = new WormBoss(this, charObj.x, charObj.y,parseInt(charObj.name));
         this.enemies.add(enemyFromTiled);
         this.enemiesPlatformCol.add(enemyFromTiled);

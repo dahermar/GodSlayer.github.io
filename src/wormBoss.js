@@ -42,6 +42,7 @@ import Fireball from "./fireball.js";
     death(){
       this.sprite.play('dead_worm',true);
       this.canAnimate = false;
+      this.scene.isBossAlive[1] = false;
       //new Potion(this.scene,this.x,this.y);
       this.scene.time.delayedCall(8000, () => {this.destroy();}, [], this);
     }

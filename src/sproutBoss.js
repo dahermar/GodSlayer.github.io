@@ -34,12 +34,13 @@ export default class SproutBoss extends Phaser.GameObjects.Container {
                 this.body.setAllowGravity(true);
                 this.scene.player.enableKeys(false);
                 this.body.setVelocityX(this.body.velocity.x / 5);
+                
+                this.scene.isBossAlive[0] = false;
                 //this.canAnimate = false;
                 this.scene.time.delayedCall(4000, () => {
                     this.scene.cameras.main.stopFollow();
                     this.scene.cameras.main.startFollow(this.scene.player, false, 1, 1, 0, 75);
                     this.scene.player.enableKeys(true);
-                    this.scene.isBossAlive[0] = false;
                     this.destroy();
                 }, [], this);
                 
