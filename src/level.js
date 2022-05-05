@@ -190,7 +190,7 @@ export default class Level extends Phaser.Scene {
       }
 
       else if(levelObj.type === "Doble"){
-        this.dobleEarned = new PowerEarned(this, levelObj.x, levelObj.y, "doble", "Axelia te otorga el poder ");
+        this.dobleEarned = new PowerEarned(this, levelObj.x, levelObj.y, "doble", "Axelia te otorga el poder del salto doble por derrotar al Gusanito Julián");
       }
 
       else if(levelObj.type === "ToCastle"){
