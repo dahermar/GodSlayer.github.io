@@ -174,7 +174,7 @@ export default class Player extends Phaser.GameObjects.Container {
     this.sound_attack_adventurer = this.scene.sound.add("attack_adventurer", config);
     this.sound_enemy_death = this.scene.sound.add("enemy_death", config);
 
-
+    this.body.setMaxVelocityY(1500);
     
 
     this.updateUI();
@@ -224,7 +224,6 @@ export default class Player extends Phaser.GameObjects.Container {
       this.touchingWall = true;
     }
     else{
-      this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
       this.touchingWall = false;
     }
   }
@@ -268,7 +267,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
   move(){
     if (Phaser.Input.Keyboard.JustDown(this.w)) { 
-      this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
+      //this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
       if(this.body.onFloor()){
         this.numJumps = 1;
         this.body.setVelocityY(this.jumpSpeed);

@@ -480,7 +480,7 @@ export default class Level extends Phaser.Scene {
  
 
   playerDeath() {
-    this.deadImage.setVisible(true);
+    //this.deadImage.setVisible(true);
     this.time.delayedCall(4000, () => {
       this.restartLevel();
     }
@@ -490,7 +490,7 @@ export default class Level extends Phaser.Scene {
   }
   
   restartLevel(){
-    this.deadImage.setVisible(false);
+    //this.deadImage.setVisible(false);
     this.destroyEnemies();
     this.player.respawn();
   }
