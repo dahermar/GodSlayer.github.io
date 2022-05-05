@@ -62,19 +62,19 @@ export default class menu extends Phaser.Scene {
         this.first_image_x = 580;
         this.first_image_y = 210;
         const img_list = [];
-        
+         
 
-        this.continueButton = this.add.text(this.button_x+25, this.button_y,"Continuar",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.continueButton = this.add.text(this.button_x+25, this.button_y,"Continuar",{fontFamily: 'GeneralFont'}).setInteractive();
         this.VolumeButton = this.add.text(this.button_x+13, this.continueButton.y + this.button_offset,"Volumen On",{fontFamily: 'GeneralFont '}).setInteractive();
-        this.collectible = this.add.text(this.button_x-10, this.VolumeButton.y + this.button_offset,"Coleccionables",{fontFamily: 'GeneralFont '}).setInteractive();
+        this.collectible = this.add.text(this.button_x-8, this.VolumeButton.y + this.button_offset,"Coleccionables",{fontFamily: 'GeneralFont '}).setInteractive();
         this.restart = this.add.text(this.button_x+10, this.collectible.y + this.button_offset,"Reaparecer",{fontFamily: 'GeneralFont '}).setInteractive();
         this.exitButton = this.add.text(this.button_x+65, this.restart.y + this.button_offset,"Salir",{fontFamily: 'GeneralFont '}).setInteractive();
 
-        this.continueButton.setFontSize(40);
-        this.VolumeButton.setFontSize(40);
-        this.collectible.setFontSize(40);
-        this.restart.setFontSize(40);
-        this.exitButton.setFontSize(40); 
+        this.continueButton.setFontSize(38);
+        this.VolumeButton.setFontSize(38);
+        this.collectible.setFontSize(38);
+        this.restart.setFontSize(38);
+        this.exitButton.setFontSize(38); 
 
         this.continueButton.on('pointerup', function () {
             this.scene.resume('level');
@@ -161,10 +161,15 @@ export default class menu extends Phaser.Scene {
         this.VolumeButton.on('pointerup', function () {
             
             this.sound.mute = !this.sound.mute;
-            if(this.sound.mute)
+            if(this.sound.mute){
+                this.VolumeButton.x = this.button_x + 13;
                 this.VolumeButton.text = "Volumen On";
-            else
+            }
+            else{
+                this.VolumeButton.x = this.button_x + 10;
                 this.VolumeButton.text = "Volumen Off";
+            }
+
         }, this);
 
 

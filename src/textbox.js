@@ -7,17 +7,19 @@ export default class TextBox extends Phaser.GameObjects.Container {
     constructor(scene, x, y, text) {
         super(scene, x- 250, y -150 );
 
+        
+
+        this.text_box = this.scene.add.image(x+58, y-70, 'text_box');
+        this.text_box.setScale(0.44);
+
         this.map = this.countRepeatedWords(text);
 
-        this.text_box = this.scene.add.image(x+50, y-70, 'text_box');
-        this.text_box.setScale(0.4);
-
-        this.text = this.scene.add.text(x-26, y-58, text,{fontFamily: 'GeneralFont '});
+        this.text = this.scene.add.text(x-32, y-56, text,{fontFamily:'GeneralFont '});
 
         if(this.map["\n"] > 0){
             this.text.setY(y- (52 +(this.map["\n"]*(10))));
-            this.text_box.setScale(0.52);
-            this.text.setX(x-60);
+            this.text_box.setScale(0.54);
+            this.text.setX(x-54);
         }
         
 

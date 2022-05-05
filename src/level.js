@@ -187,11 +187,11 @@ export default class Level extends Phaser.Scene {
       }
 
       else if(levelObj.type === "Dash"){
-        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash", "Axelia te otorga el poder del viento por derrotar al Gran Árbol");
+        this.dashEarned = new PowerEarned(this, levelObj.x, levelObj.y, "dash", " Axelia te otorga el poder del \n viento por derrotar al Gran Árbol");
       }
 
       else if(levelObj.type === "Doble"){
-        this.dobleEarned = new PowerEarned(this, levelObj.x, levelObj.y, "doble", "Axelia te otorga el poder del salto doble por derrotar al Gusanito Julián");
+        this.dobleEarned = new PowerEarned(this, levelObj.x, levelObj.y, "doble", " Axelia te otorga el poder del \n salto doble por derrotar al Gusanito Julián");
       }
 
       else if(levelObj.type === "ToCastle"){
