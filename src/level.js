@@ -159,6 +159,7 @@ export default class Level extends Phaser.Scene {
     this.enemiesPlatformCol = this.add.group();
     this.batGroup = this.add.group();
     this.interactible = this.add.group();
+    this.potionGroup = this.add.group();
     this.checkPointGroup = this.add.group();
     this.toCastleGroup = this.add.group();
     this.toForestGroup = this.add.group();
@@ -420,7 +421,9 @@ export default class Level extends Phaser.Scene {
         this.enemiesPlatformCol.add(enemyFromTiled);
       }
       else if(charObj.type === "Potion"){
-        this.interactible.add(new Potion(this, charObj.x, charObj.y));
+        enemyFromTiled = new Potion(this, charObj.x, charObj.y)
+        this.interactible.add(enemyFromTiled);
+        this.potionGroup.add(enemyFromTiled);
       }
 
       else if(charObj.type === "Sprout" && this.isBossAlive[0]){
@@ -500,6 +503,12 @@ export default class Level extends Phaser.Scene {
     for(let i = 0; i < len; i++) {
       this.enemies.getChildren()[0].destroy();
    }
+   const len2 = this.potionGroup.getLength();
+   for(let j = 0; j < len2; j++) {
+    this.potionGroup.getChildren()[0].destroy();
+ }
+    this.bossSprout.destroy();
+    this.boss
     this.bossSprout.destroy();
     this.createEnemies();
   }
@@ -585,7 +594,6 @@ export default class Level extends Phaser.Scene {
         this.sound_finalBoss.stop();
       }
       this.currentBackGround = "cave";
-      console.log(this.currentBackGround);
       this.cavebg1.addToDisplayList();
       this.cavebg2.addToDisplayList();
       this.cavebg3.addToDisplayList();
