@@ -8,7 +8,7 @@ Grupo 7
 
 ![PEGI 12](./assets/sprites/pegi.png)
 
-![Juego](./assets/sprites/FotoDemo.png)
+![Juego](./assets/sprites/Foto1.png)
 
 <h2>GDD</h2>
 
