@@ -99,15 +99,15 @@ Hemos realizado pruebas del videojuego con una gran cantidad usuarios. Todos nos
 
 Usuario 1: Jugador habitual de videojuegos sin mucha experiencia en juegos de plataformas y metroidvanias. Al ser el primer usuario que probó el juego, lo encontró en un estado menos balanceado y pulido. Debido a ello, nos fue muy útil para balancear los niveles.
 
-Encontró difícil y frustrante algunas zonas de plataformeo.
+-Encontró difícil y frustrante algunas zonas de plataformeo.
     Solución: Ajustamos ciertas zonas de plataformas para reducir su dificultad
-No le gustó el mensaje de muerte.
+-No le gustó el mensaje de muerte.
     Solución: Teníamos un debate interno sobre si quitarlo o dejarlo. Al ver que a personas ajenas tampoco les gustaba, decidimos quitarlo.
-Le costó pasarse una zona que no tenía un punto de control cerca. Encontró frustrante que si se moría más adelante tenía que volver a pasársela. Esto mismo le ocurrió a algún usuario más.
+-Le costó pasarse una zona que no tenía un punto de control cerca. Encontró frustrante que si se moría más adelante tenía que volver a pasársela. Esto mismo le ocurrió a algún usuario más.
     Solución: Decidimos añadir un punto de control en un camino paralelo al principal. De esta forma si el usuario decide explorar los caminos encontrará el punto. Así     conseguimos reducir la frustración del jugador y, a su vez, recompensar la exploración.
-Debido a la gran cantidad de enemigos en algunas zonas, el usuario optó por pasarse ciertas zonas ignorándolos.
+-Debido a la gran cantidad de enemigos en algunas zonas, el usuario optó por pasarse ciertas zonas ignorándolos.
     Solución: Redujimos la cantidad de enemigos en ciertas zonas con una alta densidad de ellos.
-Pese a encontrar el juego difícil en general, se pasó el boss final de manera muy sencilla. Esto se debió a que si te movías muy rápido por el escenario era muy sencillo esquivar sus ataques.
+-Pese a encontrar el juego difícil en general, se pasó el boss final de manera muy sencilla. Esto se debió a que si te movías muy rápido por el escenario era muy sencillo esquivar sus ataques.
     Solución: Ajustamos la dificultad del boss final, incrementando su velocidad de ataque y dividiendo el combate en dos fases. La primera fase tiene los mismos           ataques, pero añadimos uno nuevo más difícil de esquivar en la segunda.
 
 
