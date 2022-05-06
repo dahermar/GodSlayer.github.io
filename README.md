@@ -93,6 +93,8 @@ Los sprites de los enemigos están relacionados con el bioma en el que se encuen
 
 <h3>Diagramas UML</h3>
 
+![UML1](./UML/UML1.png)
+
 <h3>Pruebas con usuarios</h3>
 
 Hemos realizado pruebas del videojuego con una gran cantidad usuarios. Todos nos dieron feedback, pero expondremos las opiniones de cuatro usuarios, ya que las del resto coinciden con las suyas.
