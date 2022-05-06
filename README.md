@@ -7,6 +7,7 @@ Juego: https://dahermar.github.io/GodSlayer.github.io/
 
 
 ![Juego](./assets/sprites/Foto1.png)
+![Juego](./assets/sprites/Foto2.png)
 
 <h2>GDD</h2>
 
