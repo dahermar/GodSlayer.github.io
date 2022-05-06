@@ -121,7 +121,7 @@ Usuario 2: Jugador habitual de videojuegos sin ninguna experiencia con juegos de
  - Murió muchas veces y nos dimos cuenta que el juego lageaba cada vez más con cada muerte del jugador. 
 
     Solución: Buscamos posibles causas del lageo. Nos centramos en el reseteo del mapa al morir y nos dimos cuenta de que al morir las pociones no se eliminaban, por lo que al reaparecer se generaba otra poción encima de las existentes, lo que generaba el lag.
--Por otra parte, debido a que fue el primer usuario probando el segundo bioma,  vimos que la dificultad de determinadas zonas era excesiva. 
+- Por otra parte, debido a que fue el primer usuario probando el segundo bioma,  vimos que la dificultad de determinadas zonas era excesiva. 
 
     Solución: En aquellas zonas en las que el jugador se quedaba atascado miramos si había alguna forma de reducir un poco la dificultad. Esto es o reducir el número de enemigos de la zona o hacer el tema de plataformeo más fácil (Por ejemplo en alguna zona subiendo un poco el techo para hacer el salto más fácil).
 - Por último descubrimos un bug con el cúal podía pasarse el segundo boss sin matarlo.
@@ -140,14 +140,18 @@ Usuario 3: Experiencia baja en este género. Fue el primer usuario en pasarse el
 
 
 Usuario 4: Estudiante de la carrera de desarrollo de videojuegos y jugador habitual. Debido a su experiencia desarrollando videojuegos, nos dio algún consejo útil.
-Nos hizo ver que la primera vez que presentamos a los murciélagos, aparecían una cantidad demasiado elevada de ellos. Esto resultaba frustrante ya que todavía no conoces sus mecánicas y te puedes sentir abrumado. Además nos dijo que algunos enemigos más no estaban correctamente presentados, ya que los introducimos en sitios muy complicados en los que aprender sus mecánicas se hace realmente difícil
-Solución: Redujimos el número de murciélagos la primera vez que te los encuentras.
-Nos dijo que los murciélagos quitaban demasiada vida.
-Solución: En el grupo había división de opiniones sobre si bajar la dificultad, ya que de dos ataques te mataban. Como más gente opinaba que quitaban demasiado, les bajamos el daño.
-Al igual que otros usuarios, encontró alguna zona con demasiados enemigos.
-Solución: Redujimos el número de enemigos en algunas secciones.
 
-Como valoración personal recalcó que los pinchos suelen quitar toda la vida del personaje, aunque fue más un gusto propio por lo que no lo tuvimos demasiado en  cuenta.
+- Nos hizo ver que la primera vez que presentamos a los murciélagos, aparecían una cantidad demasiado elevada de ellos. Esto resultaba frustrante ya que todavía no conoces sus mecánicas y te puedes sentir abrumado. Además nos dijo que algunos enemigos más no estaban correctamente presentados, ya que los introducimos en sitios muy complicados en los que aprender sus mecánicas se hace realmente difícil
+
+    Solución: Redujimos el número de murciélagos la primera vez que te los encuentras.
+- Nos dijo que los murciélagos quitaban demasiada vida.
+    
+    Solución: En el grupo había división de opiniones sobre si bajar la dificultad, ya que de dos ataques te mataban. Como más gente opinaba que quitaban demasiado, les bajamos el daño.
+- Al igual que otros usuarios, encontró alguna zona con demasiados enemigos.
+
+    Solución: Redujimos el número de enemigos en algunas secciones.
+
+- Como valoración personal recalcó que los pinchos suelen quitar toda la vida del personaje, aunque fue más un gusto propio por lo que no lo tuvimos demasiado en  cuenta.
 
 
 
