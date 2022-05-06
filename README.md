@@ -2,7 +2,9 @@
 
 
 Grupo 7: Grisucios.
+
 Integrantes: Daniel Hernández Martínez , Pablo Imbert Fernández, Julián Moreno Bellaneda, Juan Coello Fernández. 
+
 Juego: https://dahermar.github.io/GodSlayer.github.io/
 
 
