@@ -1,9 +1,4 @@
 /**
- * Escena principal del juego. La escena se compone de una serie de plataformas 
- * sobre las que se sitúan las bases en las podrán aparecer las estrellas. 
- * El juego comienza generando aleatoriamente una base sobre la que generar una estrella. 
- * Cada vez que el jugador recoge la estrella, aparece una nueva en otra base.
- * El juego termina cuando el jugador ha recogido 10 estrellas.
  * @extends Phaser.Scene
  */
 export default class menu extends Phaser.Scene {
@@ -27,7 +22,7 @@ export default class menu extends Phaser.Scene {
             seek: 0,
             loop: false,
             delay: 0,
-          }; // config es opcional
+          }; 
           this.sound_menu = this.sound.add("pause", config);
 
 

@@ -21,19 +21,15 @@ export default class Platform extends Phaser.GameObjects.Sprite {
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this, true);
     this.body.checkCollision.down = false;
-    //this.body.checkCollision.left = false;
-    //this.body.checkCollision.right = false;
     this.scene.physics.add.collider(this, this.scene.enemies);
   }
 
   preUpdate(t,dt){
       if(!this.player.body.onFloor()){
-        //this.body.checkCollision.down = false;
         this.body.checkCollision.left = false;
         this.body.checkCollision.right = false;
       }
       else{
-        //this.body.checkCollision.down = true;
         this.body.checkCollision.left = true;
         this.body.checkCollision.right = true;
       }

@@ -30,13 +30,11 @@ export default class SproutBoss extends Phaser.GameObjects.Container {
             if(!this.hasFinished){
                 this.hasFinished = true;
                 this.scene.sound_forest.setRate(1);
-                //this.groundCollision.active = true;
                 this.body.setAllowGravity(true);
                 this.scene.player.enableKeys(false);
                 this.body.setVelocityX(this.body.velocity.x / 5);
                 
                 this.scene.isBossAlive[0] = false;
-                //this.canAnimate = false;
                 this.scene.time.delayedCall(4000, () => {
                     this.scene.cameras.main.stopFollow();
                     this.scene.cameras.main.startFollow(this.scene.player, false, 1, 1, 0, 75);
@@ -50,12 +48,9 @@ export default class SproutBoss extends Phaser.GameObjects.Container {
         this.scene.physics.add.overlap(this, this.scene.sproutDeath, () => {
             if(!this.hasDied){
                 this.hasDied = true;
-                //this.groundCollision.active = true;
                 this.body.setAllowGravity(false);
                 this.body.setVelocityX(0);
-                this.body.setVelocityY(0);
-                //this.canAnimate = false;
-                
+                this.body.setVelocityY(0);                
             }
         });
 
@@ -81,10 +76,6 @@ export default class SproutBoss extends Phaser.GameObjects.Container {
             this.scene.cameras.main.stopFollow();
             this.scene.cameras.main.startFollow(this, false, 1, 1, -420, -90);
 
-            //this.Castlebg2.removeFromDisplayList();
-            //this.Castlebg3.removeFromDisplayList();
-            //this.Castlebg4.removeFromDisplayList();
-            //this.Castlebg5.removeFromDisplayList();
         }
       }
 

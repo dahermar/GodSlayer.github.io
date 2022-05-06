@@ -43,7 +43,6 @@ import Fireball from "./fireball.js";
     death(){
       this.sprite.play('dead_worm',true);
       this.canAnimate = false;
-      //new Potion(this.scene,this.x,this.y);
       this.scene.time.delayedCall(8000, () => {this.destroy();}, [], this);
     }
 
@@ -52,11 +51,7 @@ import Fireball from "./fireball.js";
      * @override
      */
     preUpdate(t,dt) { 
-      //this.checkCollision();
       if(!this.isOnAction ){
-        //if(!this.attack()){
-          //this.move();
-        //}
         this.attack();
       }
       this.animations();
@@ -147,17 +142,14 @@ import Fireball from "./fireball.js";
           this.direction = 1;
         }
         if(this.canAttack === true && this.lives > 0){
-          /*this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)if(Math.random()<0.4){this.extra();} 
-                                                                        else{this.basic();}
-                                                                      }, [], this);*/
+
           this.scene.time.delayedCall(750, () => {if(!this.hasBeenHurt)this.normalAttack();}, [], this);
           this.canAttack = false;
           this.canAnimate = false;
           this.isOnAction = true;
-          this.sprite.play('attack_worm',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
+          this.sprite.play('attack_worm',true)
           this.oldX = this.sprite.x;
           this.scene.time.delayedCall(1800, () => {
-            //this.sprite.stop();
             this.isOnAction = false;
             if(this.lives > 0)
               this.canAnimate = true;

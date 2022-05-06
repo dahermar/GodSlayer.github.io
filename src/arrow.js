@@ -1,10 +1,5 @@
 import Projectile from './projectile.js';
 
-/**
- * Clase que representa los cuchillos que lanza el jugador. El jugador los tira con la "L".
- * Como atributos tiene la velocidad de los cuchillos.
- */
-
 export default class Arrow extends Projectile {
 
     constructor(scene, x, y,direction) {

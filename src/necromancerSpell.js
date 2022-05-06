@@ -28,7 +28,7 @@ export default class NecromancerSpell extends Phaser.GameObjects.Container {
     }
 
     preUpdate(t,dt) {
-        this.sprite.play('spell_necromancer',true);//.on('animationcomplete-spell_necromancer', () => {this.destroy();});
+        this.sprite.play('spell_necromancer',true);
     }
 
 }

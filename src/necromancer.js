@@ -2,9 +2,6 @@ import Enemy from "./enemy.js";
 import necromancerSkeleton from "./necromancerSkeleton.js";
 import NecromancerSpell from "./necromancerSpell.js";
 
-/**
- * Clase que representa a un enemigo basico del juego.
- */
  export default class Necromancer extends Enemy {
 
     constructor(scene, necromancerPositions, skeletonList) {
@@ -54,7 +51,6 @@ import NecromancerSpell from "./necromancerSpell.js";
     death(){
       this.sprite.play('dead_necromancer',true);
       this.canAnimate = false;
-      //new Potion(this.scene,this.x,this.y);
       this.isOnAction = true;
       this.scene.isBossAlive[2] = false;
       this.scene.removeFinalWall();
@@ -103,10 +99,7 @@ import NecromancerSpell from "./necromancerSpell.js";
       if(this.lives <= 0 ){
         this.body.setVelocityX(0);
         this.canAttack = false;
-      }
-      
-      //else if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView )){
-        
+      }        
       else if((this.x - this.fieldOfView < this.scene.player.x)  && (this.scene.player.x < this.x + this.fieldOfView) && (this.y - this.fieldOfView< this.scene.player.y)  && (this.scene.player.y < this.y + this.fieldOfView )){
        if(this.scene.player.x < this.x){
          this.sprite.flipX = true;
@@ -216,12 +209,10 @@ import NecromancerSpell from "./necromancerSpell.js";
               }, [], this);
 
               this.contAux = cont;
-              //this.scene.time.delayedCall(1000, () => {
                          
               this.skeletons[this.contAux][3]=new necromancerSkeleton(this.scene, this.skeletons[this.contAux][0], this.skeletons[this.contAux][1], this.contAux, this);
-                this.scene.enemies.add(this.skeletons[this.contAux][3]);
-                this.scene.enemiesPlatformCol.add(this.skeletons[this.contAux][3]);
-              //}, [], this);
+              this.scene.enemies.add(this.skeletons[this.contAux][3]);
+              this.scene.enemiesPlatformCol.add(this.skeletons[this.contAux][3]);
 
               
               this.skeletons[cont][2] = true;
