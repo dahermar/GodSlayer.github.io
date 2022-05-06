@@ -101,7 +101,7 @@ Usuario 1: Jugador habitual de videojuegos sin mucha experiencia en juegos de pl
 
 - Encontró difícil y frustrante algunas zonas de plataformeo.
 
-Solución: Ajustamos ciertas zonas de plataformas para reducir su dificultad
+-- Solución: Ajustamos ciertas zonas de plataformas para reducir su dificultad
 - No le gustó el mensaje de muerte.
 
 Solución: Teníamos un debate interno sobre si quitarlo o dejarlo. Al ver que a personas ajenas tampoco les gustaba, decidimos quitarlo.
