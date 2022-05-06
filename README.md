@@ -93,6 +93,51 @@ Los sprites de los enemigos están relacionados con el bioma en el que se encuen
 
 <h3>Diagramas UML</h3>
 
+<h3>Pruebas con usuarios</h3>
+
+Hemos realizado pruebas del videojuego con una gran cantidad usuarios. Todos nos dieron feedback, pero expondremos las opiniones de cuatro usuarios, ya que las del resto coinciden con las suyas.
+
+Usuario 1: Jugador habitual de videojuegos sin mucha experiencia en juegos de plataformas y metroidvanias. Al ser el primer usuario que probó el juego, lo encontró en un estado menos balanceado y pulido. Debido a ello, nos fue muy útil para balancear los niveles.
+
+Encontró difícil y frustrante algunas zonas de plataformeo.
+    Solución: Ajustamos ciertas zonas de plataformas para reducir su dificultad
+No le gustó el mensaje de muerte.
+    Solución: Teníamos un debate interno sobre si quitarlo o dejarlo. Al ver que a personas ajenas tampoco les gustaba, decidimos quitarlo.
+Le costó pasarse una zona que no tenía un punto de control cerca. Encontró frustrante que si se moría más adelante tenía que volver a pasársela. Esto mismo le ocurrió a algún usuario más.
+    Solución: Decidimos añadir un punto de control en un camino paralelo al principal. De esta forma si el usuario decide explorar los caminos encontrará el punto. Así     conseguimos reducir la frustración del jugador y, a su vez, recompensar la exploración.
+Debido a la gran cantidad de enemigos en algunas zonas, el usuario optó por pasarse ciertas zonas ignorándolos.
+    Solución: Redujimos la cantidad de enemigos en ciertas zonas con una alta densidad de ellos.
+Pese a encontrar el juego difícil en general, se pasó el boss final de manera muy sencilla. Esto se debió a que si te movías muy rápido por el escenario era muy sencillo esquivar sus ataques.
+    Solución: Ajustamos la dificultad del boss final, incrementando su velocidad de ataque y dividiendo el combate en dos fases. La primera fase tiene los mismos           ataques, pero añadimos uno nuevo más difícil de esquivar en la segunda.
+
+
+Usuario 2: Jugador habitual de videojuegos sin ninguna experiencia con juegos de plataformas.
+ Murió muchas veces y nos dimos cuenta que el juego lageaba cada vez más con cada muerte del jugador. 
+Solución: Buscamos posibles causas del lageo. Nos centramos en el reseteo del mapa al morir y nos dimos cuenta de que al morir las pociones no se eliminaban, por lo que al reaparecer se generaba otra poción encima de las existentes, lo que generaba el lag.
+Por otra parte, debido a que fue el primer usuario probando el segundo bioma,  vimos que la dificultad de determinadas zonas era excesiva. 
+Solución: En aquellas zonas en las que el jugador se quedaba atascado miramos si había alguna forma de reducir un poco la dificultad. Esto es o reducir el número de enemigos de la zona o hacer el tema de plataformeo más fácil (Por ejemplo en alguna zona subiendo un poco el techo para hacer el salto más fácil).
+Por último descubrimos un bug con el cúal podía pasarse el segundo boss sin matarlo.
+Solución: Modificamos el código del boss para que no se pudiera usar este bug. Para ello creamos una hitbox extra en el cuerpo del boss y le pusimos colisión con el jugador evitando así el error.
+Descubrió que había un salto que no se podía realizar y te impedía volver atrás en el endgame.
+Solución: Ajustamos una plataforma para permitir el salto.
+
+Usuario 3: Experiencia baja en este género. Fue el primer usuario en pasarse el juego completo pasando por todos los caminos opcionales.
+Nos dio feedback de algunas zonas que nadie había probado.
+Solución: Realizamos un ajuste a ciertas zonas.
+
+
+
+Usuario 4: Estudiante de la carrera de desarrollo de videojuegos y jugador habitual. Debido a su experiencia desarrollando videojuegos, nos dio algún consejo útil.
+Nos hizo ver que la primera vez que presentamos a los murciélagos, aparecían una cantidad demasiado elevada de ellos. Esto resultaba frustrante ya que todavía no conoces sus mecánicas y te puedes sentir abrumado. Además nos dijo que algunos enemigos más no estaban correctamente presentados, ya que los introducimos en sitios muy complicados en los que aprender sus mecánicas se hace realmente difícil
+Solución: Redujimos el número de murciélagos la primera vez que te los encuentras.
+Nos dijo que los murciélagos quitaban demasiada vida.
+Solución: En el grupo había división de opiniones sobre si bajar la dificultad, ya que de dos ataques te mataban. Como más gente opinaba que quitaban demasiado, les bajamos el daño.
+Al igual que otros usuarios, encontró alguna zona con demasiados enemigos.
+Solución: Redujimos el número de enemigos en algunas secciones.
+
+Como valoración personal recalcó que los pinchos suelen quitar toda la vida del personaje, aunque fue más un gusto propio por lo que no lo tuvimos demasiado en  cuenta.
+
+
 
 
 
