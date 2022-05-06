@@ -71,8 +71,8 @@ export default class Player extends Phaser.GameObjects.Container {
     //this.body.bounce.setTo(1, 1);
     //this.body.setMaxSpeed(500);
     //POWERS
-    this.dashEnabled = false;
-    this.maxJumps = 1;
+    this.dashEnabled = true;
+    this.maxJumps = 2;
     this.kniveEnabled = false;
 
     this.speed = 500;
@@ -348,11 +348,10 @@ export default class Player extends Phaser.GameObjects.Container {
   
 
   throw(){
-    if(Phaser.Input.Keyboard.JustDown(this.k) && this.kniveEnabled && this.throwing_object >0 && this.canThrow){
+    if(Phaser.Input.Keyboard.JustDown(this.k) && this.kniveEnabled && this.canThrow){
       new Knife(this.scene,this.x,this.y,this.direction);
       this.canThrow = false;
-      this.scene.time.delayedCall(2000, () => {this.canThrow = true;}, [], this);
-      --this.throwing_object;
+      this.scene.time.delayedCall(5000, () => {this.canThrow = true;}, [], this);
       this.updateUI();
     }
   }
@@ -436,7 +435,6 @@ export default class Player extends Phaser.GameObjects.Container {
   updateUI() {
     
 
-    console.log(this.healthbar.width);
     this.healthbar.setCrop(0,0,this.healthbar.width*((this.lives/ MAX_VIDAS)), 317);
     this.healthbar.isCropped = true;
     
@@ -505,7 +503,6 @@ export default class Player extends Phaser.GameObjects.Container {
     this.x = this.spawnX;
     this.y = this.spawnY;
     this.direction=1;
-    this.throwing_object=10;
     this.lives = MAX_VIDAS;
     this.canMove = true;
     this.isOnAction = false;

@@ -4,7 +4,6 @@ export default class PowerEarned extends Phaser.GameObjects.Container {
         super(scene, x + 38, y - 85);
         this.power = powerString;
         this.setSize(300, 160);
-        
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
         this.playAnim = false;
@@ -58,7 +57,6 @@ export default class PowerEarned extends Phaser.GameObjects.Container {
         }
         else if(this.power === "doble"){
             this.scene.player.maxJumps =2;
-            console.log(this.scene.player.maxJumps);
             this.text_box.setVisible(true);
             this.text.setVisible(true);
 

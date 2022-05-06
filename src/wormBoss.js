@@ -14,6 +14,17 @@ import Fireball from "./fireball.js";
       this.scene.physics.add.existing(this);
       this.body.setAllowGravity(false);
       this.invencible = false;
+
+      this.bodyHitbox = this.scene.add.zone(0, 200, 475, 450);
+      this.scene.physics.add.existing(this.bodyHitbox);
+      this.bodyHitbox.body.setAllowGravity(false);
+      this.bodyHitbox.body.setImmovable(true);
+
+      this.add(this.bodyHitbox);
+
+      this.bodyCollider = this.scene.physics.add.collider(this.bodyHitbox, this.scene.player,(hb, player) => {
+        player.getDamage(1);
+      });
     
     }
 
@@ -43,8 +54,9 @@ import Fireball from "./fireball.js";
       this.sprite.play('dead_worm',true);
       this.canAnimate = false;
       this.scene.isBossAlive[1] = false;
+      this.bodyCollider.active = false;
       //new Potion(this.scene,this.x,this.y);
-      this.scene.time.delayedCall(8000, () => {this.destroy();}, [], this);
+      this.scene.time.delayedCall(4000, () => {this.destroy();}, [], this);
     }
 
     /**
