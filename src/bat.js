@@ -8,7 +8,7 @@ import Enemy from "./enemy.js";
     constructor(scene, x, y) {
         //(scene, x, y, lives, speed, jumpSpeed, numJumps, fieldOfView, rangeAttack, attackSpeed, sprite_x, sprite_y , scale, damage) 
 
-      super(scene, x + 50, y - 108, 1, 200, -700, 0, 500, 40, 500, 48, 44, 3, 2);
+      super(scene, x + 50, y - 108, 1, 200, -700, 0, 500, 40, 500, 48, 44, 3, 1);
 
       this.oldX = 50;
       this.deadAnimationCompleted = false;
@@ -70,10 +70,11 @@ import Enemy from "./enemy.js";
       this.body.setAllowGravity(true);
       this.batCollision.active = false;
       this.body.drag = 0;
-      this.sprite.play('dead_bat_start',true);
+      this.sprite.y -= 5
+      this.sprite.play('dead_bat_fall',true);
       
       this.canAnimate = false;
-      this.scene.time.delayedCall(300, () => {this.sprite.play('dead_bat_fall',true); this.sprite.y -= 5}, [], this);
+      //this.scene.time.delayedCall(300, () => {this.sprite.play('dead_bat_fall',true); this.sprite.y -= 5}, [], this);
       this.scene.time.delayedCall(8000, () => {this.destroy();}, [], this);
       
       this.platfCollision.active = true;
