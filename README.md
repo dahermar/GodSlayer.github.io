@@ -93,7 +93,17 @@ Los sprites de los enemigos están relacionados con el bioma en el que se encuen
 
 <h3>Diagramas UML</h3>
 
+Sistema de escenas del juego:
+
+
 ![UML1](./UML/UML1.png)
+
+Boot:Escena en la que se carga el mapa, imágenes, audio y animaciones del juego.
+Main_menu: Menu principal del juego.
+Lore: texto con la historia del juego.
+Level: Nivel principal del juego.
+Menu: Menú de pausa del juego mediante el cual se puede ver los coleccionables.
+Credits: Créditos del juego.
 
 <h3>Pruebas con usuarios</h3>
 
