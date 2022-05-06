@@ -33,7 +33,7 @@ Nuestra protagonista sin nombre ha sido una don nadie toda su vida. Tras vivir e
 |Ataque fuerte | K                   |
 |Lanzable      | L                   | 
 |Dash          | Shift               |
-|Consumible    | F                   | 
+
 <h3>Resumen de dirección artística</h3>
 
 Es un mundo oscuro y apagado, ya que se quiere representar un mundo lúgubre y decaído.
