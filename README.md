@@ -93,17 +93,71 @@ Los sprites de los enemigos están relacionados con el bioma en el que se encuen
 
 <h3>Diagramas UML</h3>
 
-Sistema de escenas del juego:
 
+<h4>Sistema de escenas del juego:</h4>
 
 ![UML1](./UML/UML1.png)
 
 Boot:Escena en la que se carga el mapa, imágenes, audio y animaciones del juego.
+
 Main_menu: Menu principal del juego.
+
 Lore: texto con la historia del juego.
+
 Level: Nivel principal del juego.
+
 Menu: Menú de pausa del juego mediante el cual se puede ver los coleccionables.
+
 Credits: Créditos del juego.
+
+<h4>Herencia Container:</h4>
+
+![UML2](./UML/UML2.png)
+
+<h4>Sistema de herencia entre los enemigos:</h4>
+
+![UML3](./UML/UML3.png)
+
+Importante remarcar que el boss Árbol no funciona como un enemigo corriente, por lo que no hereda de la clase Enemy.
+
+Además la clase necromancerSkeleton es una especialización de los Skeleton, ya que estos aparecen sólo en la batalla final cuando estás a cierta distancia y son revividos por el Necromancer.
+
+Enemy(scene, x, y, lives, speed, jumpSpeed, numJumps, fieldOfView, rangeAttack, attackSpeed, sprite_x, sprite_y , scale, damage)
+
+fieldOfview: Rango de visión, la mayoría de enemigos se acercan hacia ti una vez estás en este rango (exceptuando el gusano y el arquero).
+
+rangeAttack: Rango de ataque, este es mayoritariamente menor que el fieldOfview (excepto el arquero) y una vez el player se encuentra en este se realiza el ataque.
+
+attackSpeed: Cooldown entre ataques.
+
+sprite_x: Valores para centrar las animaciones mal centradas
+
+sprite_y: Valores para centrar las animaciones mal centradas
+
+scale: Valor para el tamaño del sprite
+
+damage: daño del enemigo, si este tira proyectiles no se usa.
+
+<h4>Sistema de herencia entre ataques a distancia:</h4>
+
+![UML4](./UML/UML4.png)
+
+
+Projectile(scene, x, y, sizeX, sizeY, direction, isLeft, distance_x, distance_y, scale, speed, damage, destroyTime, spriteName)
+
+
+direction: valor negativo para cuando se quiere ir a la izquierda y positivo a la derecha
+
+isLeft: Indica si el png del proyectil está a la izquierda , para darle la vuelta o no
+
+distance_x: Valores para ajustar el tamaño de la hitbox
+
+distance_y: Valores para ajustar el tamaño de la hitbox
+
+destroyTime: Tiempo a partir del cual el proyectil desaparece
+
+El resto de clases no han sido incorporadas en diagramas, dado su papel más secundario y/o  predecible.
+
 
 <h3>Pruebas con usuarios</h3>
 
