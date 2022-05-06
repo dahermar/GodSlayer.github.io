@@ -9,6 +9,7 @@ export default class CheckPoint extends Phaser.GameObjects.Container {
         this.body.setAllowGravity(false);
         this.sprite = this.scene.add.sprite(0, -100);
         this.sprite.setScale(2);
+        this.sprite.angle = 90;
         this.add(this.sprite);
         this.playAnim = false;
         this.onCoolDown = false;
