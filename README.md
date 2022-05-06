@@ -1,10 +1,9 @@
 # GodSlayer  
 
-Grupo = Grisucios.
+Grupo 7 : Grisucios.
 
 Juego: https://dahermar.github.io/GodSlayer.github.io/
 
-Grupo 7
 
 
 ![Juego](./assets/sprites/Foto1.png)
