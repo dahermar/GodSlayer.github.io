@@ -4,7 +4,6 @@ import Knife from './knife.js';
 const MAX_VIDAS = 4;
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
- * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
  */
 
 export default class Player extends Phaser.GameObjects.Container { 
@@ -53,12 +52,9 @@ export default class Player extends Phaser.GameObjects.Container {
     
     
     
-    //sprite.setDisplaySize(100,100);
     this.sprite.setScale(3);
     this.add(this.sprite);
     this.body.setSize(65,102);
-    // Queremos que el jugador no se salga de los límites del mundo
-    //this.body.setCollideWorldBounds();
 
     //Zone Arma
     this.weaponHitbox = this.scene.add.zone(100, 40, 110, 80);
@@ -68,8 +64,6 @@ export default class Player extends Phaser.GameObjects.Container {
     this.add(this.weaponHitbox);
 
 
-    //this.body.bounce.setTo(1, 1);
-    //this.body.setMaxSpeed(500);
     //POWERS
     this.dashEnabled = true;
     this.maxJumps = 2;
@@ -86,8 +80,6 @@ export default class Player extends Phaser.GameObjects.Container {
     this.numJumps = 1;
     this.attackSpeed = 1000;
     this.lastVelocityY = -100;
-    // Esta label es la UI en la que pondremos la puntuación del jugador
-    //this.label = this.scene.add.text(10, 10, "");
     this.w = this.scene.input.keyboard.addKey('W');
     this.a = this.scene.input.keyboard.addKey('A');
     this.s = this.scene.input.keyboard.addKey('S');
@@ -97,10 +89,8 @@ export default class Player extends Phaser.GameObjects.Container {
     this.j = this.scene.input.keyboard.addKey('J');
     this.k = this.scene.input.keyboard.addKey('K');
     this.p = this.scene.input.keyboard.addKey('P');
-    //this.j = this.scene.input.keyboard.addKey('J');
     
     this.platformCollider = this.scene.physics.add.collider(this, this.scene.platformLayer, this.platformCollision);
-    //this.wallCollider = this.scene.physics.add.collider(this, this.scene.WallLayer, this.wallCollision);
     this.scene.physics.add.overlap(this, this.scene.checkPointGroup,(pl, checkp) => {
       if(Phaser.Input.Keyboard.JustDown(this.e)){
         this.spawnX = checkp.x + 80;
@@ -153,7 +143,6 @@ export default class Player extends Phaser.GameObjects.Container {
     this.healthlabel.setScrollFactor(0,0);
     this.heart.setScrollFactor(0,0);
 
-    //this.label.setScrollFactor(0,0);
     
     const config = {
       mute: false,
@@ -163,10 +152,8 @@ export default class Player extends Phaser.GameObjects.Container {
       seek: 0,
       loop: false,
       delay: 0,
-    }; // config es opcional
-
+    }; 
     
-   //this.soud_ = this.scene.sound.add("", config);
     this.sound_damage_adventurer = this.scene.sound.add("damage_adventurer", config);
     this.sound_death_adventurer = this.scene.sound.add("death_adventurer", config);
     this.sound_doubleJump_dash_adventurer = this.scene.sound.add("doubleJump_dash_adventurer", config);
@@ -220,7 +207,6 @@ export default class Player extends Phaser.GameObjects.Container {
   checkWallCollision(){
     
     if(this.scene.wallLayer.hasTileAtWorldXY(this.x - 1, this.y + 51) || this.scene.wallLayer.hasTileAtWorldXY(this.x + 66, this.y + 51)){
-      //this.body.setMaxVelocityY(200);
       this.touchingWall = true;
     }
     else{
@@ -228,23 +214,10 @@ export default class Player extends Phaser.GameObjects.Container {
     }
   }
 
-  /*checkPowerOverlap(){
-    if(this.scene.physics.overlap(this, this.scene.dashEnabled)){
-      this.text_box.setVisible(true);
-      this.text.setVisible(true);
-  }
-  else{
-      this.text_box.setVisible(false);
-      this.text.setVisible(false);
-  }  
-  }*/
-
   performJump(){
     this.body.setVelocityY(this.jumpSpeed);
-    //this.sound_jump.play();
 
     if(this.touchingWall){
-      //this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
       this.canMove = false;
       this.scene.time.delayedCall(200, () => {this.canMove = true;}, [], this);
       this.body.setVelocityY(this.jumpSpeed);
@@ -267,7 +240,6 @@ export default class Player extends Phaser.GameObjects.Container {
 
   move(){
     if (Phaser.Input.Keyboard.JustDown(this.w)) { 
-      //this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
       if(this.body.onFloor()){
         this.numJumps = 1;
         this.body.setVelocityY(this.jumpSpeed);
@@ -294,7 +266,7 @@ export default class Player extends Phaser.GameObjects.Container {
             this.body.setVelocityX(-this.dashSpeed);
             this.isOnAction = true;
             this.canAnimate = false;
-            this.sprite.play('dash_player',true);//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
+            this.sprite.play('dash_player',true);
             this.sound_doubleJump_dash_adventurer.play();
 
             this.scene.time.delayedCall(this.dashTime, () => {
@@ -322,7 +294,7 @@ export default class Player extends Phaser.GameObjects.Container {
             this.body.setVelocityX(this.dashSpeed);
             this.isOnAction = true;
             this.canAnimate = false;
-            this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
+            this.sprite.play('dash_player',true);
             this.sound_doubleJump_dash_adventurer.play();
 
             this.scene.time.delayedCall(this.dashTime, () => {
@@ -376,7 +348,6 @@ export default class Player extends Phaser.GameObjects.Container {
       this.isInvulnerable = true;
       this.updateUI();
 
-      //this.scene.events.on(this.body.onFloor(), () => {this.body.setVelocityX(0)});
       this.scene.time.delayedCall(400, () => {this.canMove = true;}, [], this);
       
       if(this.lives <= 0){  
@@ -487,9 +458,8 @@ export default class Player extends Phaser.GameObjects.Container {
         this.scene.time.delayedCall(500, () => {this.dealWeaponDamage();}, [], this);
         this.canAnimate = false;
         this.isOnAction = true;
-        this.sprite.play('attack2_player',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
+        this.sprite.play('attack2_player',true);
         this.scene.time.delayedCall(1000, () => {
-          //this.sprite.stop();
           this.isOnAction = false;
           if(this.lives > 0 && !this.isInvulnerable)
             this.canAnimate = true;
@@ -520,220 +490,6 @@ export default class Player extends Phaser.GameObjects.Container {
     this.updateUI();
   }
 
-  /*checkWallCollisionWithJump(){
-    
-    if(this.touchingWall === true){
-      if(!this.body.onFloor()){
-        this.numJumps = 0;
-        this.body.setMaxVelocityY(200);
-      }
-    }
-    else if(!this.scene.wallLayer.hasTileAtWorldXY(this.x - 1, this.y + 51) && !this.scene.wallLayer.hasTileAtWorldXY(this.x + 66, this.y + 51)){
-      this.numJumps = 1;
-      this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
-    }
-    this.wasTouchingWall = this.touchingWall;
-    this.touchingWall = false;
-    
-  }*/
-  
-  /*
-  movePlayerWithWallJump(){  
-    if (Phaser.Input.Keyboard.JustDown(this.w)) { 
-      
-      if(this.body.onFloor()){
-        this.numJumps = 1;
-        this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
-        this.body.setVelocityY(this.jumpSpeed);
-        
-      }
-      else if(this.numJumps <= 1){ 
-        
-        this.body.setVelocityY(this.jumpSpeed);
-        if(this.body.maxVelocity.y === 200){
-          this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
-          this.canMove = false;
-          this.scene.time.delayedCall(200, () => {this.canMove = true;}, [], this);
-          this.body.setVelocityY(this.jumpSpeed);
-          if(this.scene.wallLayer.hasTileAtWorldXY(this.x - 1, this.y + 51)){
-            this.direction = 1;
-            this.weaponHitbox.setX(110);
-            this.sprite.flipX = false;
-            this.sprite.x = 55;
-            this.body.setVelocityX(500);
-          }
-          else{
-            this.weaponHitbox.setX(-45);
-            this.direction = -1;
-            this.sprite.flipX = true;
-            this.sprite.x = 10;
-            this.body.setVelocityX(-500);
-          }
-        }
-        this.numJumps += 1;
-      }
-    }
-    if(this.canMove){
-      if (this.a.isDown) {
-        this.weaponHitbox.setX(-45);
-        this.direction = -1;
-        this.sprite.flipX = true;
-        this.sprite.x = 10;
-        if(Phaser.Input.Keyboard.JustDown(this.shift)){
-          if(this.canDash){
-            this.canDash = false;
-            this.body.setVelocityX(-this.dashSpeed);
-            this.isOnAction = true;
-            this.canAnimate = false;
-            this.sprite.play('dash_player',true);//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
-    
-            this.scene.time.delayedCall(this.dashTime, () => {
-              if(this.sprite.anims.currentAnim.key === 'dash_player'){
-                this.sprite.stop();
-                this.canAnimate = true;
-              }
-              this.isOnAction = false;
-            }, [], this);
-            this.scene.time.delayedCall(this.dashCoolDown, () => {this.canDash = true;}, [], this);
-          }
-        }
-        else{
-          this.body.setVelocityX(-this.speed);
-        }
-      }
-      else if (this.d.isDown) {
-        this.direction = 1;
-        this.weaponHitbox.setX(110);
-        this.sprite.flipX = false;
-        this.sprite.x = 55;
-        if(Phaser.Input.Keyboard.JustDown(this.shift)){
-          if(this.canDash){
-            this.canDash = false;
-            this.body.setVelocityX(this.dashSpeed);
-            this.isOnAction = true;
-            this.canAnimate = false;
-            this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
-    
-            this.scene.time.delayedCall(this.dashTime, () => {
-              if(this.sprite.anims.currentAnim.key === 'dash_player'){
-                this.sprite.stop();
-                this.canAnimate = true;
-              }
-              this.isOnAction = false;
-            }, [], this);
-            this.scene.time.delayedCall(this.dashCoolDown, () => {this.canDash = true;}, [], this);
-          }
-        }
-        else{
-          this.body.setVelocityX(this.speed);
-        }
-      }
-      else {
-        this.body.setVelocityX(0);
-      }
-    }
-    
-  }
-  */
-
-  /*
-
-  checkWallCollisionOld(){
-    
-    if(this.touchingWall === true){
-      if(!this.body.onFloor()){
-        this.body.setMaxVelocityY(200);
-      }
-    }
-    else if(!this.scene.wallLayer.hasTileAtWorldXY(this.x - 1, this.y + 51) && !this.scene.wallLayer.hasTileAtWorldXY(this.x + 66, this.y + 51)){
-      this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
-    }
-    this.wasTouchingWall = this.touchingWall;
-    this.touchingWall = false;
-    
-  }
-*/
-
-/*
-  movePlayerOld(){
-
-    
-    if (Phaser.Input.Keyboard.JustDown(this.w)) { 
-      
-      if(this.body.onFloor() || this.touchingWall === true){
-        this.numJumps = 1;
-        this.body.setMaxVelocityY(Number.MAX_SAFE_INTEGER);
-        this.body.setVelocityY(this.jumpSpeed);
-        
-      }
-      else if(this.numJumps <= -1){ //Numero = numero saltos -2
-        
-        this.body.setVelocityY(this.jumpSpeed);
-        this.numJumps += 1;
-      }
-    }
-    if(this.canMove){
-      if (this.a.isDown) {
-        this.weaponHitbox.setX(-45);
-        this.direction = -1;
-        this.sprite.flipX = true;
-        this.sprite.x = 10;
-        if(Phaser.Input.Keyboard.JustDown(this.shift)){
-          if(this.canDash){
-            this.canDash = false;
-            this.body.setVelocityX(-this.dashSpeed);
-            this.isOnAction = true;
-            this.canAnimate = false;
-            this.sprite.play('dash_player',true);//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
-    
-            this.scene.time.delayedCall(this.dashTime, () => {
-              if(this.sprite.anims.currentAnim.key === 'dash_player'){
-                this.sprite.stop();
-                this.canAnimate = true;
-              }
-              this.isOnAction = false;
-            }, [], this);
-            this.scene.time.delayedCall(this.dashCoolDown, () => {this.canDash = true;}, [], this);
-          }
-        }
-        else{
-          this.body.setVelocityX(-this.speed);
-        }
-      }
-      else if (this.d.isDown) {
-        this.direction = 1;
-        this.weaponHitbox.setX(110);
-        this.sprite.flipX = false;
-        this.sprite.x = 55;
-        if(Phaser.Input.Keyboard.JustDown(this.shift)){
-          if(this.canDash){
-            this.canDash = false;
-            this.body.setVelocityX(this.dashSpeed);
-            this.isOnAction = true;
-            this.canAnimate = false;
-            this.sprite.play('dash_player',true)//.on('animationcomplete-dash_player', () => {this.canAnimate = true;});
-    
-            this.scene.time.delayedCall(this.dashTime, () => {
-              if(this.sprite.anims.currentAnim.key === 'dash_player'){
-                this.sprite.stop();
-                this.canAnimate = true;
-              }
-              this.isOnAction = false;
-            }, [], this);
-            this.scene.time.delayedCall(this.dashCoolDown, () => {this.canDash = true;}, [], this);
-          }
-        }
-        else{
-          this.body.setVelocityX(this.speed);
-        }
-      }
-      else {
-        this.body.setVelocityX(0);
-      }
-    }
-    
-  }
-  */
 }
 
 

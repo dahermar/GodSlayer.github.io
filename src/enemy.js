@@ -49,14 +49,6 @@ import Potion from "./potion.js";
 
     animations(){}
 
-    /*changeSprite(newSprite){
-      this.sprite.setVisible(false);
-      newSprite.flipX = this.sprite.flipX;
-      newSprite.x = this.sprite.x;
-      this.sprite = newSprite;
-      this.sprite.setVisible(true);
-    }*/
-
     dealWeaponDamage(){}
 
     attack(){}

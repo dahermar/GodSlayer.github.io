@@ -1,13 +1,8 @@
 import Enemy from "./enemy.js";
 
-/**
- * Clase que representa a un enemigo basico del juego.
- */
- export default class Bat extends Enemy {
+export default class Bat extends Enemy {
 
     constructor(scene, x, y) {
-        //(scene, x, y, lives, speed, jumpSpeed, numJumps, fieldOfView, rangeAttack, attackSpeed, sprite_x, sprite_y , scale, damage) 
-
       super(scene, x + 50, y - 108, 1, 200, -700, 0, 500, 40, 500, 48, 44, 3, 2);
 
       this.oldX = 50;
@@ -101,7 +96,6 @@ import Enemy from "./enemy.js";
     move(){
       if(this.lives <= 0 ){
         this.body.setVelocityX(0);
-        //this.body.setVelocityY(0);
         this.canAttack = false;
       }
       else{

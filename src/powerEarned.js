@@ -18,7 +18,6 @@ export default class PowerEarned extends Phaser.GameObjects.Container {
         if(this.map["\n"] > 0){
             this.text.setY(y- (252 +(this.map["\n"]*(10))));
             this.text_box.setScale(0.54);
-            //this.text.setX(x-47);
         }
 
         this.text_box.setVisible(false);

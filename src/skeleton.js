@@ -52,7 +52,6 @@ import Enemy from "./enemy.js";
     death(){
       this.sprite.play('dead_skeleton',true);
       this.canAnimate = false;
-      //new Potion(this.scene,this.x,this.y);
       this.scene.time.delayedCall(8000, () => {this.destroy();}, [], this);
     }
 
@@ -61,7 +60,6 @@ import Enemy from "./enemy.js";
      * @override
      */
     preUpdate(t,dt) { 
-      //this.checkCollision();
       if(!this.isOnAction ){
         if(!this.attack()){
           this.move();

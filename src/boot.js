@@ -25,7 +25,6 @@ export default class Boot extends Phaser.Scene {
     this.load.image('castleMain', 'PlatformerSet1/main_lev_build_rescaled.png');
     this.load.image('castleDecorative', 'PlatformerSet1/other_and_decorative_rescaled.png');
     this.load.image('forestMain', 'Forest/SET1_Mainlev_build_rescaled.png');
-    //this.load.image('forestMain_fixed', 'Forest/SET1_Mainlev_build_rescaled_fixed.png');
     this.load.image('forestSecundary', 'Forest/SET1_Main_bckgrdlev_build_rescaled.png');
     this.load.image('forestBackObjects', 'Forest/SET1_background_obj_rescaled.png');
     this.load.image('forestProps_rescaled', 'Forest_Segundo/TX_Village_Props_rescaled.png');
@@ -144,8 +143,7 @@ export default class Boot extends Phaser.Scene {
   
 
   /**
-   * Creación de la escena. En este caso, solo cambiamos a la escena que representa el
-   * nivel del juego
+   * Creación de la escena. 
    */
   
   create() {

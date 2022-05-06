@@ -14,11 +14,7 @@ import TextBox from './textbox.js';
 import PowerEarned from './powerEarned.js';
 
 /**
- * Escena principal del juego. La escena se compone de una serie de plataformas 
- * sobre las que se sitúan las bases en las podrán aparecer las estrellas. 
- * El juego comienza generando aleatoriamente una base sobre la que generar una estrella. 
- * Cada vez que el jugador recoge la estrella, aparece una nueva en otra base.
- * El juego termina cuando el jugador ha recogido 10 estrellas.
+ * Escena principal del juego. 
  * @extends Phaser.Scene
  */
 export default class Level extends Phaser.Scene {
@@ -43,12 +39,9 @@ export default class Level extends Phaser.Scene {
     this.isBossAlive = new Array(true, true, true);
     this.creditsShown = false;
 
-    //const fondo = this.add.image(0,0,'background').setOrigin(0);
-    //fondo.setScale(1.2);
     const castleMainSet = this.map.addTilesetImage('main_lev_build_rescaled', 'castleMain');
     const castleDecorativeSet = this.map.addTilesetImage('other_and_decorative_rescaled', 'castleDecorative');
     const forestMainSet = this.map.addTilesetImage('SET1_Mainlev_build_rescaled', 'forestMain');
-    //const forestMainFixedSet = this.map.addTilesetImage('SET1_Mainlev_build_rescaled_fixed', 'forestMain_fixed');
     const forestSecundarySet = this.map.addTilesetImage('SET1_Main_bckgrdlev_build_rescaled', 'forestSecundary');
     const caveMainSet = this.map.addTilesetImage('caves_mainlev_build_rescaled', 'caveMain');
     const caveProps1Set = this.map.addTilesetImage('caves_props1_rescaled', 'caveProps1');
@@ -125,10 +118,8 @@ export default class Level extends Phaser.Scene {
       seek: 0,
       loop: true,
       delay: 0,
-    }; // config es opcional
+    }; 
 
-    
-   //this.soud_ = this.scene.sound.add("", config);
     this.sound_castle = this.sound.add("castle_soundtrack", config);
     this.sound_forest = this.sound.add("forest_soundtrack", config);
     this.sound_cave = this.sound.add("cave_soundtrack", config);
@@ -164,13 +155,6 @@ export default class Level extends Phaser.Scene {
     this.toCastleGroup = this.add.group();
     this.toForestGroup = this.add.group();
     this.toCaveGroup = this.add.group();
-    //this.backGround4Layer.scrollFactorX = 0.3;
-    //this.backGround3Layer.scrollFactorX = 0.2;
-    //this.backGround2Layer.scrollFactorX = 0.1;
-    //this.backGround1Layer.scrollFactorX = 0.05;
-    
-    //this.enemies.add(new Archer(this, 900, 610));
-    //this.enemies.add(new Skeleton(this, 700, 610));
 
     const levelChangesLayer = this.map.getObjectLayer('LevelChanges');
     levelChangesLayer.objects.forEach(levelObj => {
@@ -240,19 +224,12 @@ export default class Level extends Phaser.Scene {
 
     this.createEnemies();
 
-    /*
-    const checkPointsLayer = this.map.getObjectLayer('CheckPoints');
-    checkPointsLayer.objects.forEach(checkObj => {
-      this.checkPointGroup.add(new CheckPoint(this, checkObj.x, checkObj.y));
-    });*/
-
     const Collectible_list = [];
     this.collectible_list = Collectible_list;
 
     const collectiblesLayer = this.map.getObjectLayer('Collectibles');
 
     collectiblesLayer.objects.forEach(collecObj => {
-       //console.log(collecObj.properties[collecObj.type]);
         Collectible_list[collecObj.type]=  new Collectible(this, collecObj.x, collecObj.y, collecObj.name, collecObj.name, collecObj.properties[0].value, false );
         this.interactible.add(Collectible_list[collecObj.type]);
     });
@@ -279,16 +256,7 @@ export default class Level extends Phaser.Scene {
       }
     });
 
-    
-  
-
-    //Phaser.Display.Align.In.Center(this.bg1, this.player);
-    //this.enemies.add(new Skeleton(this, 560 , 556));
-    
-
-    //this.cameras.main.setBounds(0,0, 500, 1000);
     this.playerCamera = this.cameras.main.startFollow(this.player, false, 1, 1, 0, 75);
-    //this.cameras.main.setZoom(0.2);
     
     this.fullscreenButton = this.add.image(1270, 10, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
     this.fullscreenButton.setScale(0.05);
@@ -307,46 +275,20 @@ export default class Level extends Phaser.Scene {
     this.physics.add.collider(this.interactible, this.groundLayer);
     this.physics.add.collider(this.enemies, this.platformLayer);
     this.physics.add.collider(this.interactible, this.platformLayer);
-    //this.physics.add.collider(this.player, this.wallLayer, (player, wall) => {player.touchingWall = true; player.lastWallX = wall.x});
     this.physics.add.collider(this.player, this.wallLayer);
     this.physics.add.collider(this.enemies, this.wallLayer);
     this.finalWallCollider = this.physics.add.collider(this.player, this.finalWallLayer);
     this.damageLayerCollider = this.physics.add.collider(this.player, this.damageLayer, (player, dmgLayer) => {player.getDamage(100);});
-    
-    
-    
-    
-    /*this.platformLayer.layer.data.forEach(function (row) {
-      row.forEach(function (tile) {
-        //console.log(index)
-        //index++;  
-        tile.collideDown = false
-        tile.collideLeft = false
-        tile.collideRight = false
-        tile.collideUp = true
-        // or less verbosely:
-        // tile.setCollision(false, false, true, false)
-        
-      })
-    })*/
+  
 
     this.platformLayer.forEachTile(function (tile) {
-        //console.log(index)
-        //index++;  
         tile.collideDown = false
         tile.collideLeft = false
         tile.collideRight = false
         tile.collideUp = true
-        // or less verbosely:
-        // tile.setCollision(false, false, true, false)
-        
     });
 
     
-
-
-    //this.platformLayerCollider = this.physics.add.collider(this.player, this.platformLayer);
-
     this.fullscreenButton.on('pointerup', function () {
 
             if (this.scale.isFullscreen)
@@ -454,12 +396,6 @@ export default class Level extends Phaser.Scene {
     this.cavebg2.tilePositionX = this.playerCamera.scrollX * 0.3;
     this.cavebg3.tilePositionX = this.playerCamera.scrollX * 0.4;
     this.cavebg4.tilePositionX = this.playerCamera.scrollX * 0.6;
-
-    //this.Castlebg1 = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, 'forest_background_night_1');
-    
-    
-    //this.bg1.tilePositionY = this.playerCamera.scrollY * 0;
-    //this.bg3.tilePositionY = this.playerCamera.scrollY * 0;
   }
 
   
@@ -483,17 +419,14 @@ export default class Level extends Phaser.Scene {
  
 
   playerDeath() {
-    //this.deadImage.setVisible(true);
     this.time.delayedCall(4000, () => {
       this.restartLevel();
     }
     ,
   [], this);
-    //this.time.delayedCall(2000, () => {this.scene.start('end')}, [], this);
   }
   
   restartLevel(){
-    //this.deadImage.setVisible(false);
     this.destroyEnemies();
     this.player.respawn();
   }

@@ -6,7 +6,6 @@ import Enemy from "./enemy.js";
  export default class Wolf extends Enemy {
 
     constructor(scene, x, y) {
-        //scene, x, y, lives, speed, jumpSpeed, numJumps, fieldOfView, rangeAttack, attackSpeed, sprite_x, sprite_y , scale, damage)
       super(scene, x + 25, y - 108, 1, 450, -700, 0, 600, 100, 2500, 48, 44, 4, 2)
 
       this.oldX = 60;
@@ -43,7 +42,6 @@ import Enemy from "./enemy.js";
     death(){
       this.sprite.play('dead_wolf',true);
       this.canAnimate = false;
-      //new Potion(this.scene,this.x,this.y);
       this.scene.time.delayedCall(8000, () => {this.destroy();}, [], this);
     }
 
@@ -52,7 +50,6 @@ import Enemy from "./enemy.js";
      * @override
      */
     preUpdate(t,dt) { 
-      //this.checkCollision();
       if(!this.isOnAction ){
         if(!this.attack()){
           this.move();
@@ -162,11 +159,10 @@ import Enemy from "./enemy.js";
           this.scene.time.delayedCall(400, () => {if(!this.hasBeenHurt)this.dealWeaponDamage();}, [], this);
           this.canAnimate = false;
           this.isOnAction = true;
-          this.sprite.play('attack_wolf',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
+          this.sprite.play('attack_wolf',true);
           this.oldX = this.sprite.x;
 
           this.scene.time.delayedCall(1800, () => {
-            //this.sprite.stop();
             this.isOnAction = false;
             if(this.lives > 0)
               this.canAnimate = true;

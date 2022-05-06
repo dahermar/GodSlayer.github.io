@@ -1,13 +1,8 @@
 
-
-
-
 export default class TextBox extends Phaser.GameObjects.Container { 
 
     constructor(scene, x, y, text) {
         super(scene, x- 250, y -150 );
-
-        
 
         this.text_box = this.scene.add.image(x+58, y-70, 'text_box');
         this.text_box.setScale(0.44);

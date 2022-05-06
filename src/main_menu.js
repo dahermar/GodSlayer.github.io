@@ -22,7 +22,7 @@
             seek: 0,
             loop: true,
             delay: 0,
-          }; // config es opcional
+          }; 
           
         this.sound_main_menu = this.sound.add("init_scene", config);
 

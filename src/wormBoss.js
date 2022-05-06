@@ -1,8 +1,6 @@
 import Enemy from "./enemy.js";
 import Fireball from "./fireball.js";
-/**
- * Clase que representa a un enemigo basico del juego.
- */
+
  export default class WormBoss extends Enemy {
 
     constructor(scene, x, y,range) {
@@ -55,7 +53,6 @@ import Fireball from "./fireball.js";
       this.canAnimate = false;
       this.scene.isBossAlive[1] = false;
       this.bodyCollider.active = false;
-      //new Potion(this.scene,this.x,this.y);
       this.scene.time.delayedCall(4000, () => {this.destroy();}, [], this);
     }
 
@@ -117,9 +114,8 @@ import Fireball from "./fireball.js";
           this.canAttack = false;
           this.canAnimate = false;
           this.isOnAction = true;
-          this.sprite.play('attack_worm',true)//.on('animationcomplete-attack2_player', () => {this.canAnimate = true; this.isOnAction = false;});
+          this.sprite.play('attack_worm',true);
           this.scene.time.delayedCall(1800, () => {
-            //this.sprite.stop();
             this.isOnAction = false;
             if(this.lives > 0)
               this.canAnimate = true;
