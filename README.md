@@ -6,7 +6,6 @@ Juego: https://dahermar.github.io/GodSlayer.github.io/
 
 Grupo 7
 
-![PEGI 12](./assets/sprites/pegi.png)
 
 ![Juego](./assets/sprites/Foto1.png)
 
