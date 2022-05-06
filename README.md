@@ -21,8 +21,10 @@ Juego de plataformas y acción lateral en 2D para web, principalmente centrado e
 
 <h3>Historia</h3>
 Nuestra protagonista sin nombre ha sido una don nadie toda su vida. Tras vivir en un mundo dominado por dioses corruptos, obtiene la oportunidad de revelarse ante ellos al recibir el poder de un dios. Así comienza un viaje de venganza y muerte con el fin de acabar con su tiranía.
-<h3>Mecánicas</h3>Dash, Doble salto, Rebotar en la pared, Lanzar un objeto, Ataque con espada.
-
+<h3>Mecánicas</h3>
+<h2>Ataque</h2> Lanzar un objeto, Ataque con espada.
+<h2>Movimiento</h2> Dash, Doble salto, Rebotar en la pared.
+<h2>Otros</h2> Revivir en las estatuas, obtener poderes despues superar cada boss, recoger coleccionables.
 <h3>Controles</h3>
 
 |              |Teclado              |
