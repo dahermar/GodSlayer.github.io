@@ -65,8 +65,8 @@ export default class Player extends Phaser.GameObjects.Container {
 
 
     //POWERS
-    this.dashEnabled = true;
-    this.maxJumps = 2;
+    this.dashEnabled = false;
+    this.maxJumps = 1;
     this.kniveEnabled = false;
 
     this.speed = 500;
