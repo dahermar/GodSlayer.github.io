@@ -133,7 +133,7 @@ Usuario 2: Jugador habitual de videojuegos sin ninguna experiencia con juegos de
 
 Usuario 3: Experiencia baja en este género. Fue el primer usuario en pasarse el juego completo pasando por todos los caminos opcionales.
 
--Nos dio feedback de algunas zonas que nadie había probado.
+- Nos dio feedback de algunas zonas que nadie había probado.
     
     Solución: Realizamos un ajuste a ciertas zonas.
 
