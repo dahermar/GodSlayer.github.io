@@ -28,7 +28,7 @@ Nuestra protagonista sin nombre ha sido una don nadie toda su vida. Tras vivir e
 |              |Teclado              |
 |--------------|---------------------|             
 |Movimiento    | WASD                |
-|Salto         | W, Barra espaciadora| 
+|Salto         | W| 
 |Ataque básico | J                   | 
 |Ataque fuerte | K                   |
 |Lanzable      | L                   | 
