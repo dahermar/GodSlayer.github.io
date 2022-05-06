@@ -25,16 +25,15 @@ Nuestra protagonista sin nombre ha sido una don nadie toda su vida. Tras vivir e
 
 <h3>Controles</h3>
 
-|              |Teclado              |Mando(Xbox)                |
-|--------------|---------------------|---------------------------|              
-|Movimiento    | WASD                |Cruceta, Joystick izquierdo|
-|Salto         | W, Barra espaciadora| A                         |
-|Ataque básico | J                   | X                         |
-|Ataque fuerte | K                   | Y                         |
-|Lanzable      | L                   | LB                        |
-|Dash          | Shift               | B                         |
-|Consumible    | F                   | RB                        |
-
+|              |Teclado              |
+|--------------|---------------------|             
+|Movimiento    | WASD                |
+|Salto         | W, Barra espaciadora| 
+|Ataque básico | J                   | 
+|Ataque fuerte | K                   |
+|Lanzable      | L                   | 
+|Dash          | Shift               |
+|Consumible    | F                   | 
 <h3>Resumen de dirección artística</h3>
 
 Es un mundo oscuro y apagado, ya que se quiere representar un mundo lúgubre y decaído.
